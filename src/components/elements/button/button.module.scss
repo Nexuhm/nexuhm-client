@@ -1,0 +1,16 @@
+.button {
+  @apply rounded-lg px-5 py-3 flex items-center justify-center;
+  @apply font-semibold text-white transition-all;
+
+  &[data-variant='secondary'] {
+    @apply border bg-white text-content-primary;
+  }
+
+  &[data-variant='primary'] {
+    @apply border border-blue bg-blue text-white;
+  }
+
+  &:hover {
+    @apply bg-light-blue border-light-blue text-content-primary;
+  }
+}

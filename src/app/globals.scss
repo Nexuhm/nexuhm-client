@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* prevents "jumpy" behaviour (layout shift) caused by appearing scrollbar */
+  scrollbar-gutter: stable;
+}
