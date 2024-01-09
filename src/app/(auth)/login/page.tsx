@@ -1,62 +1,82 @@
+'use client';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+
 import { Button } from '@/components/elements/button';
 import { Divider } from '@/components/elements/divider';
 import { Input } from '@/components/elements/input/input';
 
-import GoogleIcon from '@/assets/icons/google.svg';
-import LinkedInIcon from '@/assets/icons/linkedin.svg';
-import MicrosoftIcon from '@/assets/icons/microsoft.svg';
+import { AuthForm } from '@/components/modules/auth-form';
+import { login } from '@/base/services/auth';
+
+const SignInFormSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string(),
+});
+
+type SignInFormValues = z.infer<typeof SignInFormSchema>;
 
 export default function SignInPage() {
-  return (
-    <div className="max-w-lg px-12 bg-white py-10 rounded-2xl shadow-[0px_4px_8px_-2px_rgba(0,0,0,0.05)]">
-      <div className="mb-10">
-        <p className="text-[40px] font-medium leading-[48px] mb-2">Sign in</p>
-        <p>
-          Don’t have an account?{' '}
-          <a href="/signup" className="text-blue">
-            Sign Up
-          </a>
-        </p>
-      </div>
+  const router = useRouter();
 
-      <form className="flex flex-col gap-4">
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInFormValues>({
+    resolver: zodResolver(SignInFormSchema),
+  });
+
+  const onSubmit = async (data: SignInFormValues) => {
+    const res = await login(data.email, data.password);
+
+    if (!res.ok) {
+      throw Error('Error during login');
+    }
+
+    router.push('/dashboard');
+  };
+
+  return (
+    <AuthForm.Container>
+      <AuthForm.Header>
+        Don’t have an account?{' '}
+        <a href="/signup" className="text-blue">
+          Sign Up
+        </a>
+      </AuthForm.Header>
+
+      <AuthForm.Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           id="email"
           label="Email address"
           placeholder="Your email address"
+          {...register('email')}
         />
 
-        <Input id="password" label="Password" placeholder="Your password" />
+        <Input
+          id="password"
+          label="Password"
+          placeholder="Your password"
+          type="password"
+          {...register('password')}
+        />
 
         <div>
-          <a href="" className="text-blue">
+          <a href="#" className="text-blue">
             Forgot password?
           </a>
         </div>
 
-        <Button>Continue</Button>
-      </form>
+        <Button type="submit">Continue</Button>
+      </AuthForm.Form>
 
       <Divider className="my-6">Or</Divider>
 
-      <div className="flex flex-col gap-4">
-        <Button variant="secondary">
-          <LinkedInIcon
-            width={24}
-            height={24}
-            className="mr-3 text-[#00A0DC]"
-          />
-          Continue with Linkedin
-        </Button>
-        <Button variant="secondary">
-          <GoogleIcon width={24} height={24} className="mr-3" />
-          Continue with Google
-        </Button>
-        <Button variant="secondary">
-          <MicrosoftIcon width={24} height={24} className="mr-3" />
-          Continue with Microsot
-        </Button>
-      </div>
-    </div>
+      <AuthForm.OAuthActions />
+    </AuthForm.Container>
   );
 }

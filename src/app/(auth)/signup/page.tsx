@@ -1,36 +1,82 @@
+'use client';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+
 import { Button } from '@/components/elements/button';
 import { Divider } from '@/components/elements/divider';
 import { Input } from '@/components/elements/input/input';
 
-import GoogleIcon from '@/assets/icons/google.svg';
-import LinkedInIcon from '@/assets/icons/linkedin.svg';
-import MicrosoftIcon from '@/assets/icons/microsoft.svg';
+import { signup } from '@/base/services/auth';
+import { AuthForm } from '@/components/modules/auth-form';
+
+const SignUpFormSchema = z.object({
+  firstname: z.string(),
+  lastname: z.string(),
+  email: z.string().email('Invalid email address'),
+  password: z.string(),
+});
+
+type SignUpFormValues = z.infer<typeof SignUpFormSchema>;
 
 export default function SignUpPage() {
+  const router = useRouter();
+
+  const { register, handleSubmit } = useForm<SignUpFormValues>({
+    resolver: zodResolver(SignUpFormSchema),
+  });
+
+  const onSubmit = async (data: SignUpFormValues) => {
+    const res = await signup(data);
+
+    if (!res.ok) {
+      throw Error('Error during login');
+    }
+
+    router.push('/dashboard');
+  };
+
   return (
-    <div className="max-w-lg px-12 bg-white py-10 rounded-2xl shadow-[0px_4px_8px_-2px_rgba(0,0,0,0.05)]">
-      <div className="mb-10">
-        <p className="text-[40px] font-medium leading-[48px] mb-2">Sign up</p>
-        <p>
-          Already have an account?
-          <a href="/login" className="text-blue mx-1">
-            Sign In
-          </a>
-        </p>
-      </div>
+    <AuthForm.Container>
+      <AuthForm.Header>
+        Already have an account?
+        <a href="/login" className="text-blue mx-1">
+          Sign In
+        </a>
+      </AuthForm.Header>
 
-      <form className="flex flex-col gap-4">
-        <Input id="firstname" label="Firstname" placeholder="Your firstname" />
+      <AuthForm.Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          id="firstname"
+          label="Firstname"
+          placeholder="Your firstname"
+          {...register('firstname')}
+        />
 
-        <Input id="lastname" label="Lastname" placeholder="Your lastname" />
+        <Input
+          id="lastname"
+          label="Lastname"
+          placeholder="Your lastname"
+          {...register('lastname')}
+        />
 
         <Input
           id="email"
           label="Email address"
           placeholder="Your email address"
+          type="email"
+          {...register('email')}
         />
 
-        <Input id="password" label="Password" placeholder="Your password" />
+        <Input
+          id="password"
+          label="Password"
+          placeholder="Your password"
+          type="password"
+          {...register('password')}
+        />
 
         <div>
           <a href="" className="text-blue">
@@ -39,28 +85,11 @@ export default function SignUpPage() {
         </div>
 
         <Button>Sign Up</Button>
-      </form>
+      </AuthForm.Form>
 
       <Divider className="my-6">Or</Divider>
 
-      <div className="flex flex-col gap-4">
-        <Button variant="secondary">
-          <LinkedInIcon
-            width={24}
-            height={24}
-            className="mr-3 text-[#00A0DC]"
-          />
-          Continue with Linkedin
-        </Button>
-        <Button variant="secondary">
-          <GoogleIcon width={24} height={24} className="mr-3" />
-          Continue with Google
-        </Button>
-        <Button variant="secondary">
-          <MicrosoftIcon width={24} height={24} className="mr-3" />
-          Continue with Microsot
-        </Button>
-      </div>
-    </div>
+      <AuthForm.OAuthActions />
+    </AuthForm.Container>
   );
 }

@@ -1,0 +1,62 @@
+import { PropsWithChildren } from 'react';
+
+import { Button } from '@/components/elements/button';
+
+import GoogleIcon from '@/assets/icons/google.svg';
+import LinkedInIcon from '@/assets/icons/linkedin.svg';
+import MicrosoftIcon from '@/assets/icons/microsoft.svg';
+
+export function Container({ children }: PropsWithChildren) {
+  return (
+    <div className="max-w-lg px-12 bg-white py-10 rounded-2xl shadow-[0px_4px_8px_-2px_rgba(0,0,0,0.05)]">
+      {children}
+    </div>
+  );
+}
+
+function Header({ children }: PropsWithChildren) {
+  return (
+    <div className="mb-10">
+      <p className="text-[40px] font-medium leading-[48px] mb-2">Sign in</p>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+interface FormProps extends PropsWithChildren {
+  onSubmit: (e: React.FormEvent) => Promise<void>;
+}
+
+function Form({ children, onSubmit }: FormProps) {
+  return (
+    <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      {children}
+    </form>
+  );
+}
+
+function OAuthActions() {
+  return (
+    <div className="flex flex-col gap-4">
+      <Button variant="secondary">
+        <LinkedInIcon width={24} height={24} className="mr-3 text-[#00A0DC]" />
+        Continue with Linkedin
+      </Button>
+      <Button variant="secondary">
+        <GoogleIcon width={24} height={24} className="mr-3" />
+        Continue with Google
+      </Button>
+      <Button variant="secondary">
+        <MicrosoftIcon width={24} height={24} className="mr-3" />
+        Continue with Microsot
+      </Button>
+    </div>
+  );
+}
+
+export const AuthForm = {
+  Header,
+  Form,
+  OAuthActions,
+  Container,
+};
