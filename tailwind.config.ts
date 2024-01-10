@@ -22,6 +22,10 @@ const config: Config = {
         'subtle-gray': '#F1F4F7',
         content: {
           primary: '#221A15',
+          secondary: '#3F3B3B',
+        },
+        surface: {
+          primary: '#F9F9F9',
         },
       },
     },

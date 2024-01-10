@@ -1,0 +1,18 @@
+.sidebarContainer {
+  @apply w-[260px] h-screen border-r border-light-gray;
+}
+
+.link {
+  @apply inline-flex px-4 py-2 relative;
+  @apply text-content-secondary hover:text-blue transition-all;
+
+  &[data-active='true'] {
+    @apply text-blue;
+
+    &:before {
+      content: '';
+      @apply absolute left-0 top-2 block;
+      @apply w-1.5 h-[calc(100%-16px)] rounded-r-[4px] bg-blue;
+    }
+  }
+}
