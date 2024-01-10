@@ -20,13 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="bg-subtle-gray py-20 h-screen flex justify-center flex-col">
-          <div className="grid md:grid-cols-2 grid-cols-1">
+        <main className="flex h-screen flex-col justify-center bg-subtle-gray py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Logo Column */}
-            <div className="flex items-center justify-center flex-col">
+            <div className="flex flex-col items-center justify-center">
               <div>
                 <Logo className="mb-4" width={180} height={40} />
-                <p className="text-content-primary text-xl">
+                <p className="text-xl text-content-primary">
                   Sign in or create an account
                 </p>
               </div>

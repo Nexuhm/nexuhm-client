@@ -8,12 +8,12 @@ interface DividerProps extends PropsWithChildren {
 export function Divider({ children, className }: DividerProps) {
   return (
     <div
-      className={clsx('py-3 flex flex-col items-center relative', className)}
+      className={clsx('relative flex flex-col items-center py-3', className)}
     >
       <div className="h-[1px] w-full bg-light-gray" />
       {children && (
-        <div className="w-full absolute -top-0 text-center">
-          <span className="bg-white mx-auto px-2">{children}</span>
+        <div className="absolute -top-0 w-full text-center">
+          <span className="mx-auto bg-white px-2">{children}</span>
         </div>
       )}
     </div>

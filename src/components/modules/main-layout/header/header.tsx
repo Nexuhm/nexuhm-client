@@ -13,7 +13,7 @@ export function Header() {
         />
       </div>
 
-      <button className='flex items-center gap-2'>
+      <button className="flex items-center gap-2">
         <div className="overflow-hidden rounded-full bg-light-gray">
           <Image src="/placeholder/avatar.jpg" width={40} height={40} alt="" />
         </div>

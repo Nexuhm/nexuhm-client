@@ -17,7 +17,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className={styles.inputContainer}>
         <input
           id="email"
-          className="text-sm bg-transparent outline-none w-full"
+          className="w-full bg-transparent text-sm outline-none"
           {...props}
           ref={ref}
         />

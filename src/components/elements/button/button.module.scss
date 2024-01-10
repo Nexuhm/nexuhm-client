@@ -1,5 +1,5 @@
 .button {
-  @apply rounded-lg px-5 py-3 flex items-center justify-center;
+  @apply flex items-center justify-center rounded-lg px-5 py-3;
   @apply font-semibold text-white transition-all;
 
   &[data-variant='secondary'] {
@@ -11,6 +11,6 @@
   }
 
   &:hover {
-    @apply bg-light-blue border-light-blue text-content-primary;
+    @apply border-light-blue bg-light-blue text-content-primary;
   }
 }

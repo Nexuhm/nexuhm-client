@@ -1,10 +1,10 @@
 .sidebarContainer {
-  @apply w-[260px] h-screen border-r border-light-gray;
+  @apply h-screen w-[260px] border-r border-light-gray;
 }
 
 .link {
-  @apply inline-flex px-4 py-2 relative;
-  @apply text-content-secondary hover:text-blue transition-all;
+  @apply relative inline-flex px-4 py-2;
+  @apply text-content-secondary transition-all hover:text-blue;
 
   &[data-active='true'] {
     @apply text-blue;
@@ -12,7 +12,7 @@
     &:before {
       content: '';
       @apply absolute left-0 top-2 block;
-      @apply w-1.5 h-[calc(100%-16px)] rounded-r-[4px] bg-blue;
+      @apply h-[calc(100%-16px)] w-1.5 rounded-r-[4px] bg-blue;
     }
   }
 }

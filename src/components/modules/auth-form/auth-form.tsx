@@ -8,7 +8,7 @@ import MicrosoftIcon from '@/assets/icons/microsoft.svg';
 
 export function Container({ children }: PropsWithChildren) {
   return (
-    <div className="max-w-lg px-12 bg-white py-10 rounded-2xl shadow-[0px_4px_8px_-2px_rgba(0,0,0,0.05)]">
+    <div className="max-w-lg rounded-2xl bg-white px-12 py-10 shadow-[0px_4px_8px_-2px_rgba(0,0,0,0.05)]">
       {children}
     </div>
   );
@@ -17,7 +17,7 @@ export function Container({ children }: PropsWithChildren) {
 function Header({ children }: PropsWithChildren) {
   return (
     <div className="mb-10">
-      <p className="text-[40px] font-medium leading-[48px] mb-2">Sign in</p>
+      <p className="mb-2 text-[40px] font-medium leading-[48px]">Sign in</p>
       <div>{children}</div>
     </div>
   );

@@ -42,7 +42,7 @@ export default function SignUpPage() {
     <AuthForm.Container>
       <AuthForm.Header>
         Already have an account?
-        <a href="/login" className="text-blue mx-1">
+        <a href="/login" className="mx-1 text-blue">
           Sign In
         </a>
       </AuthForm.Header>

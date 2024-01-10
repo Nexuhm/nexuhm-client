@@ -1,5 +1,5 @@
 .inputContainer {
-  @apply h-10 flex items-center p-2;
-  @apply border rounded-lg border-light-gray focus-within:border-blue;
+  @apply flex h-10 items-center p-2;
+  @apply rounded-lg border border-light-gray focus-within:border-blue;
   @apply transition-all;
 }
