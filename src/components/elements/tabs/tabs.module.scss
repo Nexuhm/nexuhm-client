@@ -1,0 +1,15 @@
+.tab {
+  @apply relative px-4 py-2 text-sm font-medium;
+
+  &:after {
+    content: '';
+    @apply absolute bottom-[-1px] left-0 block;
+    @apply bg-transparent w-full h-0.5 transition-all;
+  }
+
+  &[data-selected='true'] {
+    &:after {
+      @apply bg-blue;
+    }
+  }
+}

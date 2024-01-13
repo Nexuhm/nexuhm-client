@@ -1,0 +1,35 @@
+.tag {
+  @apply rounded-full bg-surface-primary p-2 text-sm;
+}
+
+.title {
+  @apply mb-4;
+}
+
+.title,
+.candidates {
+  @apply text-xl text-content-primary;
+}
+
+.newCandidates {
+  @apply ml-2 inline-flex items-center px-2;
+  @apply text-xs font-medium text-white;
+  @apply rounded-full bg-blue;
+}
+
+.status {
+  @apply rounded-[4px] px-2 py-1.5;
+  @apply text-sm font-medium text-white;
+
+  &[data-status='published'] {
+    @apply bg-green;
+  }
+
+  &[data-status='draft'] {
+    @apply bg-gold;
+  }
+
+  &[data-status='role-filled'] {
+    @apply bg-indigo;
+  }
+}

@@ -30,9 +30,9 @@ export default function RootLayout({
           ]}
         />
 
-        <div className="flex-1">
+        <div className="flex flex-1 flex-col">
           <Header />
-          <main>{children}</main>
+          <main className="flex-1 bg-surface-primary p-8">{children}</main>
         </div>
       </body>
     </html>

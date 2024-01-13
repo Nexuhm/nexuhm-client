@@ -5,8 +5,17 @@ import GroupIcon from '@/assets/icons/group.svg';
 import AnalyticsIcon from '@/assets/icons/analytics.svg';
 import SearchIcon from '@/assets/icons/search.svg';
 import CaretDown from '@/assets/icons/caret-down.svg';
+import FilterIcon from '@/assets/icons/filter.svg';
+import PlusIcon from '@/assets/icons/plus.svg';
 
-export type IconName = 'home' | 'group' | 'analytics' | 'search' | 'caret-down';
+export type IconName =
+  | 'home'
+  | 'group'
+  | 'analytics'
+  | 'search'
+  | 'caret-down'
+  | 'filter'
+  | 'plus';
 
 // Define the IconProps interface
 interface IconProps {
@@ -23,6 +32,8 @@ const icons: Record<
   group: GroupIcon,
   analytics: AnalyticsIcon,
   search: SearchIcon,
+  plus: PlusIcon,
+  filter: FilterIcon,
   'caret-down': CaretDown,
 };
 

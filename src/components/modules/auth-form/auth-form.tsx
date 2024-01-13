@@ -38,15 +38,15 @@ function Form({ children, onSubmit }: FormProps) {
 function OAuthActions() {
   return (
     <div className="flex flex-col gap-4">
-      <Button variant="secondary">
+      <Button variant="secondary" size='lg'>
         <LinkedInIcon width={24} height={24} className="mr-3 text-[#00A0DC]" />
         Continue with Linkedin
       </Button>
-      <Button variant="secondary">
+      <Button variant="secondary" size='lg'>
         <GoogleIcon width={24} height={24} className="mr-3" />
         Continue with Google
       </Button>
-      <Button variant="secondary">
+      <Button variant="secondary" size='lg'>
         <MicrosoftIcon width={24} height={24} className="mr-3" />
         Continue with Microsot
       </Button>

@@ -1,6 +1,14 @@
 .button {
-  @apply flex items-center justify-center rounded-lg px-5 py-3;
+  @apply flex items-center justify-center rounded-lg;
   @apply font-semibold text-white transition-all;
+
+  &[data-size='base'] {
+    @apply px-4 py-2 text-sm;
+  }
+
+  &[data-size='lg'] {
+    @apply px-5 py-3;
+  }
 
   &[data-variant='secondary'] {
     @apply border bg-white text-content-primary;

@@ -84,7 +84,7 @@ export default function SignUpPage() {
           </a>
         </div>
 
-        <Button>Sign Up</Button>
+        <Button size='lg'>Sign Up</Button>
       </AuthForm.Form>
 
       <Divider className="my-6">Or</Divider>
