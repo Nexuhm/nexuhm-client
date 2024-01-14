@@ -1,5 +1,5 @@
 .button {
-  @apply flex items-center justify-center rounded-lg;
+  @apply flex flex-shrink-0 items-center justify-center rounded-lg;
   @apply font-semibold text-white transition-all;
 
   &[data-size='base'] {
@@ -21,4 +21,8 @@
   &:hover {
     @apply border-light-blue bg-light-blue text-content-primary;
   }
+}
+
+.iconButton {
+  @apply rounded-full p-2 #{!important};
 }

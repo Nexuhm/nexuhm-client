@@ -1,14 +1,10 @@
 import React, { forwardRef, useId } from 'react';
-import styles from './input.module.scss';
-import { Icon, IconName } from '../icon';
+import { Icon } from '../icon';
+import { InputWrapper } from './input-wrapper';
+import { InputProps } from './types';
 
-interface InputProps extends React.HTMLProps<HTMLInputElement> {
-  label?: string;
-  icon?: IconName;
-}
-
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ id, className, label, icon, ...props }, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
+  ({ id, className, label, prefix, icon, ...props }, ref) => {
     const _id = useId();
 
     if (!id) {
@@ -16,27 +12,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     }
 
     return (
-      <div className={className}>
-        {label && (
-          <label htmlFor="email" className="mb-1 inline-block">
-            {label}
+      <InputWrapper
+        label={label}
+        className={className}
+        containerClassName="h-10"
+      >
+        {icon && (
+          <label htmlFor={id} className="mr-1">
+            <Icon icon={icon} className="w-6 text-content-secondary" />
           </label>
         )}
 
-        <div className={styles.inputContainer}>
-          {icon && (
-            <label htmlFor={id} className='mr-1'>
-              <Icon icon={icon} className="w-6 text-content-secondary" />
-            </label>
-          )}
-          <input
-            id={id}
-            className="w-full bg-transparent text-sm outline-none"
-            {...props}
-            ref={ref}
-          />
-        </div>
-      </div>
+        {prefix && <span className="mr-1 text-sm">{prefix}</span>}
+
+        <input
+          id={id}
+          ref={ref}
+          className="w-full bg-transparent text-sm outline-none"
+          {...props}
+        />
+      </InputWrapper>
     );
   },
 );

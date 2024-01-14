@@ -1,9 +1,17 @@
 import { ElementType, ReactNode } from 'react';
 import styles from './button.module.scss';
 import clsx from 'clsx';
+import { Icon, IconName } from '../icon';
 
-interface ButtonProps
+interface ButtonBaseProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'as' | 'size'> {
+  className?: string;
+  variant?: 'primary' | 'secondary';
+  size?: 'xs' | 'base' | 'lg';
+  type?: 'button' | 'submit' | 'reset' | undefined;
+}
+
+interface ButtonProps extends ButtonBaseProps {
   as?: ElementType;
   children: ReactNode;
   className?: string;
@@ -36,5 +44,29 @@ export function Button({
     >
       {children}
     </Tag>
+  );
+}
+
+interface IconButtonProps extends ButtonBaseProps {
+  icon: IconName;
+}
+
+export function IconButton({
+  children,
+  className,
+  variant = 'primary',
+  size = 'base',
+  icon,
+  ...props
+}: IconButtonProps) {
+  return (
+    <button
+      className={clsx(className, styles.button, styles.iconButton)}
+      data-variant={variant}
+      data-size={size}
+      {...props}
+    >
+      <Icon icon={icon} className="h-5 w-5" />
+    </button>
   );
 }

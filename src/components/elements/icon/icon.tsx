@@ -4,9 +4,13 @@ import HomeIcon from '@/assets/icons/home.svg';
 import GroupIcon from '@/assets/icons/group.svg';
 import AnalyticsIcon from '@/assets/icons/analytics.svg';
 import SearchIcon from '@/assets/icons/search.svg';
-import CaretDown from '@/assets/icons/caret-down.svg';
+import CaretDownIcon from '@/assets/icons/caret-down.svg';
+import ChevronDownIcon from '@/assets/icons/chevron-down.svg';
 import FilterIcon from '@/assets/icons/filter.svg';
 import PlusIcon from '@/assets/icons/plus.svg';
+import EditIcon from '@/assets/icons/edit.svg';
+import CloseIcon from '@/assets/icons/close.svg';
+import CheckIcon from '@/assets/icons/check.svg';
 
 export type IconName =
   | 'home'
@@ -15,7 +19,11 @@ export type IconName =
   | 'search'
   | 'caret-down'
   | 'filter'
-  | 'plus';
+  | 'plus'
+  | 'close'
+  | 'edit'
+  | 'check'
+  | 'chevron-down';
 
 // Define the IconProps interface
 interface IconProps {
@@ -34,7 +42,11 @@ const icons: Record<
   search: SearchIcon,
   plus: PlusIcon,
   filter: FilterIcon,
-  'caret-down': CaretDown,
+  check: CheckIcon,
+  close: CloseIcon,
+  edit: EditIcon,
+  'caret-down': CaretDownIcon,
+  'chevron-down': ChevronDownIcon,
 };
 
 // Icon component using function declaration

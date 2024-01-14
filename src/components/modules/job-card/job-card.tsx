@@ -23,15 +23,17 @@ export function JobCard({ title, tags, candidates, status }: JobCardProps) {
     <div className="rounded-lg bg-white p-6">
       <div>
         <div className="mb-2 flex gap-2">
-          {tags.map((tag) => (
-            <span className={styles.tag}>{tag}</span>
+          {tags.map((tag, index) => (
+            <span key={index} className={styles.tag}>
+              {tag}
+            </span>
           ))}
         </div>
 
         <div className={styles.title}>{title}</div>
 
         <div className="mb-4">
-          <div className="text-content-tertiary mb-1">Candidates</div>
+          <div className="mb-1 text-content-tertiary">Candidates</div>
           <div className="flex">
             <span className={styles.candidates}>{candidates.total}</span>
             {candidates.new > 0 && (
