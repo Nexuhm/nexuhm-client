@@ -34,7 +34,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
         ref={ref}
         value={value}
         onChange={onChange}
-        className={clsx('relative text-sm', className)}
+        className={clsx('text-sm', className)}
       >
         {({ open }) => (
           <>
@@ -44,50 +44,52 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
               </label>
             )}
 
-            <Listbox.Button
-              className={clsx(
-                styles.inputContainer,
-                'relative w-full outline-none',
-              )}
-            >
-              {icon && (
-                <span className="mr-1">
-                  <Icon icon={icon} className="w-6 text-content-secondary" />
-                </span>
-              )}
-              {value ? (
-                <span>{value}</span>
-              ) : (
-                <span className="select-none text-content-placehdoler">
-                  {placeholder}
-                </span>
-              )}
-
-              <Icon
-                icon="chevron-down"
+            <div className="relative">
+              <Listbox.Button
                 className={clsx(
-                  'ml-auto w-6 text-content-secondary transition-all',
-                  open && 'rotate-180',
+                  styles.inputContainer,
+                  'relative w-full outline-none',
                 )}
-              />
-            </Listbox.Button>
+              >
+                {icon && (
+                  <span className="mr-1">
+                    <Icon icon={icon} className="w-6 text-content-secondary" />
+                  </span>
+                )}
+                {value ? (
+                  <span>{value}</span>
+                ) : (
+                  <span className="select-none text-content-placehdoler">
+                    {placeholder}
+                  </span>
+                )}
 
-            <Listbox.Options
-              className={clsx(
-                'absolute left-0 top-11 z-10 w-full overflow-hidden',
-                'border border-light-gray card-container',
-              )}
-            >
-              {options.map(({ label, value }) => (
-                <Listbox.Option
-                  key={value}
-                  value={value}
-                  className="cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10"
-                >
-                  {label}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
+                <Icon
+                  icon="chevron-down"
+                  className={clsx(
+                    'ml-auto w-6 text-content-secondary transition-all',
+                    open && 'rotate-180',
+                  )}
+                />
+              </Listbox.Button>
+
+              <Listbox.Options
+                className={clsx(
+                  'absolute left-0 top-11 z-10 w-full overflow-hidden',
+                  'border border-light-gray card-container',
+                )}
+              >
+                {options.map(({ label, value }) => (
+                  <Listbox.Option
+                    key={value}
+                    value={value}
+                    className="cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10"
+                  >
+                    {label}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </div>
           </>
         )}
       </Listbox>

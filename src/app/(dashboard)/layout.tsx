@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+
 import { Inter } from 'next/font/google';
 
 import '../globals.scss';
 import clsx from 'clsx';
 import { Sidebar } from '@/components/modules/main-layout';
 import { Header } from '@/components/modules/main-layout/header';
+import { redirect } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,6 +21,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const token = cookies().get('token');
+
+  if (!token) {
+    redirect('/login');
+  }
+
   return (
     <html lang="en">
       <body className={clsx(inter.className, 'flex')}>

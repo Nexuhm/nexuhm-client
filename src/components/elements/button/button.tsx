@@ -31,10 +31,6 @@ export function Button({
   // use link if href is provided
   Tag = props.href != null ? 'a' : Tag;
 
-  if (Tag === 'a') {
-    props.target = props.href?.startsWith('http') ? '_blank' : undefined;
-  }
-
   return (
     <Tag
       className={clsx(className, styles.button)}

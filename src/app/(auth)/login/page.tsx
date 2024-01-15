@@ -10,7 +10,7 @@ import { Divider } from '@/components/elements/divider';
 import { Input } from '@/components/elements/input/input';
 
 import { AuthForm } from '@/components/modules/auth-form';
-import { login } from '@/base/services/auth';
+import { login } from '@/base/actions/auth';
 
 const SignInFormSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -33,11 +33,11 @@ export default function SignInPage() {
   const onSubmit = async (data: SignInFormValues) => {
     const res = await login(data.email, data.password);
 
-    if (!res.ok) {
+    if (!res.success) {
       throw Error('Error during login');
     }
 
-    router.push('/dashboard');
+    router.push('/');
   };
 
   return (

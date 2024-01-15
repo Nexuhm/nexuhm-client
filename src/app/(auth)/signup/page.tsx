@@ -9,8 +9,8 @@ import { Button } from '@/components/elements/button';
 import { Divider } from '@/components/elements/divider';
 import { Input } from '@/components/elements/input/input';
 
-import { signup } from '@/base/services/auth';
 import { AuthForm } from '@/components/modules/auth-form';
+import { signup } from '@/base/actions/auth';
 
 const SignUpFormSchema = z.object({
   firstname: z.string(),
@@ -31,11 +31,11 @@ export default function SignUpPage() {
   const onSubmit = async (data: SignUpFormValues) => {
     const res = await signup(data);
 
-    if (!res.ok) {
+    if (!res.success) {
       throw Error('Error during login');
     }
 
-    router.push('/dashboard');
+    router.push('/');
   };
 
   return (

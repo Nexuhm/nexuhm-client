@@ -36,17 +36,19 @@ function Form({ children, onSubmit }: FormProps) {
 }
 
 function OAuthActions() {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE;
+
   return (
     <div className="flex flex-col gap-4">
-      <Button variant="secondary" size='lg'>
+      <Button href={`${baseUrl}/auth/linkedin`} variant="secondary" size="lg">
         <LinkedInIcon width={24} height={24} className="mr-3 text-[#00A0DC]" />
         Continue with Linkedin
       </Button>
-      <Button variant="secondary" size='lg'>
+      <Button href={`${baseUrl}/auth/google`} variant="secondary" size="lg">
         <GoogleIcon width={24} height={24} className="mr-3" />
         Continue with Google
       </Button>
-      <Button variant="secondary" size='lg'>
+      <Button href={`${baseUrl}/auth/microsoft`} variant="secondary" size="lg">
         <MicrosoftIcon width={24} height={24} className="mr-3" />
         Continue with Microsot
       </Button>
