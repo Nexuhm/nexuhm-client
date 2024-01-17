@@ -1,0 +1,94 @@
+.editorContainer {
+  @apply relative min-h-[300px] p-2;
+  @apply rounded-b-lg border border-light-gray focus-within:ring-2 focus-within:ring-blue;
+  @apply transition-all;
+
+  :global(.editor-placeholder) {
+    @apply absolute left-2 top-2;
+  }
+}
+
+.editorContent {
+  @apply relative z-[5] h-full w-full outline-none;
+
+  blockquote,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  code {
+    @apply mb-4;
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  ol,
+  ul {
+    @apply pl-6;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h5 {
+    @apply font-bold;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+
+  h5 {
+    @apply text-lg;
+  }
+
+  h6 {
+    @apply text-base;
+  }
+
+  .textItalic {
+    @apply italic;
+  }
+
+  .textBold {
+    @apply font-bold;
+  }
+
+  blockquote {
+    @apply w-full bg-slate-200;
+    @apply border-l-2 border-slate-400 px-3 py-2;
+  }
+
+  code {
+    @apply rounded-md border text-sm bg-slate-200 p-1;
+  }
+}

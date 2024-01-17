@@ -2,9 +2,13 @@ import React, { forwardRef, useId } from 'react';
 import { Icon } from '../icon';
 import { InputWrapper } from './input-wrapper';
 import { InputProps } from './types';
+import clsx from 'clsx';
 
 export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
-  ({ id, className, label, prefix, icon, ...props }, ref) => {
+  (
+    { id, className, containerClassName, label, prefix, icon, error, ...props },
+    ref,
+  ) => {
     const _id = useId();
 
     if (!id) {
@@ -14,11 +18,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
     return (
       <InputWrapper
         label={label}
+        htmlFor={id}
+        error={error}
         className={className}
-        containerClassName="h-10"
+        containerClassName={clsx(containerClassName, 'h-10')}
       >
         {icon && (
-          <label htmlFor={id} className="mr-1">
+          <label htmlFor={id} className="mr-1 transition-all">
             <Icon icon={icon} className="w-6 text-content-secondary" />
           </label>
         )}

@@ -1,0 +1,28 @@
+.stepNumber {
+  @apply mb-2 inline-flex h-6 w-6 items-center justify-center p-1;
+  @apply border-light-gray-600 rounded-full border bg-white text-sm;
+}
+
+.stepContainer {
+  @apply font-outfit flex flex-col items-center;
+  @apply relative z-10;
+
+  &:first-child {
+    @apply items-start;
+  }
+
+  &:last-child {
+    @apply items-end;
+  }
+}
+
+.stepLine {
+  @apply relative top-3;
+  @apply bg-light-gray-600 block h-0.5 flex-1;
+}
+
+.activeStep {
+  .stepNumber {
+    @apply border-blue bg-blue text-white;
+  }
+}

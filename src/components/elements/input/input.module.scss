@@ -8,3 +8,21 @@
     @apply w-full bg-transparent text-sm outline-none;
   }
 }
+
+.errorMessage {
+  @apply h-2 mt-1 opacity-0 text-xs;
+}
+
+.errorState {
+  .inputContainer {
+    @apply border-red-500;
+  }
+
+  label {
+    @apply text-red-500;
+  }
+
+  .errorMessage {
+    @apply opacity-100 text-red-500;
+  }
+}

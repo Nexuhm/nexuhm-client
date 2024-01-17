@@ -6,21 +6,32 @@ import { InputProps } from './types';
 export const Textarea = forwardRef<
   HTMLTextAreaElement,
   InputProps<HTMLTextAreaElement>
->(({ id, className, label, icon, ...props }, ref) => {
-  const _id = useId();
+>(
+  (
+    { id, className, label, icon, containerClassName, error, ...props },
+    ref,
+  ) => {
+    const _id = useId();
 
-  if (!id) {
-    id = _id;
-  }
+    if (!id) {
+      id = _id;
+    }
 
-  return (
-    <InputWrapper label={label} className={className}>
-      {icon && (
-        <label htmlFor={id} className="mr-1">
-          <Icon icon={icon} className="w-6 text-content-secondary" />
-        </label>
-      )}
-      <textarea ref={ref} id={id} {...props} />
-    </InputWrapper>
-  );
-});
+    return (
+      <InputWrapper
+        label={label}
+        htmlFor={id}
+        error={error}
+        className={className}
+        containerClassName={containerClassName}
+      >
+        {icon && (
+          <label htmlFor={id} className="mr-1 transition-all">
+            <Icon icon={icon} className="w-6 text-content-secondary" />
+          </label>
+        )}
+        <textarea ref={ref} id={id} {...props} />
+      </InputWrapper>
+    );
+  },
+);

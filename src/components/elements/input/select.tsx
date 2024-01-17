@@ -1,4 +1,4 @@
-import React, { forwardRef, useId, useState } from 'react';
+import React, { ReactNode, forwardRef, useId, useState } from 'react';
 import { Icon, IconName } from '../icon';
 import { Listbox } from '@headlessui/react';
 import styles from './input.module.scss';
@@ -6,93 +6,98 @@ import clsx from 'clsx';
 
 type ValueType = string | number;
 
-interface SelectOptionProps {
+interface SelectOptionProps<T = ValueType> {
   label: string;
-  value: ValueType;
+  value: T;
 }
 
-interface SelectProps {
+interface SelectProps<T> {
   id?: string;
   className?: string;
   label?: string;
   icon?: IconName;
-  value: ValueType;
-  options: SelectOptionProps[];
+  value: T;
+  options: SelectOptionProps<T>[];
   placeholder?: string;
-  onChange: (val: ValueType) => void;
+  onChange: (val: T) => void;
 }
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(
-  (
-    { id, className, label, placeholder, icon, value, options, onChange },
-    ref,
-  ) => {
-    return (
-      <Listbox
-        as="div"
-        id={id}
-        ref={ref}
-        value={value}
-        onChange={onChange}
-        className={clsx('text-sm', className)}
-      >
-        {({ open }) => (
-          <>
-            {label && (
-              <label htmlFor="email" className="mb-1 inline-block">
-                {label}
-              </label>
-            )}
+export function Select<T>({
+  id,
+  className,
+  label,
+  placeholder,
+  icon,
+  value,
+  options,
+  onChange,
+}: SelectProps<T>) {
+  const selected = options.find((i) => i.value === value);
 
-            <div className="relative">
-              <Listbox.Button
+  return (
+    <Listbox
+      as="div"
+      id={id}
+      value={value}
+      onChange={(val) => onChange(val as T)}
+      className={clsx('text-sm', className)}
+    >
+      {({ open }) => (
+        <>
+          {label && (
+            <label htmlFor="email" className="mb-1 inline-block">
+              {label}
+            </label>
+          )}
+
+          <div className="relative">
+            <Listbox.Button
+              className={clsx(
+                styles.inputContainer,
+                'relative w-full outline-none',
+              )}
+            >
+              {icon && (
+                <span className="mr-1">
+                  <Icon icon={icon} className="w-6 text-content-secondary" />
+                </span>
+              )}
+              {selected ? (
+                <span>{selected.label}</span>
+              ) : (
+                <span className="select-none text-content-placehdoler">
+                  {placeholder}
+                </span>
+              )}
+
+              <Icon
+                icon="chevron-down"
                 className={clsx(
-                  styles.inputContainer,
-                  'relative w-full outline-none',
+                  'ml-auto w-6 text-content-secondary transition-all',
+                  open && 'rotate-180',
                 )}
-              >
-                {icon && (
-                  <span className="mr-1">
-                    <Icon icon={icon} className="w-6 text-content-secondary" />
-                  </span>
-                )}
-                {value ? (
-                  <span>{value}</span>
-                ) : (
-                  <span className="select-none text-content-placehdoler">
-                    {placeholder}
-                  </span>
-                )}
+              />
+            </Listbox.Button>
 
-                <Icon
-                  icon="chevron-down"
-                  className={clsx(
-                    'ml-auto w-6 text-content-secondary transition-all',
-                    open && 'rotate-180',
-                  )}
-                />
-              </Listbox.Button>
-
-              <Listbox.Options
-                className={clsx(
-                  'absolute left-0 top-11 z-10 w-full overflow-hidden',
-                  'border border-light-gray card-container',
-                )}
-              >
-                {options.map(({ label, value }) => (
-                  <Listbox.Option
-                    key={value}
-                    value={value}
-                    className="cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10"
-                  >
-                    {label}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </div>
-          </>
-        )}
-      </Listbox>
-    );
-  },
-);
+            <Listbox.Options
+              className={clsx(
+                'absolute left-0 top-11 z-10 w-full overflow-hidden',
+                'border border-light-gray card-container',
+              )}
+            >
+              {options.map(({ label, value }) => (
+                <Listbox.Option
+                  key={value as string}
+                  value={value}
+                  className="cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10"
+                >
+                  {label}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </div>
+        </>
+      )}
+    </Listbox>
+  );
+}

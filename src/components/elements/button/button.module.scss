@@ -1,9 +1,13 @@
 .button {
-  @apply flex flex-shrink-0 items-center justify-center rounded-lg;
+  @apply inline-flex flex-shrink-0 items-center justify-center rounded-lg;
   @apply font-semibold text-white transition-all;
 
   &[data-size='base'] {
     @apply px-4 py-2 text-sm;
+  }
+
+  &[data-size='xs'] {
+    @apply px-2 py-1 text-xs;
   }
 
   &[data-size='lg'] {

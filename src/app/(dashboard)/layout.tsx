@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
-import { Inter } from 'next/font/google';
+import { Inter, Outfit } from 'next/font/google';
 
 import '../globals.scss';
 import clsx from 'clsx';
@@ -9,7 +9,17 @@ import { Sidebar } from '@/components/modules/main-layout';
 import { Header } from '@/components/modules/main-layout/header';
 import { redirect } from 'next/navigation';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-outfit',
+});
 
 export const metadata: Metadata = {
   title: 'Nexuhm',
@@ -29,7 +39,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={clsx(inter.className, 'flex')}>
+      <body className={clsx(inter.variable, outfit.variable, 'flex')}>
         <Sidebar
           links={[
             { href: '/', text: 'Dashboard', icon: 'home' },
@@ -41,7 +51,9 @@ export default function RootLayout({
 
         <div className="flex flex-1 flex-col">
           <Header />
-          <main className="flex-1 bg-surface-primary p-8">{children}</main>
+          <main className="flex-1 bg-surface-primary p-8 pb-32">
+            {children}
+          </main>
         </div>
       </body>
     </html>

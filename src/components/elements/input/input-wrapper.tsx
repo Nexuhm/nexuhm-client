@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styles from './input.module.scss';
 import clsx from 'clsx';
 
-interface InputWrapperProps extends React.HTMLProps<HTMLDivElement> {
+export interface InputWrapperProps extends PropsWithChildren {
   label?: string;
   className?: string;
   containerClassName?: string;
+  htmlFor?: string;
+  error?: string;
 }
 
 export function InputWrapper({
@@ -13,12 +15,19 @@ export function InputWrapper({
   className,
   children,
   containerClassName,
+  htmlFor,
+  error,
   ...props
 }: InputWrapperProps) {
   return (
-    <div className={className} {...props}>
+    <div
+      {...props}
+      className={clsx(className, {
+        [styles.errorState]: !!error,
+      })}
+    >
       {label && (
-        <label htmlFor="email" className="mb-1 inline-block text-sm">
+        <label htmlFor={htmlFor} className="mb-1 inline-block text-sm">
           {label}
         </label>
       )}
@@ -26,6 +35,8 @@ export function InputWrapper({
       <div className={clsx(containerClassName, styles.inputContainer)}>
         {children}
       </div>
+
+      <p className={styles.errorMessage}>{error}</p>
     </div>
   );
 }

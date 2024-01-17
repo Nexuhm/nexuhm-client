@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ['var(--font-inter)'],
+        outfit: ['var(--font-outfit)'],
+      },
       colors: {
         yellow: '#F7E34F',
         black: '#221A15',
@@ -17,7 +21,10 @@ const config: Config = {
         indigo: '#8752D7',
         gold: '#DEA63A',
         'light-blue': '#E7E7FD',
-        'light-gray': '#DBD9D3',
+        'light-gray': {
+          DEFAULT: '#DBD9D3',
+          600: '#DEE2E6',
+        },
         'subtle-gray': '#F1F4F7',
         content: {
           primary: '#221A15',
