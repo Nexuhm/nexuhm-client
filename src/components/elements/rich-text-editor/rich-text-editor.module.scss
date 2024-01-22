@@ -1,6 +1,6 @@
 .editorContainer {
   @apply relative min-h-[300px] p-2;
-  @apply rounded-b-lg border border-light-gray focus-within:ring-2 focus-within:ring-blue;
+  @apply rounded-b-lg border border-light-gray focus-within:ring-1 focus-within:ring-blue;
   @apply transition-all;
 
   :global(.editor-placeholder) {
@@ -75,11 +75,11 @@
     @apply text-base;
   }
 
-  .textItalic {
+  i {
     @apply italic;
   }
 
-  .textBold {
+  strong {
     @apply font-bold;
   }
 

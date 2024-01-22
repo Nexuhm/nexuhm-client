@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from 'react';
+import { ElementType, ReactNode, forwardRef } from 'react';
 import styles from './button.module.scss';
 import clsx from 'clsx';
 import { Icon, IconName } from '../icon';
@@ -20,28 +20,38 @@ interface ButtonProps extends ButtonBaseProps {
   type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
-export function Button({
-  as: Tag = 'button',
-  children,
-  className,
-  variant = 'primary',
-  size = 'base',
-  ...props
-}: ButtonProps) {
-  // use link if href is provided
-  Tag = props.href != null ? 'a' : Tag;
+export const Button = forwardRef(
+  (
+    {
+      as: Tag = 'button',
+      children,
+      className,
+      variant = 'primary',
+      size = 'base',
+      ...props
+    }: ButtonProps,
+    ref,
+  ) => {
+    // use link if href is provided
+    Tag = props.href != null ? 'a' : Tag;
 
-  return (
-    <Tag
-      className={clsx(className, styles.button)}
-      data-variant={variant}
-      data-size={size}
-      {...props}
-    >
-      {children}
-    </Tag>
-  );
-}
+    if (Tag === 'button') {
+      props.type = props.type || 'button';
+    }
+
+    return (
+      <Tag
+        ref={ref}
+        className={clsx(className, styles.button)}
+        data-variant={variant}
+        data-size={size}
+        {...props}
+      >
+        {children}
+      </Tag>
+    );
+  },
+);
 
 interface IconButtonProps extends ButtonBaseProps {
   icon: IconName;

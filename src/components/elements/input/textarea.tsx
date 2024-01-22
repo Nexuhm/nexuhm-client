@@ -24,6 +24,7 @@ export const Textarea = forwardRef<
         error={error}
         className={className}
         containerClassName={containerClassName}
+        required={props.required}
       >
         {icon && (
           <label htmlFor={id} className="mr-1 transition-all">

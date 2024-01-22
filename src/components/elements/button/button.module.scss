@@ -20,9 +20,13 @@
 
   &[data-variant='primary'] {
     @apply border border-blue bg-blue text-white;
+
+    &:disabled {
+      @apply bg-opacity-70 border-opacity-70;
+    }
   }
 
-  &:hover {
+  &:not(:disabled):hover {
     @apply border-light-blue bg-light-blue text-content-primary;
   }
 }

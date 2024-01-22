@@ -1,28 +1,24 @@
 import { PropsWithChildren } from 'react';
-import { FormSection } from './form-section';
+import clsx from 'clsx';
 
 export interface FormControlGroupProps extends PropsWithChildren {
-  title: string;
-  description: string;
+  label?: string;
   required?: boolean;
 }
 
 export function FormControlGroup({
-  title,
-  description,
+  label,
   required,
   children,
 }: FormControlGroupProps) {
   return (
-    <FormSection>
-      <div>
-        <strong className="mb-1 leading-6">
-          {title} {required && '*'}
-        </strong>
-        <div className="leading-6">{description}</div>
-      </div>
-
+    <div className="mb-6 last:mb-0">
+      {label && (
+        <div className="input-label" data-required={required}>
+          {label}
+        </div>
+      )}
       <div>{children}</div>
-    </FormSection>
+    </div>
   );
 }

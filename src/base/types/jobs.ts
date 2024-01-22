@@ -1,0 +1,33 @@
+import { z } from 'zod';
+
+export const employmentTypeSchema = z.enum([
+  'full-time-employment',
+  'part-time-employment',
+  'freelance',
+  'contractual',
+  'temporary-employment',
+  'internship',
+  'volunteer-work',
+  'seasonal-work',
+]);
+
+export const salaryFrequencySchema = z.enum(['weekly', 'monthly', 'yearly']);
+
+export const jobSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  content: z.any(), // Use the defined schema for the description
+  location: z.string(),
+  employmentType: employmentTypeSchema,
+  salary: z
+    .object({
+      min: z.any(),
+      max: z.any(),
+      frequency: salaryFrequencySchema,
+    })
+    .strict(),
+});
+
+export type JobSchema = z.infer<typeof jobSchema>;
+
+export type EmploymentType = z.infer<typeof employmentTypeSchema>;

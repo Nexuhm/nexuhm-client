@@ -10,27 +10,40 @@ export interface StepperProps {
   activeStep: number;
   steps: StepProps[];
   className?: string;
+  onStepChange?: (val: number) => void;
 }
 
-export function Stepper({ steps, activeStep, className }: StepperProps) {
+export function Stepper({
+  steps,
+  onStepChange,
+  activeStep,
+  className,
+}: StepperProps) {
   return (
     <div className={clsx(className, 'flex w-full pb-6')}>
-      {steps.map(({ title }, index) => (
-        <Fragment key={index}>
-          <div
-            className={clsx(styles.stepContainer, {
-              [styles.activeStep]: activeStep === index + 1,
-            })}
-          >
-            <div className="flex flex-col items-center">
-              <span className={styles.stepNumber}>{index + 1}</span>
-              <span className="absolute top-8 text-nowrap">{title}</span>
+      {steps.map(({ title }, index) => {
+        const step = index + 1;
+        return (
+          <Fragment key={index}>
+            <div
+              className={clsx(styles.stepContainer, {
+                [styles.activeStep]: activeStep === step,
+              })}
+            >
+              <button
+                onClick={() => onStepChange?.(step)}
+                className="flex flex-col items-center"
+                disabled={step >= activeStep}
+              >
+                <span className={styles.stepNumber}>{step}</span>
+                <span className="absolute top-8 text-nowrap">{title}</span>
+              </button>
             </div>
-          </div>
-
-          {steps.length - 1 > index && <div className={styles.stepLine} />}
-        </Fragment>
-      ))}
+  
+            {steps.length - 1 > index && <div className={styles.stepLine} />}
+          </Fragment>
+        )
+      })}
     </div>
   );
 }

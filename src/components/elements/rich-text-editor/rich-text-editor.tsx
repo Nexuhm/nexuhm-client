@@ -6,6 +6,7 @@ import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
@@ -14,11 +15,17 @@ import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
-import { TRANSFORMERS } from '@lexical/markdown';
+import {
+  TRANSFORMERS,
+  $convertFromMarkdownString,
+  $convertToMarkdownString,
+} from '@lexical/markdown';
 import { ToolbarPlugin } from './plugins/toolbar-plugin/toolbar-plugin';
-import { EditorThemeClasses } from 'lexical/LexicalEditor';
-import styles from './rich-text-editor.module.scss';
+import { EditorThemeClasses, LexicalEditor } from 'lexical/LexicalEditor';
 import { EditorState } from 'lexical';
+import { useEffect, useRef, useState } from 'react';
+import { $generateHtmlFromNodes } from '@lexical/html';
+import styles from './rich-text-editor.module.scss';
 
 function Placeholder() {
   return <div className="editor-placeholder">Job description...</div>;
@@ -57,10 +64,43 @@ const editorConfig = {
 };
 
 interface RichTextEditorProps {
-  onChange: (value: EditorState) => void;
+  label?: string;
+  initialValue?: string;
+  onChange: (value: string) => void;
 }
 
-export function RichTextEditor({ onChange }: RichTextEditorProps) {
+export function RichTextEditor({
+  initialValue,
+  onChange,
+}: RichTextEditorProps) {
+  const [editor, setEditor] = useState<LexicalEditor | null>(null);
+
+  useEffect(() => {
+    if (editor) {
+      editor.update(() => {
+        if (typeof initialValue === 'string') {
+          $convertFromMarkdownString(initialValue);
+        }
+      });
+    }
+  }, [editor]);
+
+  useEffect(() => {
+    const removeUpdateListener = editor?.registerUpdateListener(
+      ({ editorState }) => {
+        editorState.read(() => {
+          const markdown = $convertToMarkdownString(TRANSFORMERS);
+          console.log(markdown)
+          onChange(markdown);
+        });
+      },
+    );
+
+    return () => {
+      removeUpdateListener?.();
+    };
+  }, [editor]);
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className={styles.richTextContainer}>
@@ -72,7 +112,7 @@ export function RichTextEditor({ onChange }: RichTextEditorProps) {
               contentEditable={
                 <ContentEditable className={styles.editorContent} />
               }
-              placeholder={<Placeholder   />}
+              placeholder={<Placeholder />}
               ErrorBoundary={LexicalErrorBoundary}
             />
 
@@ -81,8 +121,7 @@ export function RichTextEditor({ onChange }: RichTextEditorProps) {
             <ListPlugin />
             <LinkPlugin />
             <TabIndentationPlugin />
-
-            <OnChangePlugin onChange={onChange} />
+            <EditorRefPlugin editorRef={setEditor} />
 
             <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           </div>

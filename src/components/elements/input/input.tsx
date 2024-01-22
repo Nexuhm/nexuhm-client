@@ -21,15 +21,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
         htmlFor={id}
         error={error}
         className={className}
+        required={props.required}
         containerClassName={clsx(containerClassName, 'h-10')}
+        prefix={prefix}
       >
         {icon && (
           <label htmlFor={id} className="mr-1 transition-all">
             <Icon icon={icon} className="w-6 text-content-secondary" />
           </label>
         )}
-
-        {prefix && <span className="mr-1 text-sm">{prefix}</span>}
 
         <input
           id={id}

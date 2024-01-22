@@ -1,7 +1,10 @@
 .sidebarContainer {
-  @apply h-screen w-[260px] border-r border-light-gray;
+  @apply h-screen w-[260px];
 }
 
+.innerContainer {
+  @apply fixed left-0 top-0 h-screen w-[260px] border-r border-light-gray;
+}
 .link {
   @apply relative inline-flex px-4 py-2;
   @apply text-content-secondary transition-all hover:text-blue;

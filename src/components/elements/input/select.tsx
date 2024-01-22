@@ -19,6 +19,7 @@ interface SelectProps<T> {
   value: T;
   options: SelectOptionProps<T>[];
   placeholder?: string;
+  required?: boolean;
   onChange: (val: T) => void;
 }
 
@@ -30,6 +31,7 @@ export function Select<T>({
   icon,
   value,
   options,
+  required,
   onChange,
 }: SelectProps<T>) {
   const selected = options.find((i) => i.value === value);
@@ -45,7 +47,11 @@ export function Select<T>({
       {({ open }) => (
         <>
           {label && (
-            <label htmlFor="email" className="mb-1 inline-block">
+            <label
+              htmlFor="email"
+              className="input-label"
+              data-required={required}
+            >
               {label}
             </label>
           )}

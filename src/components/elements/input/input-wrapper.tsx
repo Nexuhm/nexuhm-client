@@ -8,15 +8,19 @@ export interface InputWrapperProps extends PropsWithChildren {
   containerClassName?: string;
   htmlFor?: string;
   error?: string;
+  required?: boolean;
+  prefix?: string;
 }
 
 export function InputWrapper({
   label,
+  required,
   className,
   children,
   containerClassName,
   htmlFor,
   error,
+  prefix,
   ...props
 }: InputWrapperProps) {
   return (
@@ -27,16 +31,22 @@ export function InputWrapper({
       })}
     >
       {label && (
-        <label htmlFor={htmlFor} className="mb-1 inline-block text-sm">
+        <label
+          htmlFor={htmlFor}
+          className="input-label"
+          data-required={required}
+        >
           {label}
         </label>
       )}
 
       <div className={clsx(containerClassName, styles.inputContainer)}>
+        {prefix && <span className="mr-1 text-sm">{prefix}</span>}
+
         {children}
       </div>
 
-      <p className={styles.errorMessage}>{error}</p>
+      {error && <p className={styles.errorMessage}>{error}</p>}
     </div>
   );
 }
