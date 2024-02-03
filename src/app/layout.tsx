@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
-
-import { Inter, Outfit, Poppins } from 'next/font/google';
+import { Outfit, Poppins } from 'next/font/google';
+import clsx from 'clsx';
 
 import '@/app/globals.scss';
-import clsx from 'clsx';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -19,7 +18,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'Nexuhm',
-  description: 'Nexuhm - AI based ATS.',
+  description: 'Nexuhm - cutting edge ATS',
 };
 
 export default function RootLayout({
