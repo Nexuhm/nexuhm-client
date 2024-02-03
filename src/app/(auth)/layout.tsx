@@ -1,11 +1,15 @@
 import Logo from '@/assets/logo.svg';
 
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 
-import '../globals.scss';
+import '@/app/globals.scss';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600', '700'],
+  variable: '--font-poppins',
+});
 
 export const metadata: Metadata = {
   title: 'Nexuhm',
@@ -19,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <main className="flex h-screen flex-col justify-center bg-subtle-gray py-20">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Logo Column */}

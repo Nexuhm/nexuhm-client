@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['var(--font-inter)'],
         outfit: ['var(--font-outfit)'],
+        poppins: ['var(--font-poppins)'],
       },
       colors: {
         yellow: '#F7E34F',
@@ -34,6 +34,7 @@ const config: Config = {
         },
         surface: {
           primary: '#F9F9F9',
+          secondary: '#F1F1F1',
         },
       },
     },

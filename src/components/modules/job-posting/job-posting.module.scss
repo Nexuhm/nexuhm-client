@@ -1,0 +1,35 @@
+.content {
+  @apply font-poppins;
+
+  h2,
+  h3 {
+    @apply mb-3 text-2xl font-bold;
+  }
+
+  p,
+  ul,
+  ol {
+    @apply mb-5;
+  }
+
+  p {
+    @apply text-xl;
+  }
+
+  ul,
+  ol {
+    @apply pl-6 text-xl;
+
+    li {
+      @apply mb-2;
+    }
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+}

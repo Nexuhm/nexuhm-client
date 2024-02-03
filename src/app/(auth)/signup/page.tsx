@@ -35,7 +35,7 @@ export default function SignUpPage() {
       throw Error('Error during login');
     }
 
-    router.push('/');
+    router.push('/admin/jobs');
   };
 
   return (

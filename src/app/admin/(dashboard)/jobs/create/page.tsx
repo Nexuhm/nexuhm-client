@@ -2,16 +2,22 @@
 
 import { useState } from 'react';
 import { JobSchema } from '@/base/types/jobs';
-import { IconButton } from '@/components/elements/button';
+import { Button, IconButton } from '@/components/elements/button';
 import { Stepper } from '@/components/elements/stepper/stepper';
 import { JobCreateForm } from '@/components/modules/job-create-form';
 import { JobGenerationForm } from '@/components/modules/job-generation-form';
-import { marked } from 'marked';
-import styles from '@/components/elements/rich-text-editor/rich-text-editor.module.scss';
+import { createJobDraft } from '@/base/actions/jobs';
+import { JobPreview } from '@/components/modules/job-preview';
+import { useSetState } from 'react-use';
+import { Icon } from '@/components/elements/icon';
 
 export default function JobCreatePage() {
   const [activeStep, setActiveStep] = useState(1);
   const [jobPosting, setJobPosting] = useState<JobSchema>();
+  const [state, setState] = useSetState({
+    isLoading: false,
+    isPublished: false,
+  });
 
   const steps = [
     {
@@ -25,15 +31,53 @@ export default function JobCreatePage() {
     },
   ];
 
-  const handleStepChange = (step: number) => (result: JobSchema) => {
+  const handleStepChange = (step: number) => (result?: JobSchema) => {
     window.scrollTo({
       top: 0,
     });
-    setJobPosting(result);
+
+    if (result) {
+      setJobPosting(result);
+    }
+
     setActiveStep(step);
   };
 
+  const handleSave = async () => {
+    setState({
+      isLoading: true,
+    });
+
+    try {
+      const res = await createJobDraft(jobPosting!);
+
+      if (!res.ok) {
+        const data = await res.text();
+        throw Error(data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setState({
+        isLoading: false,
+      });
+    }
+
+    setState({
+      isPublished: true,
+    });
+  };
+
   const renderContent = () => {
+    if (state.isPublished) {
+      return (
+        <div className="mt-20 flex flex-col items-center gap-2">
+          <Icon icon="circled-check" className="h-16 w-16" />
+          <div>Job published</div>
+          <Button href="/jobs">View Job</Button>
+        </div>
+      );
+    }
     switch (activeStep) {
       case 1: {
         return <JobGenerationForm onComplete={handleStepChange(2)} />;
@@ -47,14 +91,16 @@ export default function JobCreatePage() {
         );
       }
       case 3: {
-        const html = marked(jobPosting?.content);
+        if (!jobPosting) {
+          return null;
+        }
+
         return (
-          <div className="mx-auto max-w-3xl p-10 card-container">
-            <div
-              className={styles.editorContent}
-              dangerouslySetInnerHTML={{ __html: html }}
-            />
-          </div>
+          <JobPreview
+            loading={state.isLoading}
+            onSave={handleSave}
+            data={jobPosting}
+          />
         );
       }
     }

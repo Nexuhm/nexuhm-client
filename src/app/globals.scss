@@ -5,15 +5,16 @@
 body {
   /* prevents "jumpy" behaviour (layout shift) caused by appearing scrollbar */
   scrollbar-gutter: stable;
+  @apply font-poppins;
 }
 
 @layer utilities {
   .input-label {
-    @apply mb-1 inline-block text-sm font-medium leading-6;
+    @apply mb-0.5 inline-block text-sm leading-6;
 
     &[data-required='true']:after {
       content: '*';
-      @apply ml-1 text-red-500;
+      @apply ml-1;
     }
   }
 }

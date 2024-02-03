@@ -6,7 +6,17 @@ import clsx from 'clsx';
 
 export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
   (
-    { id, className, containerClassName, label, prefix, icon, error, ...props },
+    {
+      id,
+      className,
+      containerClassName,
+      label,
+      prefix,
+      icon,
+      error,
+      variant,
+      ...props
+    },
     ref,
   ) => {
     const _id = useId();
@@ -24,6 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
         required={props.required}
         containerClassName={clsx(containerClassName, 'h-10')}
         prefix={prefix}
+        variant={variant}
       >
         {icon && (
           <label htmlFor={id} className="mr-1 transition-all">

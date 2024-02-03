@@ -1,24 +1,24 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
-import { Inter, Outfit } from 'next/font/google';
+import { Inter, Outfit, Poppins } from 'next/font/google';
 
-import '../globals.scss';
+import '@/app/globals.scss';
 import clsx from 'clsx';
 import { Sidebar } from '@/components/modules/main-layout';
 import { Header } from '@/components/modules/main-layout/header';
 import { redirect } from 'next/navigation';
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-});
-
 const outfit = Outfit({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-outfit',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600', '700'],
+  variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={clsx(inter.variable, outfit.variable, 'flex')}>
+      <body className={clsx(outfit.variable, poppins.variable, 'flex')}>
         <Sidebar
           links={[
             { href: '/', text: 'Dashboard', icon: 'home' },

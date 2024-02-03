@@ -1,11 +1,13 @@
 'use client';
 
+import { getJobs } from '@/base/actions/jobs';
+import { client } from '@/base/services/browser-client';
 import { Button } from '@/components/elements/button';
 import { Icon } from '@/components/elements/icon';
 import { Input } from '@/components/elements/input';
 import { Tabs } from '@/components/elements/tabs';
 import { JobCard, JobCardProps } from '@/components/modules/job-card';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type JobState = 'active' | 'archived';
 
@@ -25,83 +27,36 @@ const tabs: JobTab[] = [
   },
 ];
 
-const jobs: JobCardProps[] = [
-  {
-    title: 'Backend Developer',
-    tags: ['New York', 'Full Time'],
-    candidates: {
-      total: 25,
-      new: 6,
-    },
-    status: 'published',
-  },
-  {
-    title: 'Product Manager',
-    tags: ['San Francisco', 'Full Time'],
-    candidates: {
-      total: 35,
-      new: 7,
-    },
-    status: 'published',
-  },
-  {
-    title: 'Graphic Designer',
-    tags: ['Los Angeles', 'Part Time'],
-    candidates: {
-      total: 15,
-      new: 4,
-    },
-    status: 'published',
-  },
-  {
-    title: 'Data Scientist',
-    tags: ['Chicago', 'Full Time'],
-    candidates: {
-      total: 28,
-      new: 9,
-    },
-    status: 'draft',
-  },
-  {
-    title: 'Sales Representative',
-    tags: ['Chicago', 'Full Time'],
-    candidates: {
-      total: 42,
-      new: 11,
-    },
-    status: 'draft',
-  },
-  {
-    title: 'Content Writer',
-    tags: ['New York', 'Part Time'],
-    candidates: {
-      total: 18,
-      new: 3,
-    },
-    status: 'draft',
-  },
-  {
-    title: 'Software Engineer',
-    tags: ['San Francisco', 'Full Time'],
-    candidates: {
-      total: 60,
-      new: 15,
-    },
-    status: 'published',
-  },
-  {
-    title: 'HR Manager',
-    tags: ['Los Angeles', 'Full Time'],
-    candidates: {
-      total: 22,
-      new: 5,
-    },
-    status: 'role-filled',
-  },
-];
-
 export default function Page() {
   const [selectedTab, setSelectedTab] = useState<JobState>('active');
+  const [jobs, setJobs] = useState<JobCardProps[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchJobs = async () => {
+    setIsLoading(true);
+
+    try {
+      const res = await client.get('/jobs');
+
+      if (!res.ok) {
+        throw Error();
+      }
+
+      const data = await res.json();
+
+      setJobs(data);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  console.log(jobs);
 
   return (
     <div>
@@ -116,7 +71,7 @@ export default function Page() {
             Filter
           </Button>
 
-          <Button href="/jobs/create">
+          <Button href="/admin/jobs/create">
             <Icon icon="plus" className="mr-2 w-5" />
             Create job
           </Button>
@@ -129,6 +84,10 @@ export default function Page() {
           selected={selectedTab}
           onChange={(id) => setSelectedTab(id)}
         />
+
+        <div className="text-xlg my-5 font-medium">
+          {jobs.length} Active jobs
+        </div>
 
         <div className="md-grid-cols-3 mt-4 grid grid-cols-1 gap-4 lg:grid-cols-4">
           {jobs.map((item, index) => (

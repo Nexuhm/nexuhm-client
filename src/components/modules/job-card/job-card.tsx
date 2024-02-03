@@ -1,33 +1,55 @@
+import { EmploymentType } from '@/base/types/jobs';
 import styles from './job-card.module.scss';
 
-type JobStatus = 'draft' | 'published' | 'role-filled';
+type JobState = 'draft' | 'published' | 'filled';
 
 export interface JobCardProps {
   title: string;
-  tags: string[];
-  candidates: {
-    total: number;
-    new: number;
-  };
-  status: JobStatus;
+  location: string;
+  employmentType: EmploymentType;
+  totalCandidates?: number;
+  newCandidates?: number;
+  state: JobState;
 }
 
-export function JobCard({ title, tags, candidates, status }: JobCardProps) {
-  const statusLabels: Record<JobStatus, string> = {
+function formatEmploymentTypeLabel(type: EmploymentType): string {
+  const labelMap = {
+    'full-time-employment': 'Full Time',
+    'part-time-employment': 'Part Time',
+    freelance: 'Freelance',
+    contractual: 'Contractual',
+    'temporary-employment': 'Temporary',
+    internship: 'Internship',
+    'volunteer-work': 'Volunteer',
+    'seasonal-work': 'Seasonal',
+  };
+
+  return labelMap[type];
+}
+
+export function JobCard({
+  title,
+  location,
+  employmentType,
+  totalCandidates,
+  newCandidates,
+  state,
+}: JobCardProps) {
+  const stateLabels: Record<JobState, string> = {
     draft: 'Draft',
     published: 'Published',
-    'role-filled': ' Role Filled',
+    filled: 'Role Filled',
   };
 
   return (
     <div className="rounded-lg bg-white p-6">
       <div>
         <div className="mb-2 flex gap-2">
-          {tags.map((tag, index) => (
-            <span key={index} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
+          <span className={styles.tag}>{location}</span>
+
+          <span className={styles.tag}>
+            {formatEmploymentTypeLabel(employmentType)}
+          </span>
         </div>
 
         <div className={styles.title}>{title}</div>
@@ -35,16 +57,18 @@ export function JobCard({ title, tags, candidates, status }: JobCardProps) {
         <div className="mb-4">
           <div className="mb-1 text-content-tertiary">Candidates</div>
           <div className="flex">
-            <span className={styles.candidates}>{candidates.total}</span>
-            {candidates.new > 0 && (
-              <span className={styles.newCandidates}>{candidates.new} new</span>
+            <span className={styles.candidates}>{totalCandidates || 0}</span>
+            {!!newCandidates && (
+              <span className={styles.newCandidates}>
+                {newCandidates || 0} new
+              </span>
             )}
           </div>
         </div>
 
         <div className="flex items-center gap-2.5">
-          <div className={styles.status} data-status={status}>
-            {statusLabels[status]}
+          <div className={styles.status} data-status={state}>
+            {stateLabels[state]}
           </div>
           <a href="" className="text-sm text-blue">
             See details

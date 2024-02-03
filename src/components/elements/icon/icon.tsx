@@ -11,6 +11,8 @@ import PlusIcon from '@/assets/icons/plus.svg';
 import EditIcon from '@/assets/icons/edit.svg';
 import CloseIcon from '@/assets/icons/close.svg';
 import CheckIcon from '@/assets/icons/check.svg';
+import CircledCheckIcon from '@/assets/icons/circled-check.svg';
+import CircledQuestionIcon from '@/assets/icons/circled-question.svg';
 
 export type IconName =
   | 'home'
@@ -23,7 +25,9 @@ export type IconName =
   | 'close'
   | 'edit'
   | 'check'
-  | 'chevron-down';
+  | 'chevron-down'
+  | 'circled-check'
+  | 'circled-question';
 
 // Define the IconProps interface
 interface IconProps {
@@ -47,6 +51,8 @@ const icons: Record<
   edit: EditIcon,
   'caret-down': CaretDownIcon,
   'chevron-down': ChevronDownIcon,
+  'circled-check': CircledCheckIcon,
+  'circled-question': CircledQuestionIcon,
 };
 
 // Icon component using function declaration

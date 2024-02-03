@@ -1,17 +1,10 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { client } from '../services/server-client';
+import { JobSchema } from '../types/jobs';
 
 export async function generateJob(title: string, description: string) {
-  const token = cookies().get('token');
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/jobs/generate`, {
-    method: 'POST',
-    body: JSON.stringify({ title, description }),
-    headers: {
-      'content-type': 'application/json',
-      authorization: `Bearer ${token?.value}`,
-    },
-  });
+  const res = await client.post('/jobs/generate', { title, description });
 
   if (!res.ok) {
     const data = await res.text();
@@ -20,5 +13,15 @@ export async function generateJob(title: string, description: string) {
 
   const data = await res.json();
 
+  return data;
+}
+
+export async function createJobDraft(job: JobSchema) {
+  return client.post('/jobs', job);
+}
+
+export async function getJobs() {
+  const res = await client.get('/jobs');
+  const data = await res.json();
   return data;
 }

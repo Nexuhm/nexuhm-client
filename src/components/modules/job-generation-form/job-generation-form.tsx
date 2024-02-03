@@ -19,7 +19,7 @@ const jobGenerationFormSchema = z.object({
 export type JobGenerationFormSchema = z.infer<typeof jobGenerationFormSchema>;
 
 interface JobGenerationFormProps {
-  onComplete: (result: JobSchema) => void;
+  onComplete: (result?: JobSchema) => void;
 }
 
 export function JobGenerationForm({ onComplete }: JobGenerationFormProps) {
@@ -70,9 +70,12 @@ export function JobGenerationForm({ onComplete }: JobGenerationFormProps) {
           {isSubmitting && <Spinner className="ml-2" size={15} color="white" />}
         </Button>
 
-        <a href="/" className="text-sm text-content-secondary underline">
+        <button
+          onClick={() => onComplete()}
+          className="text-sm text-content-secondary underline"
+        >
           I want to manually do it
-        </a>
+        </button>
       </div>
     </form>
   );

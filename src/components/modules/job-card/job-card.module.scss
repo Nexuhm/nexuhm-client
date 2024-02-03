@@ -29,7 +29,7 @@
     @apply bg-gold;
   }
 
-  &[data-status='role-filled'] {
+  &[data-status='filled'] {
     @apply bg-indigo;
   }
 }

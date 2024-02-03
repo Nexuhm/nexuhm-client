@@ -4,11 +4,12 @@ const withSvgr = require('next-svgr');
 const nextConfig = {
   output: 'standalone',
 
-  async rewrites() {
+  async redirects() {
     return [
       {
-        source: '/about',
-        destination: '/',
+        source: '/',
+        destination: '/admin/jobs',
+        permanent: false,
       },
     ];
   },

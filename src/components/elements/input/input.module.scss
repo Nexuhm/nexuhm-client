@@ -3,6 +3,11 @@
   @apply rounded-lg border border-light-gray focus-within:border-blue;
   @apply transition-all;
 
+  &[data-variant='gray'] {
+    @apply bg-surface-secondary border-transparent text-content-tertiary;
+    @apply focus-within:border-blue;
+  }
+
   textarea,
   input {
     @apply w-full bg-transparent text-sm outline-none;
@@ -10,7 +15,7 @@
 }
 
 .errorMessage {
-  @apply h-2 mt-1 opacity-0 text-xs;
+  @apply mt-1 h-2 text-xs opacity-0;
 }
 
 .errorState {
@@ -23,6 +28,6 @@
   }
 
   .errorMessage {
-    @apply opacity-100 text-red-500;
+    @apply text-red-500 opacity-100;
   }
 }

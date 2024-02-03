@@ -10,6 +10,7 @@ export interface InputWrapperProps extends PropsWithChildren {
   error?: string;
   required?: boolean;
   prefix?: string;
+  variant?: 'gray';
 }
 
 export function InputWrapper({
@@ -21,6 +22,7 @@ export function InputWrapper({
   htmlFor,
   error,
   prefix,
+  variant,
   ...props
 }: InputWrapperProps) {
   return (
@@ -40,7 +42,10 @@ export function InputWrapper({
         </label>
       )}
 
-      <div className={clsx(containerClassName, styles.inputContainer)}>
+      <div
+        className={clsx(containerClassName, styles.inputContainer)}
+        data-variant={variant}
+      >
         {prefix && <span className="mr-1 text-sm">{prefix}</span>}
 
         {children}
