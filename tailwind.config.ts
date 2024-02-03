@@ -9,8 +9,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        '3xl': ['2rem', '2.5rem'], // '2rem' is the font size, '2.5rem' is the line height.
+      },
       fontFamily: {
-        outfit: ['var(--font-outfit)'],
+        inter: ['var(--font-inter)'],
         poppins: ['var(--font-poppins)'],
       },
       colors: {
@@ -40,6 +43,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@headlessui/tailwindcss')({ prefix: 'ui' }),
     plugin(function ({ addUtilities }) {
       const newUtilities = {
         '.card-container': {

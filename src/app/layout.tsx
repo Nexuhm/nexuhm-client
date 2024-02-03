@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
-import { Outfit, Poppins } from 'next/font/google';
+import { Poppins, Inter } from 'next/font/google';
 import clsx from 'clsx';
 
 import '@/app/globals.scss';
 
-const outfit = Outfit({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-outfit',
+  variable: '--font-inter',
 });
 
 const poppins = Poppins({
@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={clsx(outfit.variable, poppins.variable)}>
+      <body className={clsx(inter.variable, poppins.variable)}>
         {children}
       </body>
     </html>

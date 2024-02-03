@@ -13,7 +13,7 @@ function get(url: string): Promise<any> {
   });
 }
 
-function post(url: string, payload: any, headers: any): Promise<any> {
+function post(url: string, payload: any, headers?: any): Promise<any> {
   return fetch(`${process.env.NEXT_PUBLIC_API_BASE}${url}`, {
     method: 'POST',
     body: JSON.stringify(payload),

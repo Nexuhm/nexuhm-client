@@ -37,7 +37,7 @@ export default function SignInPage() {
       throw Error('Error during login');
     }
 
-    router.push('/admin/jobs');
+    router.push('/onboarding');
   };
 
   return (

@@ -1,6 +1,6 @@
 .button {
   @apply inline-flex flex-shrink-0 items-center justify-center rounded-lg;
-  @apply font-semibold text-white transition-all;
+  @apply font-semibold text-white transition-all duration-300;
 
   &[data-size='base'] {
     @apply px-4 py-2 text-sm;
@@ -16,18 +16,22 @@
 
   &[data-variant='secondary'] {
     @apply border bg-white text-content-primary;
+
+    &:not(:disabled):hover {
+      @apply border-light-blue bg-light-blue text-content-primary;
+    }
   }
 
   &[data-variant='primary'] {
     @apply border border-blue bg-blue text-white;
 
     &:disabled {
+      @apply border-opacity-70 bg-opacity-70;
+    }
+
+    &:not(:disabled):hover {
       @apply bg-opacity-70 border-opacity-70;
     }
-  }
-
-  &:not(:disabled):hover {
-    @apply border-light-blue bg-light-blue text-content-primary;
   }
 }
 

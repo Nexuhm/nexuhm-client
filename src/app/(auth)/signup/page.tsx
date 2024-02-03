@@ -35,7 +35,7 @@ export default function SignUpPage() {
       throw Error('Error during login');
     }
 
-    router.push('/admin/jobs');
+    router.push('/onboarding');
   };
 
   return (
@@ -84,7 +84,7 @@ export default function SignUpPage() {
           </a>
         </div>
 
-        <Button size='lg'>Sign Up</Button>
+        <Button size="lg">Sign Up</Button>
       </AuthForm.Form>
 
       <Divider className="my-6">Or</Divider>

@@ -1,4 +1,4 @@
-import React, { ReactNode, forwardRef, useId, useState } from 'react';
+import React from 'react';
 import { Icon, IconName } from '../icon';
 import { Listbox } from '@headlessui/react';
 import styles from './input.module.scss';
@@ -87,15 +87,15 @@ export function Select<T>({
 
             <Listbox.Options
               className={clsx(
-                'absolute left-0 top-11 z-10 w-full overflow-hidden',
-                'border border-light-gray card-container',
+                'absolute left-0 top-11 z-10 max-h-[290px] w-full overflow-auto',
+                'rounded-md border border-light-gray bg-white',
               )}
             >
               {options.map(({ label, value }) => (
                 <Listbox.Option
                   key={value as string}
                   value={value}
-                  className="cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10"
+                  className="ui-active:bg-black ui-active:bg-opacity-10 cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10"
                 >
                   {label}
                 </Listbox.Option>

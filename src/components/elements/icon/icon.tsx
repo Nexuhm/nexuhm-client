@@ -13,6 +13,7 @@ import CloseIcon from '@/assets/icons/close.svg';
 import CheckIcon from '@/assets/icons/check.svg';
 import CircledCheckIcon from '@/assets/icons/circled-check.svg';
 import CircledQuestionIcon from '@/assets/icons/circled-question.svg';
+import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 
 export type IconName =
   | 'home'
@@ -27,7 +28,8 @@ export type IconName =
   | 'check'
   | 'chevron-down'
   | 'circled-check'
-  | 'circled-question';
+  | 'circled-question'
+  | 'arrow-left';
 
 // Define the IconProps interface
 interface IconProps {
@@ -53,6 +55,7 @@ const icons: Record<
   'chevron-down': ChevronDownIcon,
   'circled-check': CircledCheckIcon,
   'circled-question': CircledQuestionIcon,
+  'arrow-left': ArrowLeftIcon,
 };
 
 // Icon component using function declaration
