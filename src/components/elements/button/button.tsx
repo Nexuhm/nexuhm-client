@@ -53,6 +53,8 @@ export const Button = forwardRef(
   },
 );
 
+Button.displayName = 'Button';
+
 interface IconButtonProps extends ButtonBaseProps {
   icon: IconName;
 }

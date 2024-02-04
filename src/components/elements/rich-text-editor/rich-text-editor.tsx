@@ -5,7 +5,6 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
@@ -22,9 +21,7 @@ import {
 } from '@lexical/markdown';
 import { ToolbarPlugin } from './plugins/toolbar-plugin/toolbar-plugin';
 import { EditorThemeClasses, LexicalEditor } from 'lexical/LexicalEditor';
-import { EditorState } from 'lexical';
-import { useEffect, useRef, useState } from 'react';
-import { $generateHtmlFromNodes } from '@lexical/html';
+import { useEffect, useState } from 'react';
 import styles from './rich-text-editor.module.scss';
 
 function Placeholder() {
@@ -90,7 +87,7 @@ export function RichTextEditor({
       ({ editorState }) => {
         editorState.read(() => {
           const markdown = $convertToMarkdownString(TRANSFORMERS);
-          console.log(markdown)
+          console.log(markdown);
           onChange(markdown);
         });
       },

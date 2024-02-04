@@ -24,11 +24,12 @@ export function ToolbarCommandList<T>({
         {title}
       </Listbox.Button>
 
-      <Listbox.Options className="absolute z-10 top-7 overflow-hidden rounded-md border border-light-gray bg-white">
-        {options.map(({ value, label }) => (
+      <Listbox.Options className="absolute top-7 z-10 overflow-hidden rounded-md border border-light-gray bg-white">
+        {options.map(({ value, label }, index) => (
           <Listbox.Option
+            key={index}
             value={value}
-            className="cursor-pointer w-20 bg-white px-2 py-1 text-xs hover:bg-black hover:bg-opacity-10"
+            className="w-20 cursor-pointer bg-white px-2 py-1 text-xs hover:bg-black hover:bg-opacity-10"
           >
             {label}
           </Listbox.Option>
