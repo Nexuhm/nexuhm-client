@@ -1,0 +1,16 @@
+.status {
+  @apply rounded-[4px] px-2 py-1.5;
+  @apply text-sm font-medium text-white;
+
+  &[data-status='published'] {
+    @apply bg-green;
+  }
+
+  &[data-status='draft'] {
+    @apply bg-gold;
+  }
+
+  &[data-status='filled'] {
+    @apply bg-indigo;
+  }
+}

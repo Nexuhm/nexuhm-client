@@ -1,0 +1,44 @@
+.tableContainer {
+  @apply rounded-md bg-white p-2;
+}
+
+.table {
+  @apply w-full font-inter;
+
+  td {
+    @apply p-4;
+  }
+
+  .headerCell {
+    @apply flex items-center gap-4 p-4;
+    @apply cursor-pointer text-left font-semibold;
+  }
+
+  tbody {
+    tr {
+      &:nth-child(2n + 1) {
+        @apply bg-surface-secondary;
+      }
+    }
+  }
+}
+
+.applied {
+  @apply bg-green;
+}
+
+.interview, .awaiting {
+  @apply bg-gold;
+}
+
+.offer {
+  @apply bg-blue;
+}
+
+.hired {
+  @apply bg-indigo;
+}
+
+.rejected {
+  @apply bg-error;
+}

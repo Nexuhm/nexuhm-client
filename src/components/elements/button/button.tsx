@@ -6,7 +6,7 @@ import { Icon, IconName } from '../icon';
 interface ButtonBaseProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'as' | 'size'> {
   className?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary';
   size?: 'xs' | 'base' | 'lg';
   type?: 'button' | 'submit' | 'reset' | undefined;
 }
@@ -15,7 +15,6 @@ interface ButtonProps extends ButtonBaseProps {
   as?: ElementType;
   children: ReactNode;
   className?: string;
-  variant?: 'primary' | 'secondary';
   size?: 'xs' | 'base' | 'lg';
   type?: 'button' | 'submit' | 'reset' | undefined;
 }

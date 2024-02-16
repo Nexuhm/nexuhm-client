@@ -9,11 +9,17 @@ import ChevronDownIcon from '@/assets/icons/chevron-down.svg';
 import FilterIcon from '@/assets/icons/filter.svg';
 import PlusIcon from '@/assets/icons/plus.svg';
 import EditIcon from '@/assets/icons/edit.svg';
+import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import CloseIcon from '@/assets/icons/close.svg';
 import CheckIcon from '@/assets/icons/check.svg';
 import CircledCheckIcon from '@/assets/icons/circled-check.svg';
 import CircledQuestionIcon from '@/assets/icons/circled-question.svg';
-import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
+import CalendarIcon from '@/assets/icons/calendar.svg';
+import ClockIcon from '@/assets/icons/clock.svg';
+import CaseIcon from '@/assets/icons/case.svg';
+import LocationIcon from '@/assets/icons/location.svg';
+import VerticalDotsIcon from '@/assets/icons/vertical-dots.svg';
+import EnvelopeIcon from '@/assets/icons/envelope.svg';
 
 export type IconName =
   | 'home'
@@ -29,7 +35,13 @@ export type IconName =
   | 'chevron-down'
   | 'circled-check'
   | 'circled-question'
-  | 'arrow-left';
+  | 'arrow-left'
+  | 'case'
+  | 'clock'
+  | 'calendar'
+  | 'location'
+  | 'vertical-dots'
+  | 'envelope';
 
 // Define the IconProps interface
 interface IconProps {
@@ -51,11 +63,17 @@ const icons: Record<
   check: CheckIcon,
   close: CloseIcon,
   edit: EditIcon,
+  clock: ClockIcon,
+  case: CaseIcon,
+  calendar: CalendarIcon,
+  location: LocationIcon,
+  envelope: EnvelopeIcon,
   'caret-down': CaretDownIcon,
   'chevron-down': ChevronDownIcon,
   'circled-check': CircledCheckIcon,
   'circled-question': CircledQuestionIcon,
   'arrow-left': ArrowLeftIcon,
+  'vertical-dots': VerticalDotsIcon,
 };
 
 // Icon component using function declaration

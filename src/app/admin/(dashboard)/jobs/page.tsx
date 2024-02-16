@@ -1,6 +1,5 @@
 'use client';
 
-import { getJobs } from '@/base/actions/jobs';
 import { client } from '@/base/services/browser-client';
 import { Button } from '@/components/elements/button';
 import { Icon } from '@/components/elements/icon';
@@ -30,11 +29,7 @@ const tabs: JobTab[] = [
 export default function Page() {
   const [selectedTab, setSelectedTab] = useState<JobState>('active');
   const [jobs, setJobs] = useState<JobCardProps[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const fetchJobs = async () => {
-    setIsLoading(true);
-
     try {
       const res = await client.get('/jobs');
 
@@ -48,15 +43,11 @@ export default function Page() {
     } catch (err) {
       console.error(err);
     }
-
-    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchJobs();
   }, []);
-
-  console.log(jobs);
 
   return (
     <div>

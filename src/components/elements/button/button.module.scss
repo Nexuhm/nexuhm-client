@@ -30,7 +30,15 @@
     }
 
     &:not(:disabled):hover {
-      @apply bg-opacity-70 border-opacity-70;
+      @apply border-opacity-70 bg-opacity-70;
+    }
+  }
+
+  &[data-variant='tertiary'] {
+    @apply border border-light-blue bg-light-blue text-blue;
+
+    &:not(:disabled):hover {
+      @apply opacity-75;
     }
   }
 }

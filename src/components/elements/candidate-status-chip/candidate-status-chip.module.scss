@@ -1,0 +1,25 @@
+.chip {
+  @apply rounded-[4px] px-2 py-1.5;
+  @apply text-sm font-medium text-white;
+}
+
+.applied {
+  @apply bg-green;
+}
+
+.interview,
+.awaiting {
+  @apply bg-gold;
+}
+
+.offer {
+  @apply bg-blue;
+}
+
+.hired {
+  @apply bg-indigo;
+}
+
+.rejected {
+  @apply bg-error;
+}

@@ -31,3 +31,5 @@ export const jobSchema = z.object({
 export type JobSchema = z.infer<typeof jobSchema>;
 
 export type EmploymentType = z.infer<typeof employmentTypeSchema>;
+
+export type JobState = 'draft' | 'published' | 'filled';
