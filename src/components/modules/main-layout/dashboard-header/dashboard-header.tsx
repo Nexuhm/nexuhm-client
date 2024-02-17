@@ -1,7 +1,12 @@
-import { Icon } from '@/components/elements/icon';
-import Image from 'next/image';
+'use client';
 
-export function Header() {
+import { useUserData } from '@/base/hooks/use-user-data';
+import { Icon } from '@/components/elements/icon';
+import { ProfileDropdown } from '@/components/modules/profile-dropdown';
+
+export function DashboardHeader() {
+  const { data } = useUserData();
+
   return (
     <header className="flex w-full items-center justify-between border-b border-light-gray px-8 py-4">
       <div className="flex w-[200px] items-center rounded-lg bg-surface-primary px-3 py-2">
@@ -13,13 +18,7 @@ export function Header() {
         />
       </div>
 
-      <button className="flex items-center gap-2">
-        <div className="overflow-hidden rounded-full bg-light-gray">
-          <Image src="/placeholder/avatar.jpg" width={40} height={40} alt="" />
-        </div>
-
-        <Icon icon="caret-down" className="w-6 text-content-primary" />
-      </button>
+      <ProfileDropdown />
     </header>
   );
 }

@@ -4,6 +4,14 @@ const withSvgr = require('next-svgr');
 const nextConfig = {
   output: 'standalone',
 
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'nexuhmstaging.blob.core.windows.net',
+      },
+    ],
+  },
+
   async redirects() {
     return [
       {

@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { Sidebar } from '@/components/modules/main-layout';
-import { Header } from '@/components/modules/main-layout/header';
 import { redirect } from 'next/navigation';
+import { DashboardHeader } from '@/components/modules/main-layout/dashboard-header';
 
 export default function DashboardLayout({
   children,
@@ -26,7 +26,7 @@ export default function DashboardLayout({
       />
 
       <div className="flex flex-1 flex-col">
-        <Header />
+        <DashboardHeader />
         <main className="flex-1 bg-surface-primary p-8 pb-32">{children}</main>
       </div>
     </div>

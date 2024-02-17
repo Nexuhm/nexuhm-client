@@ -1,0 +1,39 @@
+.link {
+  @apply rounded-lg px-2 py-1 text-left text-sm;
+  @apply transition-all hover:bg-light-blue;
+}
+
+.arrow {
+  @apply invisible;
+
+  &,
+  &::before {
+    @apply absolute h-4 w-4;
+  }
+
+  &::before {
+    content: '';
+    @apply -mt-1 visible rotate-45;
+    @apply border bg-white border-r-0 border-b-0;
+  }
+}
+
+.tooltip {
+  @apply w-28 rounded-lg border bg-white p-1;
+
+  &[data-popper-placement^='top'] > .arrow {
+    bottom: -4px;
+  }
+
+  &[data-popper-placement^='bottom'] > .arrow {
+    top: -4px;
+  }
+
+  &[data-popper-placement^='left'] > .arrow {
+    right: -4px;
+  }
+
+  &[data-popper-placement^='right'] > .arrow {
+    left: -4px;
+  }
+}
