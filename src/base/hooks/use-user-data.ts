@@ -2,9 +2,7 @@ import useSWR from 'swr';
 import { client } from '../services/browser-client';
 
 const fetcher = async (url: string) => {
-  const res = await client.get(url);
-  const data = await res.json();
-  return data;
+  return client.get(url);
 };
 
 interface UserData {

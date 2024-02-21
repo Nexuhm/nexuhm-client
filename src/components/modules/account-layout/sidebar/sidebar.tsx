@@ -12,12 +12,12 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-full max-w-[256px] flex-1 px-6">
-      <div className="mb-10 font-medium">Settings</div>
+    <aside className="w-full max-w-[256px] flex-1 self-start rounded-xl bg-white px-3 pb-5 pt-3">
+      <div className="mb-4 border-b pb-4 font-medium">Settings</div>
 
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-5">
         {sections.map(({ label, items }, index) => (
-          <Disclosure key={index} as="div">
+          <Disclosure key={index} as="div" defaultOpen>
             {({ open }) => (
               <>
                 <Disclosure.Button className={styles.accordionButton}>

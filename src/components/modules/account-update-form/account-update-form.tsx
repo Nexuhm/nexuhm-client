@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { client } from '@/base/services/browser-client';
 import { Button } from '@/components/elements/button';
@@ -21,11 +21,7 @@ export function AccountDetailsUpdateForm() {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<AccountFormSchema>({
-    defaultValues: async () => {
-      const res = await client.get('/account/details');
-      const data = await res.json();
-      return data;
-    },
+    defaultValues: async () => client.get('/account/details'),
   });
 
   const submitHandler = async (value: AccountFormSchema) => {

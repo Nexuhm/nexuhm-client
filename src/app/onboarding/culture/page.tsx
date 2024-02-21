@@ -4,15 +4,9 @@ import { Textarea } from '@/components/elements/input';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { client } from '@/base/services/browser-client';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
-
-const CultureFormSchema = z.object({
-  cultureDescription: z.string(),
-});
-
-type CultureFormValues = z.infer<typeof CultureFormSchema>;
+import { CultureFormSchema, CultureFormValues } from '@/base/schemas/company';
 
 export default function OnboardingCulturePage() {
   const router = useRouter();
@@ -31,12 +25,7 @@ export default function OnboardingCulturePage() {
     }
 
     try {
-      const res = await client.post('/company/onboarding/details', values);
-
-      if (!res.ok) {
-        throw Error(await res.data());
-      }
-
+      await client.post('/company/onboarding/details', values);
       router.push('/admin/jobs');
     } catch (err) {
       console.log(err);

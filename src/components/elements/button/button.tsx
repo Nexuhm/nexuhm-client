@@ -2,6 +2,7 @@ import { ElementType, ReactNode, forwardRef } from 'react';
 import styles from './button.module.scss';
 import clsx from 'clsx';
 import { Icon, IconName } from '../icon';
+import { Spinner } from '../spinner';
 
 interface ButtonBaseProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'as' | 'size'> {
@@ -15,6 +16,7 @@ interface ButtonProps extends ButtonBaseProps {
   as?: ElementType;
   children: ReactNode;
   className?: string;
+  loading?: boolean;
   size?: 'xs' | 'base' | 'lg';
   type?: 'button' | 'submit' | 'reset' | undefined;
 }
@@ -27,6 +29,7 @@ export const Button = forwardRef(
       className,
       variant = 'primary',
       size = 'base',
+      loading,
       ...props
     }: ButtonProps,
     ref,
@@ -47,6 +50,8 @@ export const Button = forwardRef(
         {...props}
       >
         {children}
+
+        {loading && <Spinner className="ml-2" color="white" size={15} />}
       </Tag>
     );
   },

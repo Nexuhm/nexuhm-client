@@ -101,7 +101,6 @@ export function ProfileImageDialog({
   const [loading, setLoading] = useState(false);
 
   const handleCrop = async (area: any) => {
-    console.log(area, file)
     if (!file) {
       return null;
     }
@@ -116,13 +115,7 @@ export function ProfileImageDialog({
       formData.append('width', area.width);
       formData.append('height', area.height);
 
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_API_BASE + '/media/upload',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      );
+      const res = await client.multipart('/media/upload', formData);
 
       if (!res.ok) {
         const message = await res.text();

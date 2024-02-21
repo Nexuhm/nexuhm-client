@@ -1,47 +1,33 @@
-'use client';
-
-import { Icon } from '@/components/elements/icon';
-import { Input, Select } from '@/components/elements/input';
-import { COMPANY_SIZE_OPTIONS, INDUSTRIES } from './consts';
 import { Controller, useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { Input, Select } from '@/components/elements/input';
+import { COMPANY_SIZE_OPTIONS, INDUSTRIES } from '@/app/onboarding/consts';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { client } from '@/base/services/browser-client';
-import { useRouter } from 'next/navigation';
-import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { CompanyFormSchema, CompanyFormValues } from '@/base/schemas/company';
+import { CompanySettingsForm } from './company-settings-form';
+import { ComboboxSelect } from '@/components/elements/input/combobox';
 
-
-export default function OnboardingPage() {
-  const router = useRouter();
-
+export function CompanyDetailsForm({
+  onSubmit,
+  defaultValues,
+}: {
+  defaultValues: CompanyFormValues,
+  onSubmit: (val: CompanyFormValues) => void;
+}) {
   const {
     handleSubmit,
     register,
     control,
     formState: { isSubmitting, errors },
   } = useForm<CompanyFormValues>({
+    defaultValues,
     resolver: zodResolver(CompanyFormSchema),
   });
 
-  const submitHandler = async (values: CompanyFormValues) => {
-    if (isSubmitting) {
-      return null;
-    }
-
-    try {
-      await client.post('/company/onboarding/details', values);
-      router.push('/onboarding/address');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <OnboardingForm
-      title="Tell us about your business"
-      description="   Help us understand what your business does in a few sentences"
-      onSubmit={handleSubmit(submitHandler)}
+    <CompanySettingsForm
+      title="Basic details"
+      description="Let’s start with the basics"
+      onSubmit={handleSubmit(onSubmit)}
       isSubmitting={isSubmitting}
     >
       <Input
@@ -71,7 +57,7 @@ export default function OnboardingPage() {
         control={control}
         name="industry"
         render={({ field }) => (
-          <Select
+          <ComboboxSelect
             required
             label="Industry"
             value={field.value}
@@ -89,6 +75,6 @@ export default function OnboardingPage() {
         {...register('website', { required: true })}
         error={errors.website?.message}
       />
-    </OnboardingForm>
+    </CompanySettingsForm>
   );
 }
