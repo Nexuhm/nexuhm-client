@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { client } from '../services/browser-client';
+import { client } from '../services/clients/browser-client';
 
 const fetcher = async (url: string) => {
   return client.get(url);
@@ -10,6 +10,7 @@ interface UserData {
   email: string;
   firstname: string;
   lastname: string;
+  company: string;
 }
 
 export function useUserData() {

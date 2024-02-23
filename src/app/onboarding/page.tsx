@@ -6,7 +6,7 @@ import { COMPANY_SIZE_OPTIONS, INDUSTRIES } from './consts';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { client } from '@/base/services/browser-client';
+import { client } from '@/base/services/clients/browser-client';
 import { useRouter } from 'next/navigation';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { CompanyFormSchema, CompanyFormValues } from '@/base/schemas/company';

@@ -4,7 +4,7 @@ import { Input } from '@/components/elements/input';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { client } from '@/base/services/browser-client';
+import { client } from '@/base/services/clients/browser-client';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { AddressFormSchema, AddressFormValues } from '@/base/schemas/company';
 

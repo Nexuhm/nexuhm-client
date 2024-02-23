@@ -6,7 +6,7 @@ import {
   CompanyFormValues,
   CultureFormValues,
 } from '@/base/schemas/company';
-import { client } from '@/base/services/browser-client';
+import { client } from '@/base/services/clients/browser-client';
 import {
   CompanyAboutForm,
   CompanyAddressForm,

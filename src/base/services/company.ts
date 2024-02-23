@@ -1,4 +1,4 @@
-import { client } from './browser-client';
+import { client } from './clients/browser-client';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
@@ -9,18 +9,16 @@ export interface SignUpPayload {
   password: string;
 }
 
-export class AuthService {
-  updateDetails(details: Record<string, string>) {
+export class CompanyService {
+  static updateDetails(details: Record<string, string>) {
     return client.put('/company', details);
   }
 
-  signup(payload: SignUpPayload) {
-    return fetch(`${API_BASE}/auth/signup`, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'content-type': 'application/json',
-      },
-    });
+  static getCareersPage(companyId: string) {
+    return client.get(`/admin/company/${companyId}/careers-page`);
+  }
+
+  static updateCareersPage(companyId: string, fields: Record<string, any>) {
+    return client.put(`/admin/company/${companyId}/careers-page`, fields);
   }
 }

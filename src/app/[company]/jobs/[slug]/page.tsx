@@ -7,7 +7,7 @@ import { Icon } from '@/components/elements/icon';
 import { Input } from '@/components/elements/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
-import { client } from '@/base/services/browser-client';
+import { client } from '@/base/services/clients/browser-client';
 
 const schema = z.object({
   firstName: z.string().min(1, 'First name is required'),

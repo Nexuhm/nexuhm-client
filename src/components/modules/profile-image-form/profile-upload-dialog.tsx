@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { client } from '@/base/services/browser-client';
+import { client } from '@/base/services/clients/browser-client';
 import { Button } from '@/components/elements/button';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

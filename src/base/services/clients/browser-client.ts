@@ -33,12 +33,14 @@ export class APIClient {
 
     try {
       const response = await fetch(url, options);
-      const data = await response.json();
+      const data = await response.json().catch(() => null);
+
       if (!response.ok) {
         throw new Error(
-          data.message || 'Something went wrong with the request',
+          data?.message || 'Something went wrong with the request',
         );
       }
+
       return data;
     } catch (error) {
       throw error;

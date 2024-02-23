@@ -11,11 +11,15 @@ function getSharedHeaders() {
   };
 }
 
-function get(url: string): Promise<any> {
-  return fetch(`${process.env.NEXT_PUBLIC_API_BASE}${url}`, {
+async function get(url: string): Promise<any> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}${url}`, {
     method: 'GET',
     headers: getSharedHeaders(),
   });
+
+  const data = await res.json();
+
+  return data;
 }
 
 function post(url: string, payload: any): Promise<any> {

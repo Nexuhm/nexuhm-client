@@ -1,6 +1,6 @@
 'use client';
 
-import { client } from '@/base/services/browser-client';
+import { client } from '@/base/services/clients/browser-client';
 import { Button } from '@/components/elements/button';
 import { Input } from '@/components/elements/input';
 import { useForm } from 'react-hook-form';

@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { ProfileImageDialog } from './profile-upload-dialog';
 import { Spinner } from '@/components/elements/spinner';
-import { client } from '@/base/services/browser-client';
+import { client } from '@/base/services/clients/browser-client';
 
 export function ProfileImageForm() {
   const [open, setOpen] = useState(false);

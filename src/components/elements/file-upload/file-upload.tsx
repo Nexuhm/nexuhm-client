@@ -1,64 +1,67 @@
-import Image from 'next/image';
+import clsx from 'clsx';
 import { Accept, useDropzone } from 'react-dropzone';
-import { useFileToImage } from '@/base/hooks/use-file-to-image';
-import { Icon } from '../icon';
+import { useSetState } from 'react-use';
+import { MediaService } from '@/base/services/media';
+import { Spinner } from '../spinner';
 
 interface FileUploadProps {
-  value?: File;
   accept?: Accept;
-  onUpload: (files: File) => void;
-  onClear: () => void;
+  folder?: string;
+  onUpload: (image: string) => void;
 }
 
-export function FileUpload({
-  accept,
-  value,
-  onClear,
-  onUpload,
-}: FileUploadProps) {
-  const src = useFileToImage(value);
-  const { getRootProps, getInputProps, inputRef } = useDropzone({
-    accept,
-    onDrop: (files) => onUpload(files[0]),
+export function FileUpload({ accept, folder, onUpload }: FileUploadProps) {
+  const [state, setState] = useSetState({
+    isDragged: false,
+    isUploading: false,
   });
 
-  const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const { getRootProps, getInputProps } = useDropzone({
+    accept,
+    onDrop: async (files) => {
+      setState({
+        isDragged: false,
+        isUploading: true,
+      });
 
-    if (inputRef.current) {
-      inputRef.current.files = null;
-    }
+      const data = await MediaService.upload(files[0], {
+        folder,
+      });
 
-    onClear();
-  };
+      onUpload(data.url);
+
+      setState({ isUploading: false });
+    },
+    onDragEnter: () => {
+      setState({ isDragged: true });
+    },
+    onDragLeave: () => {
+      setState({ isDragged: false });
+    },
+  });
 
   return (
     <div
       {...getRootProps()}
-      className="h-[124px] cursor-pointer overflow-hidden rounded-lg border"
+      className={clsx(
+        'h-[124px] cursor-pointer overflow-hidden rounded-lg border transition-all hover:bg-surface-secondary',
+        state.isDragged && 'animate-pulse border-dashed  bg-surface-secondary',
+      )}
     >
       <input {...getInputProps()} />
 
-      {src ? (
-        <div className="relative h-full w-full">
-          <button
-            onClick={handleClear}
-            className="absolute right-1 top-1 z-10 rounded-full bg-white p-0.5"
-          >
-            <Icon icon="close" className="w-4" />
-          </button>
-          <Image src={src} fill alt="" />
-        </div>
-      ) : (
-        <div className="flex h-full w-full items-center px-5">
+      <div className="flex h-full w-full justify-center items-center px-5">
+        {state.isUploading ? (
+          <Spinner size={30} color="#006EDF" />
+        ) : (
           <div className="text-center text-content-tertiary">
             <span className="mr-1.5 font-medium text-blue">
               Click to upload
             </span>
             or drag and drop
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

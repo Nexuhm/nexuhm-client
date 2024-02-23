@@ -1,6 +1,6 @@
 'use server';
 
-import { client } from '../services/server-client';
+import { client } from '../services/clients/server-client';
 import { JobSchema } from '../types/jobs';
 
 export async function generateJob(title: string, description: string) {
