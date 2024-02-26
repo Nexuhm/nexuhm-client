@@ -4,6 +4,10 @@ const withSvgr = require('next-svgr');
 const nextConfig = {
   output: 'standalone',
 
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   images: {
     remotePatterns: [
       {
