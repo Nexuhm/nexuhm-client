@@ -1,0 +1,23 @@
+.headerLink {
+  @apply relative mx-4 py-6 text-sm font-medium;
+
+  &:after {
+    content: '';
+    @apply absolute bottom-[-1px] left-0 block;
+    @apply h-0.5 w-full bg-transparent transition-all;
+  }
+
+  &[data-selected='true'] {
+    @apply text-blue;
+    
+    &:after {
+      @apply bg-blue;
+    }
+  }
+
+  &:hover {
+    &:after {
+      @apply bg-blue;
+    }
+  }
+}

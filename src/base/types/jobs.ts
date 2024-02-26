@@ -33,3 +33,8 @@ export type JobSchema = z.infer<typeof jobSchema>;
 export type EmploymentType = z.infer<typeof employmentTypeSchema>;
 
 export type JobState = 'draft' | 'published' | 'filled';
+
+export interface JobPosting extends JobSchema {
+  id: string;
+  slug: string;
+}

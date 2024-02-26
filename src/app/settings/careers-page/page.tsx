@@ -3,11 +3,11 @@ import CareersPageForm from './careers-page-form';
 
 async function getData() {
   const user = await client.get('/account/details');
-  const careersPage = await client.get(`/admin/company/${user.company}/careers-page`);
-  return careersPage;
+  return client.get(`/admin/company/${user.company}/careers-page`);
 }
 
 export default async function CareersPageSettings() {
-  const data = await getData();
-  return <CareersPageForm data={data} />;
+  const company = await getData();
+
+  return <CareersPageForm company={company} />;
 }

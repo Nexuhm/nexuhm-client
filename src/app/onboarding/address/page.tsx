@@ -7,9 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { client } from '@/base/services/clients/browser-client';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { AddressFormSchema, AddressFormValues } from '@/base/schemas/company';
+import { useCompanyContext } from '@/base/contexts/company-context/company-context';
 
 export default function OnboardingAddressPage() {
   const router = useRouter();
+  const { company } = useCompanyContext();
 
   const {
     handleSubmit,
@@ -17,6 +19,9 @@ export default function OnboardingAddressPage() {
     formState: { isSubmitting, errors },
   } = useForm<AddressFormValues>({
     resolver: zodResolver(AddressFormSchema),
+    defaultValues: {
+      address: company?.address,
+    },
   });
 
   const submitHandler = async (values: AddressFormValues) => {

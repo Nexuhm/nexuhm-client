@@ -26,7 +26,7 @@
     @apply border border-blue bg-blue text-white;
 
     &:disabled {
-      @apply border-opacity-70 bg-opacity-70;
+      @apply border-opacity-0 bg-opacity-70;
     }
 
     &:not(:disabled):hover {

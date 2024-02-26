@@ -1,18 +1,33 @@
+'use client';
+
 import Logo from '@/assets/logo.svg';
+import { CompanyContext } from '@/base/contexts/company-context';
+import { client } from '@/base/services/clients/browser-client';
 import { PropsWithChildren } from 'react';
+import useSWR from 'swr';
 
 export default function OnboardingLayout({ children }: PropsWithChildren) {
-  return (
-    <div>
-      <header className="border-b border-light-gray">
-        <div className="px-8 py-4">
-          <Logo className="h-8 w-[145px]" />
-        </div>
-      </header>
+  const { data: company, isLoading } = useSWR('/admin/company', (url) =>
+    client.get(url),
+  );
 
-      <main className="py-12">
-        <div className="container mx-auto max-w-lg">{children}</div>
-      </main>
-    </div>
+  if (isLoading) {
+    return null;
+  }
+
+  return (
+    <CompanyContext.Provider value={{ company }}>
+      <div>
+        <header className="border-b border-light-gray">
+          <div className="px-8 py-4">
+            <Logo className="h-8 w-[145px]" />
+          </div>
+        </header>
+
+        <main className="py-12">
+          <div className="container mx-auto max-w-lg">{children}</div>
+        </main>
+      </div>
+    </CompanyContext.Provider>
   );
 }

@@ -10,10 +10,12 @@ import { client } from '@/base/services/clients/browser-client';
 import { useRouter } from 'next/navigation';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { CompanyFormSchema, CompanyFormValues } from '@/base/schemas/company';
+import { useCompanyContext } from '@/base/contexts/company-context/company-context';
 
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const { company } = useCompanyContext();
 
   const {
     handleSubmit,
@@ -22,6 +24,12 @@ export default function OnboardingPage() {
     formState: { isSubmitting, errors },
   } = useForm<CompanyFormValues>({
     resolver: zodResolver(CompanyFormSchema),
+    defaultValues: {
+      name: company?.name,
+      website: company?.website,
+      companySize: company?.companySize,
+      industry: company?.industry,
+    }
   });
 
   const submitHandler = async (values: CompanyFormValues) => {

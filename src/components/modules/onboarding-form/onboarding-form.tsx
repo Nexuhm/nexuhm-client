@@ -9,7 +9,8 @@ interface OnboardingFormProps extends PropsWithChildren {
   backUrl?: string;
   title: string;
   description: string;
-  isSubmitting: boolean;
+  isSubmitting?: boolean;
+  disabled?:boolean
 }
 
 export function OnboardingForm({
@@ -18,6 +19,7 @@ export function OnboardingForm({
   description,
   skipUrl,
   backUrl,
+  disabled,
   isSubmitting,
   children,
 }: OnboardingFormProps) {
@@ -50,7 +52,7 @@ export function OnboardingForm({
             type="submit"
             size="lg"
             className="w-72"
-            disabled={isSubmitting}
+            disabled={isSubmitting || disabled}
           >
             Continue
             {isSubmitting && (

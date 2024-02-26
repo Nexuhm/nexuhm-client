@@ -12,6 +12,7 @@ import {
 } from 'react-hook-form';
 import { z } from 'zod';
 import { CompanyService } from '@/base/services/company';
+import { CompanyDetails } from '@/base/types/company';
 
 const careersPageForm = z.object({
   title: z.string(),
@@ -31,39 +32,46 @@ const careersPageForm = z.object({
   ),
 });
 
-type CompanyPageFormValues = z.infer<typeof careersPageForm>;
+type CareersPageProps = z.infer<typeof careersPageForm>;
 
-export default function CareersPageForm({ data }: { data: any }) {
+interface CareersPageFormProps {
+  company: CompanyDetails & { careersPage: CareersPageProps };
+}
+
+export default function CareersPageForm({
+  company: _company,
+}: CareersPageFormProps) {
+  const { careersPage, ...company } = _company;
+
   const {
     register,
     control,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<CompanyPageFormValues>({
+  } = useForm<CareersPageProps>({
     defaultValues: async () => {
       return {
-        ...data,
-        companyValues: Array.from({ length: 5 }).map((_, index) => ({
-          value: data.companyValues[index]?.value,
+        ...careersPage,
+        companyValues: Array.from({ length: 6 }).map((_, index) => ({
+          value: careersPage!.companyValues[index]?.value,
         })),
-        companyBenefits: Array.from({ length: 5 }).map((_, index) => ({
-          value: data.companyBenefits[index]?.value,
+        companyBenefits: Array.from({ length: 6 }).map((_, index) => ({
+          value: careersPage!.companyBenefits[index]?.value,
         })),
       };
     },
   });
 
   const handleHeroImageUpload = async (heroImages: string[]) => {
-    await CompanyService.updateCareersPage(data?.company!, { heroImages });
+    await CompanyService.updateCareersPage(company.id, { heroImages });
   };
 
   const handleMediaUpload = async (mediaGallery: string[]) => {
-    await CompanyService.updateCareersPage(data?.company!, { mediaGallery });
+    await CompanyService.updateCareersPage(company.id, { mediaGallery });
   };
 
-  const submitHandler = async (val: CompanyPageFormValues) => {
-    console.log(val)
-    await CompanyService.updateCareersPage(data?.company!, val);
+  const submitHandler = async (val: CareersPageProps) => {
+    await CompanyService.updateCareersPage(company.id, val);
   };
 
   return (
@@ -79,7 +87,13 @@ export default function CareersPageForm({ data }: { data: any }) {
           <div className="font-inter text-2xl font-medium">Tell your story</div>
 
           <div className="ml-auto flex gap-4">
-            <Button variant="secondary">Preview</Button>
+            <Button
+              href={`/${company.slug}/careers`}
+              target="_blank"
+              variant="secondary"
+            >
+              Preview
+            </Button>
             <Button
               type="submit"
               loading={isSubmitting}
@@ -97,7 +111,7 @@ export default function CareersPageForm({ data }: { data: any }) {
           <ImageUploader
             count={3}
             folder="careers-page"
-            images={data.heroImages}
+            images={careersPage!.heroImages}
             onUpload={handleHeroImageUpload}
           />
         </PageSection>
@@ -131,7 +145,7 @@ export default function CareersPageForm({ data }: { data: any }) {
           <ImageUploader
             count={6}
             folder="careers-page"
-            images={data.mediaGallery}
+            images={careersPage!.mediaGallery}
             onUpload={handleMediaUpload}
           />
         </PageSection>
@@ -159,13 +173,13 @@ function CompanyValues({
   control,
 }: {
   register: UseFormRegister<any>;
-  control: Control<CompanyPageFormValues>;
+  control: Control<CareersPageProps>;
 }) {
   const { fields } = useFieldArray({
     name: 'companyValues',
     control,
     rules: {
-      maxLength: 5,
+      maxLength: 6,
     },
   });
 
@@ -195,13 +209,13 @@ function CompanyBenefits({
   control,
 }: {
   register: UseFormRegister<any>;
-  control: Control<CompanyPageFormValues>;
+  control: Control<CareersPageProps>;
 }) {
   const { fields } = useFieldArray({
     name: 'companyBenefits',
     control,
     rules: {
-      maxLength: 5,
+      maxLength: 6,
     },
   });
 

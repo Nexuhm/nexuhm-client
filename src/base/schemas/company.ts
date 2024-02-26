@@ -1,5 +1,25 @@
 import { z } from 'zod';
 
+const careersPageForm = z.object({
+  title: z.string(),
+  heroImages: z.array(z.string()),
+  mediaGallery: z.array(z.string()),
+  workplaceCulture: z.string(),
+  companyMission: z.string(),
+  companyBenefits: z.array(
+    z.object({
+      value: z.string(),
+    }),
+  ),
+  companyValues: z.array(
+    z.object({
+      value: z.string(),
+    }),
+  ),
+});
+
+export type CareersPageProps = z.infer<typeof careersPageForm>;
+
 export const CompanyFormSchema = z.object({
   name: z.string(),
   companySize: z.string(),

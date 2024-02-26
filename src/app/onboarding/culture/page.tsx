@@ -7,9 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { client } from '@/base/services/clients/browser-client';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { CultureFormSchema, CultureFormValues } from '@/base/schemas/company';
+import { useCompanyContext } from '@/base/contexts/company-context/company-context';
 
 export default function OnboardingCulturePage() {
   const router = useRouter();
+  const { company } = useCompanyContext();
 
   const {
     handleSubmit,
@@ -17,6 +19,9 @@ export default function OnboardingCulturePage() {
     formState: { isSubmitting },
   } = useForm<CultureFormValues>({
     resolver: zodResolver(CultureFormSchema),
+    defaultValues: {
+      cultureDescription: company?.cultureDescription,
+    },
   });
 
   const submitHandler = async (values: CultureFormValues) => {
@@ -26,7 +31,7 @@ export default function OnboardingCulturePage() {
 
     try {
       await client.post('/company/onboarding/details', values);
-      router.push('/admin/jobs');
+      router.push('/onboarding/logo');
     } catch (err) {
       console.log(err);
     }
@@ -35,7 +40,7 @@ export default function OnboardingCulturePage() {
   return (
     <OnboardingForm
       backUrl="/onboarding/about"
-      skipUrl="/admin/jobs"
+      skipUrl="/onboarding/logo"
       title="Describe your culture"
       description="Help us understand your business culture so we can help find you the best candidates. This will improve how we score applicants accuracy."
       onSubmit={handleSubmit(submitHandler)}

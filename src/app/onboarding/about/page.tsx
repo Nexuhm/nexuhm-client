@@ -7,9 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { client } from '@/base/services/clients/browser-client';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { AboutFormSchema, AboutFormValues } from '@/base/schemas/company';
+import { useCompanyContext } from '@/base/contexts/company-context/company-context';
 
 export default function OnboardingAboutPage() {
   const router = useRouter();
+  const { company } = useCompanyContext();
 
   const {
     handleSubmit,
@@ -17,6 +19,9 @@ export default function OnboardingAboutPage() {
     formState: { isSubmitting },
   } = useForm<AboutFormValues>({
     resolver: zodResolver(AboutFormSchema),
+    defaultValues: {
+      description: company?.description,
+    },
   });
 
   const submitHandler = async (values: AboutFormValues) => {
