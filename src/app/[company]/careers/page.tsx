@@ -37,7 +37,7 @@ export default async function CareersPage({
 
   return (
     <div className="container mx-auto max-w-7xl pb-20 font-poppins">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div className="relative h-[50px] w-[150px]">
           <Image
             className="object-contain"
@@ -178,11 +178,7 @@ interface JobPostingCardProps {
   url: string;
 }
 
-export function JobPostingCard({
-  title,
-  description,
-  url,
-}: JobPostingCardProps) {
+function JobPostingCard({ title, description, url }: JobPostingCardProps) {
   return (
     <div className="flex flex-col gap-4 border-b p-6">
       <div className="text-2xl font-bold">{title}</div>
