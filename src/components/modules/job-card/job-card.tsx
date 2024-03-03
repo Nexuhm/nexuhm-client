@@ -2,6 +2,7 @@ import { EmploymentType } from '@/base/types/jobs';
 import styles from './job-card.module.scss';
 import Link from 'next/link';
 import { JobStatusChip } from '@/components/elements/job-status-chip/job-status-chip';
+import { formatEmploymentTypeLabel } from '@/base/utils';
 
 type JobState = 'draft' | 'published' | 'filled';
 
@@ -13,21 +14,6 @@ export interface JobCardProps {
   totalCandidates?: number;
   newCandidates?: number;
   state: JobState;
-}
-
-function formatEmploymentTypeLabel(type: EmploymentType): string {
-  const labelMap = {
-    'full-time-employment': 'Full Time',
-    'part-time-employment': 'Part Time',
-    freelance: 'Freelance',
-    contractual: 'Contractual',
-    'temporary-employment': 'Temporary',
-    internship: 'Internship',
-    'volunteer-work': 'Volunteer',
-    'seasonal-work': 'Seasonal',
-  };
-
-  return labelMap[type];
 }
 
 export function JobCard({

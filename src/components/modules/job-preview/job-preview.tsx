@@ -3,6 +3,7 @@ import { JobPostingTemplate } from '../job-posting';
 import { JobSchema } from '@/base/types/jobs';
 import { Icon } from '@/components/elements/icon';
 import { Spinner } from '@/components/elements/spinner';
+import { useCompanyContext } from '@/base/contexts/company-context/company-context';
 
 export function JobPreview({
   data,
@@ -13,9 +14,10 @@ export function JobPreview({
   data: JobSchema;
   onSave: () => void;
 }) {
+  const { company } = useCompanyContext();
   return (
     <div className="max-w-6xl p-10 card-container">
-      <JobPostingTemplate {...data} />
+      <JobPostingTemplate job={data} company={company!} />
 
       <div>
         <div className="flex justify-end gap-2">

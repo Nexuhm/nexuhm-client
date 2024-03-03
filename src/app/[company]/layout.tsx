@@ -1,34 +1,31 @@
-import Logo from '@/assets/logo.svg';
-import styles from './company-layout.module.scss';
-import { PropsWithChildren } from 'react';
+import { ReactNode } from 'react';
+import { Header } from './header';
+import { client } from '@/base/services/clients/server-client';
+import { Footer } from './footer';
 
-export default function CompanyLayout({ children }: PropsWithChildren) {
+async function getData(slug: string) {
+  const company = await client.get(`/company/${slug}`);
+  return company;
+}
+
+export default async function CompanyLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: {
+    company: string;
+  };
+}) {
+  const company = await getData(params.company);
+
   return (
-    <div>
-      <header className="border-b border-light-gray">
-        <div className="flex items-center px-6">
-          <a href="/" id="logo">
-            <Logo className="w-[180px]" />
-          </a>
-          <div className="flex flex-1 justify-center md:pr-44">
-            <div className="mx-auto flex px-10">
-              <a
-                href="/acme/careers"
-                className={styles.headerLink}
-                data-selected="true"
-              >
-                Careers
-              </a>
+    <div className='min-h-screen flex flex-col'>
+      <Header logo={company.logo} />
 
-              <a href="/acme/jobs" className={styles.headerLink}>
-                Job Openings
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
+      <main className="py-10 font-poppins">{children}</main>
 
-      <main className="py-10">{children}</main>
+      <Footer />
     </div>
   );
 }

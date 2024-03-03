@@ -1,76 +1,62 @@
-'use client';
-
-import { JobSchema } from '@/base/types/jobs';
-import { Button } from '@/components/elements/button';
+import { JobPosting } from '@/base/types/jobs';
 import { marked } from 'marked';
+import { CompanyDetails } from '@/base/types/company';
+import { Button } from '@/components/elements/button';
 import styles from './job-posting.module.scss';
+import { Sidebar } from './sidebar';
 
-export function JobPostingTemplate({
-  title,
-  description,
-  salary,
-  employmentType,
-  location,
-  content,
-}: JobSchema) {
+interface JobPostingTemplateProps {
+  company: CompanyDetails;
+  job: JobPosting;
+}
+
+export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {
+  const {
+    title,
+    description,
+    salary,
+    location,
+    employmentType,
+    content,
+    publishedAt,
+  } = job;
   const html = marked(content);
 
   return (
-    <div className="font-poppins mx-auto max-w-3xl py-10">
-      <Heading
-        title={title}
-        location={location}
-        salary={salary}
-        description={description}
-      />
+    <div>
+      <div className="flex flex-col gap-6 md:gap-10 md:flex-row md:px-6 px-4">
+        <div className="flex-1">
+          <div className="mb-4 flex flex-col gap-6">
+            <h1 className="text-5xl font-semibold">{title}</h1>
+            <div className="text-lg">{description}</div>
+          </div>
 
-      <Actions />
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
 
-      <div
-        className={styles.content}
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+          <div className="hidden md:flex gap-4 flex-col justify-between py-4 md:flex-row">
+            <Button variant="primary">
+              Apply for this position
+            </Button>
+            <Button variant="secondary">
+              Learn more about us
+            </Button>
+          </div>
+        </div>
 
-      <Actions />
-    </div>
-  );
-}
-
-interface HeadingProps {
-  title: string;
-  location: string;
-  salary: JobSchema['salary'];
-  description?: string;
-}
-
-function Heading({ title, location, salary, description }: HeadingProps) {
-  const formatter = new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'GBP',
-    minimumFractionDigits: 0,
-  });
-
-  return (
-    <div className="mb-6">
-      <h1 className="text-[40px] font-bold">{title}</h1>
-      <div className="mb-6 text-[28px] font-semibold leading-[36px]">
-        <div>{location}</div>
-        <div>
-          {formatter.format(salary.min)}{' '}
-          {salary?.max ? `- ${formatter.format(salary.max)}` : ''}
+        <div className="md:max-w-[280px] flex-1">
+          <Sidebar
+            salary={salary}
+            location={location}
+            employmentType={employmentType}
+            company={company}
+            publishedAt={publishedAt}
+          />
         </div>
       </div>
-
-      <div className="text-xl font-semibold">{description}</div>
     </div>
   );
 }
 
-function Actions() {
-  return (
-    <div className="flex justify-between py-6">
-      <Button>Apply for the position</Button>
-      <Button variant="secondary">Learn more about us</Button>
-    </div>
-  );
-}

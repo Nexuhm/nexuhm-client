@@ -6,8 +6,8 @@ import { Button } from '@/components/elements/button';
 import { CareersPageProps } from '@/base/schemas/company';
 import { JobPosting } from '@/base/types/jobs';
 import { CompanyDetails } from '@/base/types/company';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { JobPostingCard } from '@/components/elements/job-posting-card';
+import { FollowCompany } from '../follow-company';
 
 interface CompanyData {
   company: CompanyDetails & { careersPage: CareersPageProps };
@@ -17,7 +17,7 @@ interface CompanyData {
 async function getData(slug: string): Promise<CompanyData> {
   const [company, jobPostings] = await Promise.all([
     client.get(`/company/${slug}`),
-    client.get(`/company/${slug}/openings`),
+    client.get(`/company/${slug}/openings?limit=4`),
   ]);
 
   return {
@@ -26,7 +26,7 @@ async function getData(slug: string): Promise<CompanyData> {
   };
 }
 
-export default async function CareersPage({
+export default async function CompanyCareersPage({
   params,
 }: {
   params: Record<string, string>;
@@ -36,33 +36,13 @@ export default async function CareersPage({
   const { company } = data;
 
   return (
-    <div className="container mx-auto max-w-7xl pb-20 font-poppins">
-      <div className="flex items-center justify-between">
-        <div className="relative h-[50px] w-[150px]">
-          <Image
-            className="object-contain"
-            src={data.company.logo}
-            priority
-            fill
-            alt=""
-          />
-        </div>
+    <div className="container mx-auto max-w-7xl pb-20">
+      <FollowCompany />
 
-        <div className="flex gap-4">
-          <Button variant="secondary" className="!text-blue">
-            Follow Company on{' '}
-            <FontAwesomeIcon className="ml-2 w-4" icon={faTwitter} />
-          </Button>
-
-          <Button variant="secondary" className="!w-[40px] !px-0 !text-blue">
-            <FontAwesomeIcon className="w-4" icon={faFacebook} />
-          </Button>
-        </div>
-      </div>
       <AnimatedSection
         threshold={0.3}
         className={clsx(
-          'mx-auto max-w-3xl pb-6 pt-20 text-center',
+          'mx-auto max-w-3xl pb-6 pt-10 text-center',
           'transition-all  duration-1000 ease-in-out',
         )}
         defaultClassName="-translate-x-40 opacity-0"
@@ -168,35 +148,6 @@ export default async function CareersPage({
           ))}
         </div>
       </AnimatedSection>
-    </div>
-  );
-}
-
-interface JobPostingCardProps {
-  title: string;
-  description: string;
-  url: string;
-}
-
-function JobPostingCard({ title, description, url }: JobPostingCardProps) {
-  return (
-    <div className="flex flex-col gap-4 border-b p-6">
-      <div className="text-2xl font-bold">{title}</div>
-
-      <div>{description}</div>
-
-      <div className="flex items-center">
-        <div className="flex gap-4">
-          <div className="rounded-full border px-3 py-1.5">Remote</div>
-          <div className="rounded-full border px-3 py-1.5">Full time</div>
-        </div>
-
-        <div className="ml-auto">
-          <Button href={url} className="!rounded-full">
-            View Jobs
-          </Button>
-        </div>
-      </div>
     </div>
   );
 }

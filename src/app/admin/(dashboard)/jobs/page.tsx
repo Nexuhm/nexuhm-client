@@ -31,7 +31,7 @@ export default function Page() {
   const [jobs, setJobs] = useState<JobCardProps[]>([]);
   const fetchJobs = async () => {
     try {
-      const data = await client.get('/jobs');
+      const data = await client.get('/admin/jobs');
       setJobs(data);
     } catch (err) {
       console.error(err);

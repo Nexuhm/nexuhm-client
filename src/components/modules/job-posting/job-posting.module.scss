@@ -3,7 +3,7 @@
 
   h2,
   h3 {
-    @apply mb-3 text-2xl font-bold;
+    @apply mb-4 text-xl font-semibold;
   }
 
   p,
@@ -13,12 +13,12 @@
   }
 
   p {
-    @apply text-xl;
+    @apply md:text-lg;
   }
 
   ul,
   ol {
-    @apply pl-6 text-xl;
+    @apply pl-6 md:text-lg;
 
     li {
       @apply mb-2;
