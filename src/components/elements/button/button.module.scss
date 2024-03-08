@@ -41,6 +41,10 @@
       @apply opacity-75;
     }
   }
+
+  &[data-variant='link'] {
+    @apply text-content-primary;
+  }
 }
 
 .iconButton {

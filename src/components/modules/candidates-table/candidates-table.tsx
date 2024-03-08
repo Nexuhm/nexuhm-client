@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
   createColumnHelper,
@@ -6,14 +8,9 @@ import {
   getSortedRowModel,
   Header,
   flexRender,
-  Row,
 } from '@tanstack/react-table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCaretDown,
-  faCaretUp,
-  faStar,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 
 import styles from './candidates-table.module.scss';
@@ -32,8 +29,9 @@ type ApplicationStatus =
   | 'rejected';
 
 export interface JobCandidate {
+  id?: string;
   name: string;
-  rating: 1 | 2 | 3 | 4 | 5;
+  score: 1 | 2 | 3 | 4 | 5;
   stage: ApplicationStatus;
   jobApplied: string;
   appliedDate: Date;
@@ -47,7 +45,7 @@ const columns = [
     header: 'Name',
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor('rating', {
+  columnHelper.accessor('score', {
     header: 'Rating',
     cell: (info) => <Rating rate={info.getValue()} />,
   }),
@@ -98,6 +96,8 @@ export function CandidatesTable({ data }: CandidatesTableProps) {
       sorting: [],
     },
   });
+
+  console.log(data);
 
   const renderHeaderCell = (header: Header<JobCandidate, unknown>) => {
     const isSortable = header.column.getCanSort();
@@ -152,7 +152,7 @@ export function CandidatesTable({ data }: CandidatesTableProps) {
           {table.getRowModel().rows.map((row) => (
             <tr
               key={row.id}
-              onClick={() => router.push(`/admin/candidates/${row.id}`)}
+              onClick={() => router.push(`/admin/candidates/${row.original.id}`)}
               className="cursor-pointer"
             >
               {row.getVisibleCells().map((cell) => {

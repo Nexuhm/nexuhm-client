@@ -1,3 +1,5 @@
+'use client'
+
 import React, { forwardRef, useId } from 'react';
 import { Icon } from '../icon';
 import { InputWrapper } from './input-wrapper';

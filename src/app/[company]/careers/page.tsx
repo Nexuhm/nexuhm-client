@@ -56,7 +56,10 @@ export default async function CompanyCareersPage({
 
         <div className="flex justify-center gap-4">
           <Button>Contact</Button>
-          <Button className="!bg-content-primary hover:!bg-opacity-70">
+          <Button
+            href={`/${company.name}/jobs`}
+            className="!border-content-primary !bg-content-primary hover:!bg-opacity-70"
+          >
             Job Openings
           </Button>
         </div>

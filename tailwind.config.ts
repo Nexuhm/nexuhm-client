@@ -44,6 +44,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require('@headlessui/tailwindcss')({ prefix: 'ui' }),
     plugin(function ({ addUtilities }) {
       const newUtilities = {
@@ -51,6 +52,39 @@ const config: Config = {
           borderRadius: '16px',
           backgroundColor: '#fff',
           boxShadow: '0px 4px 8px -2px rgba(0, 0, 0, 0.05)',
+        },
+        '.scrollbar-light-blue': {
+          '&::-webkit-scrollbar': {
+            width: '6px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: '#E7E7FD',
+            borderRadius: '4px',
+            transition: 'all 0.3s ease',
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            background: '#E7E7FD',
+          },
+        },
+
+        '.scrollbar-blue': {
+          '&::-webkit-scrollbar': {
+            width: '6px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: '#006EDF',
+            borderRadius: '4px',
+            transition: 'all 0.3s ease',
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            background: '#006EDF',
+          },
         },
       };
 

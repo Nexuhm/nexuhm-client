@@ -6,6 +6,7 @@ html,
 body {
   /* prevents "jumpy" behaviour (layout shift) caused by appearing scrollbar */
   scrollbar-gutter: stable;
+  @apply scrollbar-blue;
 }
 
 body {

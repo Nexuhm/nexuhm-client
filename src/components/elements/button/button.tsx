@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { ElementType, ReactNode, forwardRef } from 'react';
 import styles from './button.module.scss';
@@ -9,7 +9,7 @@ import { Spinner } from '../spinner';
 interface ButtonBaseProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'as' | 'size'> {
   className?: string;
-  variant?: 'primary' | 'secondary' | 'tertiary';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
   size?: 'xs' | 'base' | 'lg';
   type?: 'button' | 'submit' | 'reset' | undefined;
 }

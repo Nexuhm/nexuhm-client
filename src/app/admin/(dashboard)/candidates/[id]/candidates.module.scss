@@ -1,0 +1,14 @@
+.details {
+  @apply flex items-center gap-2 text-sm text-content-tertiary;
+
+  span,
+  a {
+    &:after {
+      content: '•';
+    }
+    
+    &:last-child:after {
+      content: '';
+    }
+  }
+}

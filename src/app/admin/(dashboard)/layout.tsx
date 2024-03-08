@@ -27,7 +27,7 @@ export default function DashboardLayout({
 
       <div className="flex flex-1 flex-col">
         <DashboardHeader />
-        <main className="flex-1 bg-surface-primary p-8 pb-32">{children}</main>
+        <main className="flex-1 bg-surface-secondary p-8 pb-32">{children}</main>
       </div>
     </div>
   );
