@@ -4,10 +4,21 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
+  - main
+  - develop
+
+pr:
+  branches:
+    include:
+      - feat/*
+    exclude:
+      - feat/experimental/*
+  paths:
+    exclude:
+      - README.md
 
 resources:
-- repo: self
+  - repo: self
 
 variables:
   # Container registry service connection established during pipeline creation
@@ -17,6 +28,7 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   gitBranch: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
+  appPrefix: $[replace($(gitBranch), '/', '-']
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -30,42 +42,42 @@ variables:
   aciName: 'nexuhm-client-staging'
 
 stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: |
+                $(tag)
 
-- stage: Deploy
-  displayName: Deploy to container apps
-  jobs:
-    - job: Build
-      pool:
-        vmImage: $(vmImageName)
-      steps:
-      - task: AzureContainerApps@1
-        inputs:
-          azureSubscription: 'nexuhm-devops-service-connection'
-          acrName: 'nexuhmreg'
-          acrUsername: 'nexuhmreg'
-          acrPassword: $(acrPassword)
-          dockerfilePath: './Dockerfile'
-          imageToBuild: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
-          imageToDeploy: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
-          containerAppName: 'nexuhm-client-app-$(gitBranch)'
-          resourceGroup: 'nexuhm-staging-group'
-          containerAppEnvironment: 'staging'
-          targetPort: '4000'
-          disableTelemetry: true
+  - stage: Deploy
+    displayName: Deploy to container apps
+    jobs:
+      - job: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: AzureContainerApps@1
+            inputs:
+              azureSubscription: 'nexuhm-devops-service-connection'
+              acrName: 'nexuhmreg'
+              acrUsername: 'nexuhmreg'
+              acrPassword: $(acrPassword)
+              dockerfilePath: './Dockerfile'
+              imageToBuild: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
+              imageToDeploy: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
+              containerAppName: 'nexuhm-client-app-$(appPrefix)'
+              resourceGroup: 'nexuhm-staging-group'
+              containerAppEnvironment: 'staging'
+              targetPort: '4000'
+              disableTelemetry: true
