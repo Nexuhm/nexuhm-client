@@ -48,31 +48,22 @@ stages:
           $(tag)
 
 - stage: Deploy
-  displayName: Deploy to Azure Container Instance
+  displayName: Deploy to container apps
   jobs:
-  - deployment: DeployACI
-    displayName: Deploy ACI
-    environment: 'production'
-    pool:
-      vmImage: $(vmImageName)
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureCLI@2
-            displayName: Create or Update Azure Container Instance
-            inputs:
-              azureSubscription: $(azureServiceConnection)
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                az container create \
-                  --resource-group $(aciResourceGroup) \
-                  --name $(aciName) \
-                  --image $(containerRegistry)/$(imageRepository):$(tag) \
-                  --dns-name-label $(aciName) \
-                  --registry-login-server nexuhmreg.azurecr.io \
-                  --registry-username nexuhmreg
-                  --ports 4000 \
-                  --location $(aciLocation)
-              addSpnToEnvironment: true
+    - job: Build
+      pool:
+        vmImage: $(vmImageName)
+      steps:
+      - task: AzureContainerApps@1
+        inputs:
+          azureSubscription: 'nexuhm-devops-service-connection'
+          acrName: 'nexuhmreg'
+          acrUsername: 'nexuhmreg'
+          dockerfilePath: './Dockerfile'
+          imageToBuild: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
+          imageToDeploy: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
+          containerAppName: 'nexuhm-client-app-$(tag)'
+          resourceGroup: 'nexuhm-staging-group'
+          containerAppEnvironment: 'staging'
+          targetPort: '4000'
+          disableTelemetry: true
