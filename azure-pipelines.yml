@@ -58,7 +58,6 @@ stages:
         inputs:
           azureSubscription: 'nexuhm-devops-service-connection'
           acrName: 'nexuhmreg'
-          acrUsername: 'nexuhmreg'
           dockerfilePath: './Dockerfile'
           imageToBuild: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
           imageToDeploy: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
