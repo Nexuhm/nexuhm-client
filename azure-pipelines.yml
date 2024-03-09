@@ -1,0 +1,78 @@
+# Docker
+
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '1cae4b5f-0501-4aae-8f39-7fd99cab0789'
+  imageRepository: 'nexuhm-client'
+  containerRegistry: 'nexuhmreg.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Azure service connection name
+  azureServiceConnection: 'nexuhm-devops-service-connection'
+
+  # Container Instance details
+  aciResourceGroup: 'nexuhm-staging-group'
+  aciLocation: 'eastus'
+  aciName: 'nexuhm-client-staging'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Deploy
+  displayName: Deploy to Azure Container Instance
+  jobs:
+  - deployment: DeployACI
+    displayName: Deploy ACI
+    environment: 'production'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureCLI@2
+            displayName: Create or Update Azure Container Instance
+            inputs:
+              azureSubscription: $(azureServiceConnection)
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az container create \
+                  --resource-group $(aciResourceGroup) \
+                  --name $(aciName) \
+                  --image $(containerRegistry)/$(imageRepository):$(tag) \
+                  --dns-name-label $(aciName) \
+                  --registry-login-server nexuhmreg.azurecr.io \
+                  --registry-username nexuhmreg
+                  --ports 4000 \
+                  --location $(aciLocation)
+              addSpnToEnvironment: true
