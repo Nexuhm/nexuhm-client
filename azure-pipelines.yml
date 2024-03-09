@@ -28,7 +28,7 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   gitBranch: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-  appPrefix: $[replace($(gitBranch), '/', '-']
+  appPrefix: $[replace(variables['gitBranch'], '/', '-']
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
