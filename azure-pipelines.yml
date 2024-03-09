@@ -16,6 +16,7 @@ variables:
   containerRegistry: 'nexuhmreg.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
+  gitBranch: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -63,7 +64,7 @@ stages:
           dockerfilePath: './Dockerfile'
           imageToBuild: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
           imageToDeploy: 'nexuhmreg.azurecr.io/nexuhm-client:$(tag)'
-          containerAppName: 'nexuhm-client-app-$(tag)'
+          containerAppName: 'nexuhm-client-app-$(gitBranch)'
           resourceGroup: 'nexuhm-staging-group'
           containerAppEnvironment: 'staging'
           targetPort: '4000'
