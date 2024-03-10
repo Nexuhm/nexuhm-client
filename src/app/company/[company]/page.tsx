@@ -7,7 +7,7 @@ import { CareersPageProps } from '@/base/schemas/company';
 import { JobPosting } from '@/base/types/jobs';
 import { CompanyDetails } from '@/base/types/company';
 import { JobPostingCard } from '@/components/elements/job-posting-card';
-import { FollowCompany } from '../follow-company';
+import { FollowCompany } from './follow-company';
 
 interface CompanyData {
   company: CompanyDetails & { careersPage: CareersPageProps };
@@ -57,7 +57,7 @@ export default async function CompanyCareersPage({
         <div className="flex justify-center gap-4">
           <Button>Contact</Button>
           <Button
-            href={`/${company.name}/jobs`}
+            href={'/jobs'}
             className="!border-content-primary !bg-content-primary hover:!bg-opacity-70"
           >
             Job Openings
@@ -144,9 +144,10 @@ export default async function CompanyCareersPage({
         <div className="flex flex-col gap-6">
           {data.jobPostings.map((item) => (
             <JobPostingCard
+              key={item.slug}
               title={item.title}
               description={item.description}
-              url={`/${params.company}/jobs/${item.slug}`}
+              url={`/jobs/${item.slug}`}
             />
           ))}
         </div>

@@ -30,7 +30,7 @@ export default async function JobDetailsPage({
           <div className="ml-auto flex gap-4">
             <Button
               target="_blank"
-              href={`/${jobDetails.company.slug}/jobs/${jobDetails.slug}`}
+              href={`/jobs/${jobDetails.slug}`}
               variant="secondary"
             >
               View Job Post

@@ -23,7 +23,7 @@ export function JobPostingCard({
       >
         <div className="text-2xl font-bold">{title}</div>
 
-        <div>{description}</div>
+        <div className='max-w-6xl'>{description}</div>
 
         <div className="flex items-center">
           <div className="flex gap-4">

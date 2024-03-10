@@ -1,22 +1,23 @@
 'use client';
 
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import styles from './company-layout.module.scss';
 import Image from 'next/image';
 
 export function Header({ logo }: { logo: string }) {
   const pathname = usePathname();
-  const params = useParams();
   const links = [
     {
       text: 'Careers',
-      href: `/${params.company}/careers`,
+      href: '/',
     },
     {
       text: 'Job Openings',
-      href: `/${params.company}/jobs`,
+      href: '/jobs',
     },
   ];
+
+  const activeIndex = links.findLastIndex((i) => pathname.startsWith(i.href));
 
   return (
     <header className="border-b border-light-gray">
@@ -32,7 +33,7 @@ export function Header({ logo }: { logo: string }) {
                 key={index}
                 href={href}
                 className={styles.headerLink}
-                data-selected={pathname.startsWith(href)}
+                data-selected={index === activeIndex}
               >
                 {text}
               </a>

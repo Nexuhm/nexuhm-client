@@ -63,7 +63,7 @@ export default async function CompanyJobListingPage({
               key={index}
               title={item.title}
               description={item.description}
-              url={`/${params.company}/jobs/${item.slug}`}
+              url={`/jobs/${item.slug}`}
             />
           ))}
         </div>
