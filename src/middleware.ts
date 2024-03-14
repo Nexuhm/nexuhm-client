@@ -21,7 +21,10 @@ function checkRewriteRule(pathname: string) {
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host') as string;
-  const subdomain = host.split('.').at(0);
+  const subdomain = host
+    .replace(process.env.NEXT_PUBLIC_DOMAIN as string, '')
+    .split('.')
+    .at(0);
 
   //  bypass empty or www subdomain
   if (subdomain === 'www' || !subdomain) {
