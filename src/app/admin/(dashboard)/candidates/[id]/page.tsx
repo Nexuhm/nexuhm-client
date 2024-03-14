@@ -1,17 +1,14 @@
 import { client } from '@/base/services/clients/server-client';
-import { Button } from '@/components/elements/button';
-import { Rating } from '@/components/elements/rating/rating';
-import { CandidateStatus } from '@/components/modules/candidate-status';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Candidate } from '@/base/types/candidates';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CandidateHeadline } from './candidate-headline';
 import { StageActions } from './stage-actions';
 import { ScoreSummary } from './score-summary';
 import { CandidateNotes } from './candidate-notes';
 import { CandidatesExperience } from './candidate-experience';
+import Link from 'next/link';
 
 async function getData(id: string): Promise<Candidate | null> {
   try {
@@ -30,8 +27,6 @@ export default async function CandidateDetailsPage({
 }) {
   const data = await getData(params.id);
 
-  console.log(data);
-
   if (!data) {
     notFound();
   }
@@ -49,14 +44,16 @@ export default async function CandidateDetailsPage({
       </div>
 
       <CandidateHeadline
+        candidateId={data.id}
         firstname={data.firstname}
         lastname={data.lastname}
         email={data.email}
         phone={data.phone}
         profession={data.profession}
+        stage={data.stage}
       />
 
-      <StageActions />
+      <StageActions stage={data.stage} candidateId={data.id} />
 
       <ScoreSummary
         score={5}

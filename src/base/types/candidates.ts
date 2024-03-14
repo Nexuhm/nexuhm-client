@@ -1,4 +1,4 @@
-export type ApplicationStatus =
+export type RecruitmentStage =
   | 'applied'
   | 'interview'
   | 'offer'
@@ -7,6 +7,7 @@ export type ApplicationStatus =
   | 'rejected';
 
 export interface Candidate {
+  id: string;
   firstname: string;
   lastname: string;
   email: string;
@@ -17,4 +18,5 @@ export interface Candidate {
   skillScore: number;
   cultureScore: number;
   job: string;
+  stage?: RecruitmentStage;
 }

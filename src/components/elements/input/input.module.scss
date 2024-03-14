@@ -20,14 +20,14 @@
 
 .errorState {
   .inputContainer {
-    @apply border-red-500;
+    @apply border-red;
   }
 
   label {
-    @apply text-red-500;
+    @apply text-red;
   }
 
   .errorMessage {
-    @apply text-red-500 opacity-100;
+    @apply text-red opacity-100;
   }
 }

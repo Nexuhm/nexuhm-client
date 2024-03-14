@@ -15,6 +15,16 @@ const nextConfig = {
       },
     ],
   },
+
+  async redirects() {
+    return [
+      {
+        source: '/admin',
+        destination: '/admin/jobs',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = withSvgr(nextConfig);

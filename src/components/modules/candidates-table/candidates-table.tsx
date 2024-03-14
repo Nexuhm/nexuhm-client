@@ -20,7 +20,7 @@ import { useRouter } from 'next/navigation';
 import { CandidateStatusChip } from '@/components/elements/candidate-status-chip/candidate-status-chip';
 import { Rating } from '@/components/elements/rating/rating';
 
-type ApplicationStatus =
+type RecruitmentStage =
   | 'applied'
   | 'interview'
   | 'offer'
@@ -32,7 +32,7 @@ export interface JobCandidate {
   id?: string;
   name: string;
   score: 1 | 2 | 3 | 4 | 5;
-  stage: ApplicationStatus;
+  stage: RecruitmentStage;
   jobApplied: string;
   appliedDate: Date;
   note: string;

@@ -34,6 +34,18 @@
     }
   }
 
+  &[data-variant='alert'] {
+    @apply border border-red bg-red text-white;
+
+    &:disabled {
+      @apply border-opacity-0 bg-opacity-70;
+    }
+
+    &:not(:disabled):hover {
+      @apply border-opacity-70 bg-opacity-70;
+    }
+  }
+
   &[data-variant='tertiary'] {
     @apply border border-light-blue bg-light-blue text-blue;
 
@@ -44,6 +56,7 @@
 
   &[data-variant='link'] {
     @apply text-content-primary;
+    @apply disabled:text-opacity-50;
   }
 }
 

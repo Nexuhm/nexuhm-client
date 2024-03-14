@@ -9,7 +9,7 @@ import { Spinner } from '../spinner';
 interface ButtonBaseProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'as' | 'size'> {
   className?: string;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'link' | 'alert';
   size?: 'xs' | 'base' | 'lg';
   type?: 'button' | 'submit' | 'reset' | undefined;
 }
@@ -65,22 +65,28 @@ interface IconButtonProps extends ButtonBaseProps {
   icon: IconName;
 }
 
-export function IconButton({
-  children,
-  className,
-  variant = 'primary',
-  size = 'base',
-  icon,
-  ...props
-}: IconButtonProps) {
-  return (
-    <button
-      className={clsx(className, styles.button, styles.iconButton)}
-      data-variant={variant}
-      data-size={size}
-      {...props}
-    >
-      <Icon icon={icon} className="h-5 w-5" />
-    </button>
-  );
-}
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  (
+    {
+      children,
+      className,
+      variant = 'primary',
+      size = 'base',
+      icon,
+      ...props
+    }: IconButtonProps,
+    ref,
+  ) => {
+    return (
+      <button
+        ref={ref}
+        className={clsx(className, styles.button, styles.iconButton)}
+        data-variant={variant}
+        data-size={size}
+        {...props}
+      >
+        <Icon icon={icon} className="h-5 w-5" />
+      </button>
+    );
+  },
+);

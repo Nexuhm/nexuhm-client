@@ -6,7 +6,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="flex h-screen flex-col justify-center bg-subtle-gray py-20">
+    <main className="flex min-h-screen flex-col justify-center bg-subtle-gray py-20">
       <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Logo Column */}
         <div className="flex flex-col items-center justify-center">

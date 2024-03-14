@@ -1,9 +1,9 @@
-import { ApplicationStatus } from '@/base/types/candidates';
+import { RecruitmentStage } from '@/base/types/candidates';
 import styles from './candidate-status-chip.module.scss';
 import clsx from 'clsx';
 
 interface CandidateStatusChipProps {
-  state: ApplicationStatus;
+  state: RecruitmentStage;
   className?: string;
 }
 
@@ -11,7 +11,7 @@ export function CandidateStatusChip({
   state,
   className,
 }: CandidateStatusChipProps) {
-  const labels: Record<ApplicationStatus, string> = {
+  const labels: Record<RecruitmentStage, string> = {
     applied: 'Applied',
     awaiting: 'Awaiting Feedback',
     hired: 'Hired',

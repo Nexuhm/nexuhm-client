@@ -23,6 +23,7 @@ const config: Config = {
         green: '#39AE73',
         indigo: '#8752D7',
         gold: '#DEA63A',
+        red: '#C54240',
         error: '#DE3A3A',
         'light-blue': '#E7E7FD',
         'light-gray': {
