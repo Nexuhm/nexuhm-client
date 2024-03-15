@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { JobSchema } from '@/base/types/jobs';
 import { CompanyDetails } from '@/base/types/company';
@@ -36,12 +36,14 @@ export function Sidebar({
     <div className="flex flex-col justify-between gap-4 rounded-lg border p-6 py-6 md:max-w-[280px]">
       <div className="flex flex-col gap-2">
         <div className="relative h-10 w-full">
-          <Image
-            className="object-contain"
-            src={company.logo}
-            alt={company?.name}
-            fill
-          />
+          {company.logo && (
+            <Image
+              className="object-contain"
+              src={company.logo}
+              alt={company?.name}
+              fill
+            />
+          )}
         </div>
 
         <div className="text-center text-2xl font-semibold">{company.name}</div>

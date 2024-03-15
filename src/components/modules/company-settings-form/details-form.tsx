@@ -10,7 +10,7 @@ export function CompanyDetailsForm({
   onSubmit,
   defaultValues,
 }: {
-  defaultValues: CompanyFormValues,
+  defaultValues: CompanyFormValues;
   onSubmit: (val: CompanyFormValues) => void;
 }) {
   const {

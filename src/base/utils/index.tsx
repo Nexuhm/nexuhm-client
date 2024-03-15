@@ -1,4 +1,4 @@
-import { EmploymentType } from "../types/jobs";
+import { EmploymentType } from '../types/jobs';
 
 export function formatEmploymentTypeLabel(type: EmploymentType): string {
   const labelMap = {

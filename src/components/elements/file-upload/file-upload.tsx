@@ -50,7 +50,7 @@ export function FileUpload({ accept, folder, onUpload }: FileUploadProps) {
     >
       <input {...getInputProps()} />
 
-      <div className="flex h-full w-full justify-center items-center px-5">
+      <div className="flex h-full w-full items-center justify-center px-5">
         {state.isUploading ? (
           <Spinner size={30} color="#006EDF" />
         ) : (

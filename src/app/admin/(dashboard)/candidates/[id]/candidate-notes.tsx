@@ -73,7 +73,7 @@ export function CandidateNotes() {
         </Button>
       </div>
 
-      <div className="scrollbar-light-blue flex max-h-[570px] flex-col gap-4 overflow-auto">
+      <div className="flex max-h-[570px] flex-col gap-4 overflow-auto scrollbar-light-blue">
         {state.notes.map(({ author, createdAt, note }, index) => (
           <Note key={index} author={author} createdAt={createdAt} note={note} />
         ))}

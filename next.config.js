@@ -13,6 +13,9 @@ const nextConfig = {
       {
         hostname: 'nexuhmstaging.blob.core.windows.net',
       },
+      {
+        hostname: '*.googleusercontent.com'
+      }
     ],
   },
 

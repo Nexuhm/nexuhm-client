@@ -1,10 +1,10 @@
 .stepNumber {
   @apply mb-2 inline-flex h-6 w-6 items-center justify-center p-1;
-  @apply border-light-gray-600 rounded-full border bg-white text-sm;
+  @apply rounded-full border border-light-gray-600 bg-white text-sm;
 }
 
 .stepContainer {
-  @apply font-inter flex flex-col items-center;
+  @apply flex flex-col items-center font-inter;
   @apply relative z-10;
 
   &:first-child {
@@ -18,7 +18,7 @@
 
 .stepLine {
   @apply relative top-3;
-  @apply bg-light-gray-600 block h-0.5 flex-1;
+  @apply block h-0.5 flex-1 bg-light-gray-600;
 }
 
 .activeStep {

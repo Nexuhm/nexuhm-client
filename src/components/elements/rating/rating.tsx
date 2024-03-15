@@ -11,7 +11,10 @@ export function Rating({ rate }: { rate: number }) {
         <FontAwesomeIcon
           key={index}
           icon={faStar}
-          className={clsx(index < rate ? 'text-blue' : 'text-light-gray', 'w-4')}
+          className={clsx(
+            index < rate ? 'text-blue' : 'text-light-gray',
+            'w-4',
+          )}
         />
       ))}
     </div>

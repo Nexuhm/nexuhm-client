@@ -13,8 +13,8 @@
 
   &::before {
     content: '';
-    @apply -mt-1 visible rotate-45;
-    @apply border bg-white border-r-0 border-b-0;
+    @apply visible -mt-1 rotate-45;
+    @apply border border-b-0 border-r-0 bg-white;
   }
 }
 

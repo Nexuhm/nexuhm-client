@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { forwardRef, useId } from 'react';
 import { Icon } from '../icon';
@@ -55,5 +55,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
   },
 );
 
-
-Input.displayName = "Input"
+Input.displayName = 'Input';

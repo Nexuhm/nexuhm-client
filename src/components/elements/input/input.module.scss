@@ -4,7 +4,7 @@
   @apply transition-all;
 
   &[data-variant='gray'] {
-    @apply bg-surface-secondary border-transparent text-content-tertiary;
+    @apply border-transparent bg-surface-secondary text-content-tertiary;
     @apply focus-within:border-blue;
   }
 

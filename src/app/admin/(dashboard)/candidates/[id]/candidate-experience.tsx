@@ -34,16 +34,16 @@ export function ExperienceCard() {
   `;
 
   return (
-    <div className='py-4'>
-      <div className='flex items-center justify-between mb-4'>
-        <div className='text-base font-semibold'>AirBnb</div>
-        <div className='italic text-content-tertiary text-xs'>Oct '20 - Present</div>
+    <div className="py-4">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="text-base font-semibold">AirBnb</div>
+        <div className="text-xs italic text-content-tertiary">
+          Oct '20 - Present
+        </div>
       </div>
 
-      <div className='prose text-sm prose-li:marker:text-content-primary'>
-        <Markdown>
-          {text}
-        </Markdown>
+      <div className="prose text-sm prose-li:marker:text-content-primary">
+        <Markdown>{text}</Markdown>
       </div>
     </div>
   );
