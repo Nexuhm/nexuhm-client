@@ -25,12 +25,20 @@ export function ListPlugin() {
   };
 
   return (
-    <div className='flex gap-2'>
-      <Button onClick={() => onChange('ul')} className='!px-2 !py-0.5' variant="secondary">
+    <div className="flex gap-2">
+      <Button
+        onClick={() => onChange('ul')}
+        className="!px-2 !py-0.5"
+        variant="secondary"
+      >
         <FontAwesomeIcon icon={faListUl} />
       </Button>
 
-      <Button onClick={() => onChange('ol')} className='!px-2 !py-0.5' variant="secondary">
+      <Button
+        onClick={() => onChange('ol')}
+        className="!px-2 !py-0.5"
+        variant="secondary"
+      >
         <FontAwesomeIcon icon={faListOl} />
       </Button>
     </div>

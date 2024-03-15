@@ -152,7 +152,9 @@ export function CandidatesTable({ data }: CandidatesTableProps) {
           {table.getRowModel().rows.map((row) => (
             <tr
               key={row.id}
-              onClick={() => router.push(`/admin/candidates/${row.original.id}`)}
+              onClick={() =>
+                router.push(`/admin/candidates/${row.original.id}`)
+              }
               className="cursor-pointer"
             >
               {row.getVisibleCells().map((cell) => {

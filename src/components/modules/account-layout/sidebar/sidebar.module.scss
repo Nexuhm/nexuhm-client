@@ -1,10 +1,10 @@
 .accordionButton {
   @apply flex w-full items-center justify-between;
-  @apply text-left font-medium text-sm;
+  @apply text-left text-sm font-medium;
 }
 
 .sectionLink {
-  @apply p-2 w-full block text-sm;
+  @apply block w-full p-2 text-sm;
 
   &[data-selected='true'] {
     @apply rounded-md bg-light-blue text-blue;

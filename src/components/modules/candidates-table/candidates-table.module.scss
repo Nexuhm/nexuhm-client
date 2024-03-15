@@ -1,5 +1,5 @@
 .tableContainer {
-  @apply rounded-md bg-white border;
+  @apply rounded-md border bg-white;
 }
 
 .table {
@@ -27,7 +27,8 @@
   @apply bg-green;
 }
 
-.interview, .awaiting {
+.interview,
+.awaiting {
   @apply bg-gold;
 }
 

@@ -10,7 +10,7 @@ interface OnboardingFormProps extends PropsWithChildren {
   title: string;
   description: string;
   isSubmitting?: boolean;
-  disabled?:boolean
+  disabled?: boolean;
 }
 
 export function OnboardingForm({
@@ -40,7 +40,7 @@ export function OnboardingForm({
       </div>
 
       <div className="mb-6">
-        <div className="font-inter mb-1 text-3xl font-semibold">{title}</div>
+        <div className="mb-1 font-inter text-3xl font-semibold">{title}</div>
         <div className="font-inter text-sm">{description}</div>
       </div>
 

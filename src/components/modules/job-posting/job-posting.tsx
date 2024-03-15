@@ -24,7 +24,7 @@ export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {
 
   return (
     <div>
-      <div className="flex flex-col gap-6 md:gap-10 md:flex-row md:px-6 px-4">
+      <div className="flex flex-col gap-6 px-4 md:flex-row md:gap-10 md:px-6">
         <div className="flex-1">
           <div className="mb-4 flex flex-col gap-6">
             <h1 className="text-5xl font-semibold">{title}</h1>
@@ -36,17 +36,13 @@ export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {
             dangerouslySetInnerHTML={{ __html: html }}
           />
 
-          <div className="hidden md:flex gap-4 flex-col justify-between py-4 md:flex-row">
-            <Button variant="primary">
-              Apply for this position
-            </Button>
-            <Button variant="secondary">
-              Learn more about us
-            </Button>
+          <div className="hidden flex-col justify-between gap-4 py-4 md:flex md:flex-row">
+            <Button variant="primary">Apply for this position</Button>
+            <Button variant="secondary">Learn more about us</Button>
           </div>
         </div>
 
-        <div className="md:max-w-[280px] flex-1">
+        <div className="flex-1 md:max-w-[280px]">
           <Sidebar
             salary={salary}
             location={location}
@@ -59,4 +55,3 @@ export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {
     </div>
   );
 }
-

@@ -14,7 +14,7 @@ export function StageActions({ candidateId, stage }: StageActionsProps) {
   const handleBook = async () => {
     const res = await client.post(`/admin/candidates/${candidateId}/schedule`);
   };
-  
+
   return (
     <div className="mb-6 rounded-lg bg-white p-4">
       <div className="mb-2 flex items-center justify-between">

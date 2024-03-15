@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React from 'react';
 import { Icon, IconName } from '../icon';
@@ -97,7 +97,7 @@ export function Select<T>({
                 <Listbox.Option
                   key={value as string}
                   value={value}
-                  className="ui-active:bg-black ui-active:bg-opacity-10 cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10"
+                  className="cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10 ui-active:bg-black ui-active:bg-opacity-10"
                 >
                   {label}
                 </Listbox.Option>

@@ -10,6 +10,8 @@ import { createJobDraft } from '@/base/actions/jobs';
 import { JobPreview } from '@/components/modules/job-preview';
 import { useSetState } from 'react-use';
 import { Icon } from '@/components/elements/icon';
+import { client } from '@/base/services/clients/browser-client';
+import useSWR from 'swr';
 
 export default function JobCreatePage() {
   const [activeStep, setActiveStep] = useState(1);

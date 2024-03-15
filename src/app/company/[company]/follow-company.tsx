@@ -8,8 +8,8 @@ import {
 
 export function FollowCompany() {
   return (
-    <div className='flex'>
-      <div className="ml-auto flex gap-4 mb-20">
+    <div className="flex">
+      <div className="mb-20 ml-auto flex gap-4">
         <Button variant="secondary" className="!text-blue">
           Follow Company on{' '}
           <FontAwesomeIcon className="ml-2 w-4" icon={faTwitter} />

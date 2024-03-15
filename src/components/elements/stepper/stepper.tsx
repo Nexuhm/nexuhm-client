@@ -39,10 +39,10 @@ export function Stepper({
                 <span className="absolute top-8 text-nowrap">{title}</span>
               </button>
             </div>
-  
+
             {steps.length - 1 > index && <div className={styles.stepLine} />}
           </Fragment>
-        )
+        );
       })}
     </div>
   );

@@ -20,7 +20,7 @@ export default async function CompanyLayout({
   const company = await getData(params.company);
 
   return (
-    <div className='min-h-screen flex flex-col'>
+    <div className="flex min-h-screen flex-col">
       <Header logo={company.logo} />
 
       <main className="py-10 font-poppins">{children}</main>

@@ -4,7 +4,7 @@
   &:after {
     content: '';
     @apply absolute bottom-[-1px] left-0 block;
-    @apply bg-transparent w-full h-0.5 transition-all;
+    @apply h-0.5 w-full bg-transparent transition-all;
   }
 
   &[data-selected='true'] {

@@ -9,7 +9,7 @@
 
   &[data-selected='true'] {
     @apply text-blue;
-    
+
     &:after {
       @apply bg-blue;
     }

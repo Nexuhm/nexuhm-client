@@ -28,9 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={clsx(inter.variable, poppins.variable)}>
-        {children}
-      </body>
+      <body className={clsx(inter.variable, poppins.variable)}>{children}</body>
     </html>
   );
 }

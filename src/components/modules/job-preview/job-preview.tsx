@@ -15,6 +15,7 @@ export function JobPreview({
   onSave: () => void;
 }) {
   const { company } = useCompanyContext();
+
   return (
     <div className="max-w-6xl p-10 card-container">
       <JobPostingTemplate job={data} company={company!} />

@@ -4,12 +4,12 @@ import Image from 'next/image';
 
 export function Footer() {
   return (
-    <footer className='mt-auto'>
+    <footer className="mt-auto">
       <div
         className={clsx(
           'container mx-auto flex max-w-xl flex-col gap-4 px-4 py-20 sm:px-6 md:flex-row md:gap-0',
           'md:[&>a:not(:last-child)]:border-r [&>a]:inline-flex md:[&>a]:px-2',
-          'justify-center text-content-tertiary items-center md:items-baseline',
+          'items-center justify-center text-content-tertiary md:items-baseline',
         )}
       >
         <a href="" className="order-3 items-center md:order-none">

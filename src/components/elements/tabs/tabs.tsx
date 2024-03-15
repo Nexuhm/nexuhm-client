@@ -1,4 +1,4 @@
-import styles from './tabs.module.scss'
+import styles from './tabs.module.scss';
 
 interface TabsProps<T> {
   tabs: Array<{

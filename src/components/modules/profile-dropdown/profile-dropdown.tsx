@@ -65,7 +65,7 @@ export function ProfileDropdown() {
           {...attributes.popper}
           className={styles.tooltip}
         >
-          <div className="flex flex-col gap-1 relative z-10">
+          <div className="relative z-10 flex flex-col gap-1">
             <a href="/settings/account" className={styles.link}>
               Profile
             </a>
