@@ -67,6 +67,8 @@ const columns = [
   columnHelper.accessor('note', {
     header: 'Note',
     enableSorting: false,
+    size: 200,
+    cell: (info) => <div className="max-w-sm line-clamp-2">{info.getValue()}</div>,
   }),
   columnHelper.display({
     id: 'actions',

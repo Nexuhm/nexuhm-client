@@ -80,7 +80,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     return (
       <button
         ref={ref}
-        className={clsx(className, styles.button, styles.iconButton)}
+        className={clsx(styles.button, styles.iconButton, className)}
         data-variant={variant}
         data-size={size}
         {...props}

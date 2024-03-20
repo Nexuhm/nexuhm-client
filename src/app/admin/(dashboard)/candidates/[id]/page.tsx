@@ -3,11 +3,11 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Candidate } from '@/base/types/candidates';
 import { notFound } from 'next/navigation';
-import { CandidateHeadline } from './candidate-headline';
-import { StageActions } from './stage-actions';
-import { ScoreSummary } from './score-summary';
-import { CandidateNotes } from './candidate-notes';
-import { CandidatesExperience } from './candidate-experience';
+import { CandidateHeadline } from './components/candidate-headline';
+import { StageActions } from './components/stage-actions';
+import { ScoreSummary } from './components/score-summary';
+import { CandidateNotes } from './components/candidate-notes';
+import { CandidatesExperience } from './components/candidate-experience';
 import Link from 'next/link';
 
 async function getData(id: string): Promise<Candidate | null> {

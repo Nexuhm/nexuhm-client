@@ -11,9 +11,10 @@ export interface DialogProps {
   open: boolean;
   onClose: () => void;
   children: ReactNode;
+  className?: string;
 }
 
-export function Dialog({ children, open, onClose }: DialogProps) {
+export function Dialog({ children, className, open, onClose }: DialogProps) {
   return (
     <HeadlessDialog
       open={open}
@@ -24,7 +25,7 @@ export function Dialog({ children, open, onClose }: DialogProps) {
         'flex items-center justify-center',
       )}
     >
-      <HeadlessDialog.Panel className={styles.container}>
+      <HeadlessDialog.Panel className={clsx(className, styles.container)}>
         {children}
       </HeadlessDialog.Panel>
     </HeadlessDialog>

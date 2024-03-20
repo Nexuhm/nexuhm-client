@@ -8,8 +8,7 @@ import { Dropdown } from '@/components/elements/dropdown';
 import { Dialog } from '@/components/elements/dialog';
 import { RecruitmentStage } from '@/base/types/candidates';
 import { client } from '@/base/services/clients/browser-client';
-import styles from './candidates.module.scss';
-import { Icon } from '@/components/elements/icon';
+import styles from '../candidates.module.scss';
 
 interface CandidateHeadlineProps {
   candidateId: string;

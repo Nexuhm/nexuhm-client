@@ -1,0 +1,154 @@
+[
+    {
+        "label": "UTC (UTC+00:00)",
+        "value": "Africa/Abidjan"
+    },
+    {
+        "label": "Addis Ababa (UTC+03:00)",
+        "value": "Africa/Addis_Ababa"
+    },
+    {
+        "label": "CET (UTC+01:00)",
+        "value": "Africa/Algiers"
+    },
+    {
+        "label": "CEST (UTC+02:00)",
+        "value": "Africa/Blantyre"
+    },
+    {
+        "label": "Adak (UTC-09:00)",
+        "value": "America/Adak"
+    },
+    {
+        "label": "PST (UTC-08:00)",
+        "value": "America/Anchorage"
+    },
+    {
+        "label": "EDT (UTC-04:00)",
+        "value": "America/Anguilla"
+    },
+    {
+        "label": "Araguaina (UTC-03:00)",
+        "value": "America/Araguaina"
+    },
+    {
+        "label": "EST (UTC-05:00)",
+        "value": "America/Atikokan"
+    },
+    {
+        "label": "CST (UTC-06:00)",
+        "value": "America/Bahia_Banderas"
+    },
+    {
+        "label": "MST (UTC-07:00)",
+        "value": "America/Creston"
+    },
+    {
+        "label": "Godthab (UTC-02:00)",
+        "value": "America/Godthab"
+    },
+    {
+        "label": "Scoresbysund (UTC-01:00)",
+        "value": "America/Scoresbysund"
+    },
+    {
+        "label": "St Johns (UTC-02:30)",
+        "value": "America/St_Johns"
+    },
+    {
+        "label": "Casey (UTC+08:00)",
+        "value": "Antarctica/Casey"
+    },
+    {
+        "label": "Davis (UTC+07:00)",
+        "value": "Antarctica/Davis"
+    },
+    {
+        "label": "DumontDUrville (UTC+10:00)",
+        "value": "Antarctica/DumontDUrville"
+    },
+    {
+        "label": "Macquarie (UTC+11:00)",
+        "value": "Antarctica/Macquarie"
+    },
+    {
+        "label": "Mawson (UTC+05:00)",
+        "value": "Antarctica/Mawson"
+    },
+    {
+        "label": "McMurdo (UTC+13:00)",
+        "value": "Antarctica/McMurdo"
+    },
+    {
+        "label": "Anadyr (UTC+12:00)",
+        "value": "Asia/Anadyr"
+    },
+    {
+        "label": "Yerevan (UTC+04:00)",
+        "value": "Armenia/Yerevan"
+    },
+    {
+        "label": "Bishkek (UTC+06:00)",
+        "value": "Asia/Bishkek"
+    },
+    {
+        "label": "IST (UTC+05:30)",
+        "value": "Asia/Calcutta"
+    },
+    {
+        "label": "JST (UTC+09:00)",
+        "value": "Asia/Chita"
+    },
+    {
+        "label": "Kabul (UTC+04:30)",
+        "value": "Asia/Kabul"
+    },
+    {
+        "label": "Kathmandu (UTC+05:45)",
+        "value": "Asia/Kathmandu"
+    },
+    {
+        "label": "Rangoon (UTC+06:30)",
+        "value": "Asia/Rangoon"
+    },
+    {
+        "label": "Tehran (UTC+03:30)",
+        "value": "Asia/Tehran"
+    },
+    {
+        "label": "Adelaide (UTC+10:30)",
+        "value": "Australia/Adelaide"
+    },
+    {
+        "label": "Darwin (UTC+09:30)",
+        "value": "Australia/Darwin"
+    },
+    {
+        "label": "Eucla (UTC+08:45)",
+        "value": "Australia/Eucla"
+    },
+    {
+        "label": "GMT+10 (UTC-10:00)",
+        "value": "Etc/GMT+10"
+    },
+    {
+        "label": "GMT+11 (UTC-11:00)",
+        "value": "Etc/GMT+11"
+    },
+    {
+        "label": "GMT+12 (UTC-12:00)",
+        "value": "Etc/GMT+12"
+    },
+    {
+        "label": "GMT-14 (UTC+14:00)",
+        "value": "Etc/GMT-14"
+    },
+    {
+        "label": "NZ-CHAT (UTC+13:45)",
+        "value": "NZ-CHAT"
+    },
+    {
+        "label": "Marquesas (UTC-09:30)",
+        "value": "Pacific/Marquesas"
+    }
+]

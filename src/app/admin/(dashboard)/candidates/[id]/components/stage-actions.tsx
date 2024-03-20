@@ -1,9 +1,8 @@
 'use client';
 
-import { client } from '@/base/services/clients/browser-client';
 import { RecruitmentStage } from '@/base/types/candidates';
-import { Button } from '@/components/elements/button';
 import { CandidateStatus } from '@/components/modules/candidate-status';
+import { InterviewBookAction } from './interview-booking-action';
 
 interface StageActionsProps {
   candidateId: string;
@@ -11,9 +10,7 @@ interface StageActionsProps {
 }
 
 export function StageActions({ candidateId, stage }: StageActionsProps) {
-  const handleBook = async () => {
-    const res = await client.post(`/admin/candidates/${candidateId}/schedule`);
-  };
+  const handleBook = async () => {};
 
   return (
     <div className="mb-6 rounded-lg bg-white p-4">
@@ -22,7 +19,7 @@ export function StageActions({ candidateId, stage }: StageActionsProps) {
 
         {stage !== 'rejected' && (
           <div className="flex gap-5">
-            <Button onClick={handleBook}>Book Interview</Button>
+            <InterviewBookAction />
           </div>
         )}
       </div>
