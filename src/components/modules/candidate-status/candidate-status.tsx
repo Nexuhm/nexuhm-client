@@ -7,16 +7,21 @@ import { format } from 'date-fns';
 interface CandidateStatusProps {
   status: RecruitmentStage;
   date?: Date;
+  active?: boolean;
 }
 
-export function CandidateStatus({ date, status }: CandidateStatusProps) {
+export function CandidateStatus({
+  date,
+  active,
+  status,
+}: CandidateStatusProps) {
   return (
     <div>
       <CandidateStatusChip
         state={status}
         passed={!!date}
         className={clsx(
-          !date && '!bg-surface-secondary !text-content-tertiary',
+          !active && '!bg-surface-secondary !text-content-tertiary',
         )}
       />
       <div className="mt-3 text-xs text-content-tertiary">

@@ -54,8 +54,15 @@ export function StageActions({ candidateId }: StageActionsProps) {
       </div>
 
       <div className="flex gap-6">
-        {stages.map((stage) => {
-          const candidateStage = data?.find((i: any) => i.stage === stage);
+        {stages.map((stage, index) => {
+          const candidateStageIndex = data?.findIndex(
+            (i: any) => i.stage === stage,
+          );
+          const candidateStage = data?.[candidateStageIndex];
+
+          if (stage === 'rejected' && candidateStage?.createdAt == null) {
+            return null;
+          }
 
           return (
             <CandidateStatus

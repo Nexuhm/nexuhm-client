@@ -14,21 +14,32 @@ import { RichTextEditor } from '@/components/elements/rich-text-editor';
 import { FormControlGroup } from '@/components/modules/job-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
-import { NumberFormatValues, NumericFormat } from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 
 interface JobCreateFormProps {
   defaultValues?: Partial<JobSchema>;
-  onSubmit: (val: JobSchema) => void;
+  onPreview: (val: JobSchema) => void;
+  onSave: (val: JobSchema) => void;
 }
 
-export function JobCreateForm({ defaultValues, onSubmit }: JobCreateFormProps) {
-  const { register, setValue, control, handleSubmit } = useForm<JobSchema>({
-    defaultValues,
-    resolver: zodResolver(jobSchema),
-  });
+export function JobCreateForm({
+  defaultValues,
+  onSave,
+  onPreview,
+}: JobCreateFormProps) {
+  const { register, setValue, control, handleSubmit, getValues } =
+    useForm<JobSchema>({
+      defaultValues,
+      resolver: zodResolver(jobSchema),
+    });
 
   const submitHandler = async (val: any) => {
-    onSubmit(val);
+    onPreview(val);
+  };
+
+  const handleSave = async () => {
+    const values = getValues();
+    await onSave(values);
   };
 
   return (
@@ -210,7 +221,7 @@ export function JobCreateForm({ defaultValues, onSubmit }: JobCreateFormProps) {
       <div>
         <div className="flex justify-end gap-2">
           <Button variant="secondary">Cancel</Button>
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={handleSave}>
             <Icon icon="edit" className="2-5 h-5" />
             Save draft
           </Button>

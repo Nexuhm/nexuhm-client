@@ -1,7 +1,7 @@
 .inputContainer {
   @apply flex items-center p-2;
   @apply rounded-lg border border-light-gray focus-within:border-blue;
-  @apply transition-all;
+  @apply transition-all overflow-hidden;
 
   &[data-variant='gray'] {
     @apply border-transparent bg-surface-secondary text-content-tertiary;

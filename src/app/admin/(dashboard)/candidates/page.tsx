@@ -8,5 +8,5 @@ async function getData() {
 
 export default async function CandidatesListingPage() {
   const candidates = await getData();
-  return <CandidateListing candidates={candidates} />;
+  return <CandidateListing candidates={candidates.data} />;
 }

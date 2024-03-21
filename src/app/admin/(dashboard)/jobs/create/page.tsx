@@ -76,7 +76,7 @@ export default function JobCreatePage() {
         <div className="mt-20 flex flex-col items-center gap-2">
           <Icon icon="circled-check" className="h-16 w-16" />
           <div>Job published</div>
-          <Button href="/jobs">View Job</Button>
+          <Button href="/admin/jobs">View Job</Button>
         </div>
       );
     }
@@ -87,7 +87,8 @@ export default function JobCreatePage() {
       case 2: {
         return (
           <JobCreateForm
-            onSubmit={handleStepChange(3)}
+            onPreview={handleStepChange(3)}
+            onSave={handleSave}
             defaultValues={jobPosting}
           />
         );

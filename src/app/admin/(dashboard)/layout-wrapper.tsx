@@ -27,7 +27,7 @@ export default function DashboardLayoutWrapper({
         <Sidebar
           links={[
             { href: '/', text: 'Dashboard', icon: 'home' },
-            { href: '/admin/jobs', text: 'Jobs', icon: 'home' },
+            { href: '/admin/jobs', text: 'Jobs', icon: 'case-filled' },
             { href: '/admin/candidates', text: 'Candidates', icon: 'group' },
             { href: '/admin/analytics', text: 'Analytics', icon: 'analytics' },
           ]}

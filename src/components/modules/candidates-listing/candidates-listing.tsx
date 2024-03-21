@@ -31,7 +31,7 @@ export function CandidateListing({
           <Input
             icon="search"
             placeholder="Search by name"
-            className="w-[300px] bg-white"
+            containerClassName="w-[300px] bg-white"
           />
 
           <Button variant="secondary">
@@ -49,7 +49,7 @@ export function CandidateListing({
       <div>
         <div>
           {candidates.length === 0 ? (
-            <div className="mx-auto max-w-md mt-20 text-balance text-center">
+            <div className="mx-auto mt-20 max-w-md text-balance text-center">
               <div className="mb-4 text-2xl font-medium">No Candidtaes</div>
 
               <div className="text-content-secondary">
@@ -59,7 +59,7 @@ export function CandidateListing({
             </div>
           ) : (
             <CandidatesTable
-              data={candidates.map((candidate: any) => ({
+              data={candidates?.map((candidate: any) => ({
                 id: candidate._id,
                 name: `${candidate.firstname} ${candidate.lastname}`,
                 score: candidate.score,
