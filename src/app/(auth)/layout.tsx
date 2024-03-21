@@ -1,10 +1,19 @@
 import Logo from '@/assets/logo.svg';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const token = cookies().get('token');
+
+  // if user is authorized redirect to admin page
+  if(token) {
+    redirect('/admin')
+  }
+
   return (
     <main className="flex min-h-screen flex-col justify-center bg-subtle-gray py-20">
       <div className="grid grid-cols-1 md:grid-cols-2">

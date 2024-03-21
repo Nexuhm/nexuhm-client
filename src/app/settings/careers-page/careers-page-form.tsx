@@ -53,10 +53,10 @@ export default function CareersPageForm({
       return {
         ...careersPage,
         companyValues: Array.from({ length: 6 }).map((_, index) => ({
-          value: careersPage!.companyValues[index]?.value,
+          value: careersPage?.companyValues[index]?.value,
         })),
         companyBenefits: Array.from({ length: 6 }).map((_, index) => ({
-          value: careersPage!.companyBenefits[index]?.value,
+          value: careersPage?.companyBenefits[index]?.value,
         })),
       };
     },
@@ -111,7 +111,7 @@ export default function CareersPageForm({
           <ImageUploader
             count={3}
             folder="careers-page"
-            images={careersPage!.heroImages}
+            images={careersPage?.heroImages}
             onUpload={handleHeroImageUpload}
           />
         </PageSection>
@@ -145,7 +145,7 @@ export default function CareersPageForm({
           <ImageUploader
             count={6}
             folder="careers-page"
-            images={careersPage!.mediaGallery}
+            images={careersPage?.mediaGallery}
             onUpload={handleMediaUpload}
           />
         </PageSection>

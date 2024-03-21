@@ -73,7 +73,7 @@ export function ProfileDropdown() {
               Company
             </a>
             <div className="my-1 border-b"></div>
-            <a href="/logout" className={styles.link}>
+            <a href="/api/auth/logout" className={styles.link}>
               Log Out
             </a>
           </div>

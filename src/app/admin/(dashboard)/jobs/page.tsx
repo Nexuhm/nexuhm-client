@@ -4,9 +4,11 @@ import { client } from '@/base/services/clients/browser-client';
 import { Button } from '@/components/elements/button';
 import { Icon } from '@/components/elements/icon';
 import { Input } from '@/components/elements/input';
+import { Spinner } from '@/components/elements/spinner';
 import { Tabs } from '@/components/elements/tabs';
 import { JobCard, JobCardProps } from '@/components/modules/job-card';
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
 type JobState = 'active' | 'archived';
 
@@ -28,19 +30,9 @@ const tabs: JobTab[] = [
 
 export default function Page() {
   const [selectedTab, setSelectedTab] = useState<JobState>('active');
-  const [jobs, setJobs] = useState<JobCardProps[]>([]);
-  const fetchJobs = async () => {
-    try {
-      const data = await client.get('/admin/jobs');
-      setJobs(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchJobs();
-  }, []);
+  const { data, isLoading, isValidating } = useSWR('/admin/jobs', (url) =>
+    client.get<any[]>(url),
+  );
 
   return (
     <div>
@@ -69,15 +61,21 @@ export default function Page() {
           onChange={(id) => setSelectedTab(id)}
         />
 
-        <div className="text-xlg my-5 font-medium">
-          {jobs.length} Active jobs
-        </div>
+        {isLoading ? (
+          <div className="flex w-full items-center justify-center py-20">
+            <Spinner size={40} />
+          </div>
+        ) : (
+          <>
+            <div className="text-xlg my-5 font-medium">
+              {data?.length} Active jobs
+            </div>
 
-        <div className="md-grid-cols-3 mt-4 grid grid-cols-1 gap-4 lg:grid-cols-4">
-          {jobs.map((item, index) => (
-            <JobCard key={index} {...item} />
-          ))}
-        </div>
+            <div className="md-grid-cols-3 mt-4 grid grid-cols-1 gap-4 lg:grid-cols-4">
+              {data?.map((item, index) => <JobCard key={index} {...item} />)}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
