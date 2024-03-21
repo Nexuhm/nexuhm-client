@@ -64,7 +64,7 @@ export class APIClient {
 
   post<T = any>(
     endpoint: string,
-    body?: Record<string, unknown>,
+    body?: any,
     headers?: HeadersInit,
   ): Promise<T> {
     return this.request(endpoint, { method: 'POST', body, headers });

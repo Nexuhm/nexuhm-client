@@ -42,7 +42,7 @@ function OAuthActions() {
     <div className="flex flex-col gap-4">
       <Button href={`${baseUrl}/auth/linkedin`} variant="secondary" size="lg">
         <LinkedInIcon width={24} height={24} className="mr-3 text-[#00A0DC]" />
-        Continue with Linkedin
+        Continue with LinkedIn
       </Button>
       <Button href={`${baseUrl}/auth/google`} variant="secondary" size="lg">
         <GoogleIcon width={24} height={24} className="mr-3" />
@@ -50,7 +50,7 @@ function OAuthActions() {
       </Button>
       <Button href={`${baseUrl}/auth/microsoft`} variant="secondary" size="lg">
         <MicrosoftIcon width={24} height={24} className="mr-3" />
-        Continue with Microsot
+        Continue with Microsoft
       </Button>
     </div>
   );

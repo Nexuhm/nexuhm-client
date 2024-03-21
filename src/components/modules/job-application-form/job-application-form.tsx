@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { client } from '@/base/services/clients/browser-client';
 import { useParams } from 'next/navigation';
+import { ApplicationFormSuccess } from './success-message';
 
 const schema = z.object({
   firstname: z.string().min(1, 'First name is required'),
@@ -37,6 +38,7 @@ export function JobApplicationForm() {
   });
 
   const [isResumeLoading, setIsResumeLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const submitHandler = async (values: ApplicationForm) => {
     const formData = Object.entries(values).reduce((fd, [key, value]) => {
@@ -49,7 +51,7 @@ export function JobApplicationForm() {
     }, new FormData());
 
     const res = await client.multipart(`/jobs/${params.slug}/apply`, formData);
-    const data = await res.json();
+    setIsSuccess(true);
   };
 
   const handleResumeUpload = async (file: File) => {
@@ -67,6 +69,10 @@ export function JobApplicationForm() {
 
     setIsResumeLoading(false);
   };
+
+  if (isSuccess) {
+    return <ApplicationFormSuccess />;
+  }
 
   return (
     <form onSubmit={handleSubmit(submitHandler)}>

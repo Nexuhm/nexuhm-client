@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ReactNode } from 'react';
 
 interface FormProps extends React.HTMLProps<HTMLFormElement> {
@@ -7,7 +8,7 @@ interface FormProps extends React.HTMLProps<HTMLFormElement> {
 
 export function Form({ children, className, ...props }: FormProps) {
   return (
-    <form className="flex flex-col gap-4" {...props}>
+    <form className={clsx('flex flex-col gap-4', className)} {...props}>
       {children}
     </form>
   );

@@ -1,6 +1,4 @@
 import { client } from '@/base/services/clients/server-client';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Candidate } from '@/base/types/candidates';
 import { notFound } from 'next/navigation';
 import { CandidateHeadline } from './components/candidate-headline';
@@ -8,7 +6,7 @@ import { StageActions } from './components/stage-actions';
 import { ScoreSummary } from './components/score-summary';
 import { CandidateNotes } from './components/candidate-notes';
 import { CandidatesExperience } from './components/candidate-experience';
-import Link from 'next/link';
+import { BackLink } from '@/components/elements/back-link/back-link';
 
 async function getData(id: string): Promise<Candidate | null> {
   try {
@@ -33,15 +31,9 @@ export default async function CandidateDetailsPage({
 
   return (
     <div className="container max-w-7xl">
-      <div className="mb-10">
-        <Link
-          href={`/admin/jobs/${data.job}`}
-          className="inline-flex items-center gap-4 text-sm font-semibold"
-        >
-          <FontAwesomeIcon icon={faChevronLeft} className="h-3" />
-          All Candidates
-        </Link>
-      </div>
+      <BackLink className="mb-10" href={`/admin/jobs/${data.job}`}>
+        All Candidates
+      </BackLink>
 
       <CandidateHeadline
         candidateId={data.id}
@@ -53,7 +45,7 @@ export default async function CandidateDetailsPage({
         stage={data.stage}
       />
 
-      <StageActions stage={data.stage} candidateId={data.id} />
+      <StageActions candidateId={data.id} />
 
       <ScoreSummary
         score={5}

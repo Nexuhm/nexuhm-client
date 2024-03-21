@@ -4,11 +4,13 @@ import clsx from 'clsx';
 
 interface CandidateStatusChipProps {
   state: RecruitmentStage;
+  passed?: boolean;
   className?: string;
 }
 
 export function CandidateStatusChip({
   state,
+  passed,
   className,
 }: CandidateStatusChipProps) {
   const labels: Record<RecruitmentStage, string> = {
@@ -21,7 +23,10 @@ export function CandidateStatusChip({
   };
 
   return (
-    <span className={clsx(className, styles[state], styles.chip)}>
+    <span
+      className={clsx(className, styles[state], styles.chip)}
+      data-passed={passed}
+    >
       {labels[state]}
     </span>
   );

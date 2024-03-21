@@ -9,6 +9,7 @@ import { ComboboxSelect } from '@/components/elements/input/combobox';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { Icon } from '@/components/elements/icon';
 import timezones from '@/base/utils/timezones.json';
+import { client } from '@/base/services/clients/browser-client';
 
 interface FormValues {
   date: string;
@@ -22,7 +23,7 @@ interface FormValues {
   message: string;
 }
 
-export function InterviewBookAction() {
+export function InterviewBookAction({ candidateId }: { candidateId: string }) {
   const [open, setOpen] = useState(false);
   const { control, register, handleSubmit, getValues } = useForm<FormValues>();
 
@@ -31,8 +32,13 @@ export function InterviewBookAction() {
     name: 'interviewers',
   });
 
-  const submitHandler = async (val: any) => {
-    console.log(val);
+  const submitHandler = async (val: FormValues) => {
+    await client.post(`/admin/candidates/${candidateId}/interview`, {
+      ...val,
+      interviewers: val.interviewers.map((i) => i.email),
+    });
+
+    setOpen(false);
   };
 
   return (
@@ -94,7 +100,7 @@ export function InterviewBookAction() {
                   type="email"
                   className="w-full"
                   placeholder="Search or find people to add"
-                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                  onKeyDown={(e: any) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
                       const target: any = e.target;
@@ -108,20 +114,24 @@ export function InterviewBookAction() {
                           email: target.value,
                         });
                       }
+
+                      e.target.value = '';
                     }
                   }}
                 />
 
-                <div className="flex flex-col gap-2">
-                  {fields.map((val, index) => (
-                    <div className="mt-2 flex items-center gap-1 rounded-lg border bg-light-blue text-sm">
-                      <button onClick={() => remove(index)} className="p-1">
-                        <Icon icon="close" className="h-4 w-4" />
-                      </button>
-                      {val.email}
-                    </div>
-                  ))}
-                </div>
+                {fields.length > 0 && (
+                  <div className="mt-2 flex flex-col gap-1">
+                    {fields.map((val, index) => (
+                      <div className="flex items-center gap-1 rounded-lg border bg-light-blue text-sm">
+                        <button onClick={() => remove(index)} className="p-1">
+                          <Icon icon="close" className="h-4 w-4" />
+                        </button>
+                        {val.email}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </Form.ControlGroup>
 

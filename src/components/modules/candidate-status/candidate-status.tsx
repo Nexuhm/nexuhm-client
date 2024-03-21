@@ -1,5 +1,5 @@
 import { RecruitmentStage } from '@/base/types/candidates';
-import { CandidateStatusChip } from '@/components/elements/candidate-status-chip/candidate-status-chip';
+import { CandidateStatusChip } from '@/components/elements/candidate-status-chip';
 
 import clsx from 'clsx';
 import { format } from 'date-fns';
@@ -14,6 +14,7 @@ export function CandidateStatus({ date, status }: CandidateStatusProps) {
     <div>
       <CandidateStatusChip
         state={status}
+        passed={!!date}
         className={clsx(
           !date && '!bg-surface-secondary !text-content-tertiary',
         )}
