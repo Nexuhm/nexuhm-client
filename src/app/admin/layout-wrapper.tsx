@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { DashboardHeader } from '@/components/modules/main-layout/dashboard-header';
 import { client } from '@/base/services/clients/browser-client';
 import useSWR from 'swr';
-import { CompanyContext } from '../../../base/contexts/company-context';
+import { CompanyContext } from '../../base/contexts/company-context';
 
 export default function DashboardLayoutWrapper({
   children,
