@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { client } from '@/base/services/clients/browser-client';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { AboutFormSchema, AboutFormValues } from '@/base/schemas/company';
-import { useCompanyContext } from '@/base/contexts/company-context/company-context';
+import { useCompanyContext } from '@/base/contexts/company/company-context';
 
 export default function OnboardingAboutPage() {
   const router = useRouter();

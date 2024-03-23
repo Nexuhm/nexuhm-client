@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
-import { useCompanyContext } from '@/base/contexts/company-context/company-context';
+import { useCompanyContext } from '@/base/contexts/company/company-context';
 import { client } from '@/base/services/clients/browser-client';
 import { MediaService } from '@/base/services/media';
 import { Button } from '@/components/elements/button';

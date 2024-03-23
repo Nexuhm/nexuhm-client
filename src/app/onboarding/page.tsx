@@ -10,7 +10,7 @@ import { client } from '@/base/services/clients/browser-client';
 import { useRouter } from 'next/navigation';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { CompanyFormSchema, CompanyFormValues } from '@/base/schemas/company';
-import { useCompanyContext } from '@/base/contexts/company-context/company-context';
+import { useCompanyContext } from '@/base/contexts/company/company-context';
 
 export default function OnboardingPage() {
   const router = useRouter();

@@ -3,7 +3,7 @@ import { JobPostingTemplate } from '../job-posting';
 import { JobSchema } from '@/base/types/jobs';
 import { Icon } from '@/components/elements/icon';
 import { Spinner } from '@/components/elements/spinner';
-import { useCompanyContext } from '@/base/contexts/company-context/company-context';
+import { useCompanyContext } from '@/base/contexts/company/company-context';
 
 export function JobPreview({
   data,

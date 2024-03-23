@@ -1,12 +1,9 @@
 'use client';
 
-import { useUserData } from '@/base/hooks/use-user-data';
 import { Icon } from '@/components/elements/icon';
 import { ProfileDropdown } from '@/components/modules/profile-dropdown';
 
 export function DashboardHeader() {
-  const { data } = useUserData();
-
   return (
     <header className="flex w-full items-center justify-between border-b border-light-gray px-8 py-4">
       <div className="flex w-[200px] items-center rounded-lg bg-surface-primary px-3 py-2">

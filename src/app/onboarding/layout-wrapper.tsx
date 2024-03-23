@@ -1,7 +1,7 @@
 'use client';
 
 import Logo from '@/assets/logo.svg';
-import { CompanyContext } from '@/base/contexts/company-context';
+import { CompanyContext } from '@/base/contexts/company';
 import { client } from '@/base/services/clients/browser-client';
 import { PropsWithChildren } from 'react';
 import useSWR from 'swr';
