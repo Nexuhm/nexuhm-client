@@ -7,6 +7,7 @@ import { Input, Textarea } from '@/components/elements/input';
 import { Form } from '@/components/modules/form/form';
 import { useForm } from 'react-hook-form';
 import { client } from '@/base/services/clients/browser-client';
+import { StageActionProps } from './types';
 
 interface FormValues {
   positionTitle: string;
@@ -15,12 +16,20 @@ interface FormValues {
   benefits: string;
 }
 
-export function OfferFeedbackAction({ candidateId }: { candidateId: string }) {
+export function OfferFeedbackAction({
+  candidateId,
+  onComplete,
+}: StageActionProps) {
   const [open, setOpen] = useState(false);
-  const { register, handleSubmit } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FormValues>();
 
   const submitHandler = async (val: FormValues) => {
     await client.post(`/admin/candidates/${candidateId}/offer`, val);
+    await onComplete();
     setOpen(false);
   };
 
@@ -81,7 +90,12 @@ export function OfferFeedbackAction({ candidateId }: { candidateId: string }) {
           >
             Cancel
           </Button>
-          <Button variant="primary" form="offer-form" type="submit">
+          <Button
+            variant="primary"
+            form="offer-form"
+            type="submit"
+            loading={isSubmitting}
+          >
             Offer
           </Button>
         </Dialog.Actions>

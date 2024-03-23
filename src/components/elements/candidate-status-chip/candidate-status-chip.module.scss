@@ -5,6 +5,10 @@
   &[data-passed='true'] {
     @apply bg-green;
   }
+
+  &[data-disabled="true"] {
+    @apply bg-surface-secondary text-content-tertiary
+  }
 }
 
 .applied {

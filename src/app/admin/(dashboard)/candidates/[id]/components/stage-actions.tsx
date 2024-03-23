@@ -1,21 +1,22 @@
 'use client';
 
+import useSWR from 'swr';
 import { RecruitmentStage } from '@/base/types/candidates';
 import { CandidateStatus } from '@/components/modules/candidate-status';
-import { InterviewBookAction } from './acations/interview-booking-action';
-import useSWR from 'swr';
+import { InterviewBookAction } from './actions/interview-booking-action';
 import { client } from '@/base/services/clients/browser-client';
-import { SubmitFeedbackAction } from './acations/submit-feedback-action';
-import { OfferFeedbackAction } from './acations/offer-action';
-import { ConfirmHireAction } from './acations/confirm-hire';
+import { SubmitFeedbackAction } from './actions/submit-feedback-action';
+import { OfferFeedbackAction } from './actions/offer-action';
+import { ConfirmHireAction } from './actions/confirm-hire';
 
 interface StageActionsProps {
   candidateId: string;
 }
 
 export function StageActions({ candidateId }: StageActionsProps) {
-  const { data } = useSWR(`/admin/candidates/${candidateId}/stage`, (url) =>
-    client.get(url),
+  const { data, mutate } = useSWR(
+    `/admin/candidates/${candidateId}/stage`,
+    (url) => client.get(url),
   );
 
   const stages = [
@@ -32,19 +33,29 @@ export function StageActions({ candidateId }: StageActionsProps) {
 
     switch (lastStage) {
       case 'offer':
-        return <ConfirmHireAction candidateId={candidateId} />;
+        return (
+          <ConfirmHireAction candidateId={candidateId} onComplete={mutate} />
+        );
       case 'interview':
-        return <SubmitFeedbackAction candidateId={candidateId} />;
+        return (
+          <SubmitFeedbackAction candidateId={candidateId} onComplete={mutate} />
+        );
       case 'awaiting':
-        return <OfferFeedbackAction candidateId={candidateId} />;
+        return (
+          <OfferFeedbackAction candidateId={candidateId} onComplete={mutate} />
+        );
       case 'hired':
       case 'rejected':
         return null;
       case 'applied':
       default:
-        return <InterviewBookAction candidateId={candidateId} />;
+        return (
+          <InterviewBookAction candidateId={candidateId} onComplete={mutate} />
+        );
     }
   };
+
+  const activeStage = stages[data?.length];
 
   return (
     <div className="mb-6 rounded-lg bg-white p-4">
@@ -54,11 +65,12 @@ export function StageActions({ candidateId }: StageActionsProps) {
       </div>
 
       <div className="flex gap-6">
-        {stages.map((stage, index) => {
+        {stages.map((stage) => {
           const candidateStageIndex = data?.findIndex(
             (i: any) => i.stage === stage,
           );
           const candidateStage = data?.[candidateStageIndex];
+          const passed = !!candidateStage?.createdAt;
 
           if (stage === 'rejected' && candidateStage?.createdAt == null) {
             return null;
@@ -66,7 +78,10 @@ export function StageActions({ candidateId }: StageActionsProps) {
 
           return (
             <CandidateStatus
+              key={stage}
               status={stage}
+              passed={passed}
+              disabled={stage !== activeStage && !passed}
               date={
                 candidateStage ? new Date(candidateStage.createdAt) : undefined
               }

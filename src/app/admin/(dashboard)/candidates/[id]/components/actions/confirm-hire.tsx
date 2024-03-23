@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/elements/button';
 import { Dialog } from '@/components/elements/dialog';
-import { Input, Textarea } from '@/components/elements/input';
+import { Input } from '@/components/elements/input';
 import { Form } from '@/components/modules/form/form';
 import { useForm } from 'react-hook-form';
 import { client } from '@/base/services/clients/browser-client';
+import { StageActionProps } from './types';
 
 interface FormValues {
   positionTitle: string;
@@ -15,12 +16,20 @@ interface FormValues {
   benefits: string;
 }
 
-export function ConfirmHireAction({ candidateId }: { candidateId: string }) {
+export function ConfirmHireAction({
+  candidateId,
+  onComplete,
+}: StageActionProps) {
   const [open, setOpen] = useState(false);
-  const { register, handleSubmit } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FormValues>();
 
   const submitHandler = async (val: FormValues) => {
     await client.post(`/admin/candidates/${candidateId}/hire`, val);
+    await onComplete();
     setOpen(false);
   };
 
@@ -83,7 +92,12 @@ export function ConfirmHireAction({ candidateId }: { candidateId: string }) {
           >
             Cancel
           </Button>
-          <Button variant="primary" form="hire-form" type="submit">
+          <Button
+            variant="primary"
+            form="hire-form"
+            type="submit"
+            loading={isSubmitting}
+          >
             Confirm Hire
           </Button>
         </Dialog.Actions>

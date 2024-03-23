@@ -7,6 +7,7 @@ import { Select, Textarea } from '@/components/elements/input';
 import { Form } from '@/components/modules/form/form';
 import { Controller, useForm } from 'react-hook-form';
 import { client } from '@/base/services/clients/browser-client';
+import { StageActionProps } from './types';
 
 interface FormValues {
   impression: string;
@@ -15,12 +16,21 @@ interface FormValues {
   recommendation: string;
 }
 
-export function SubmitFeedbackAction({ candidateId }: { candidateId: string }) {
+export function SubmitFeedbackAction({
+  candidateId,
+  onComplete,
+}: StageActionProps) {
   const [open, setOpen] = useState(false);
-  const { control, register, handleSubmit } = useForm<FormValues>();
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FormValues>();
 
   const submitHandler = async (val: FormValues) => {
     await client.post(`/admin/candidates/${candidateId}/feedback`, val);
+    await onComplete();
     setOpen(false);
   };
 
@@ -142,11 +152,17 @@ export function SubmitFeedbackAction({ candidateId }: { candidateId: string }) {
           <Button
             variant="link"
             className="mr-2"
+            loading={isSubmitting}
             onClick={() => setOpen(false)}
           >
             Cancel
           </Button>
-          <Button variant="primary" form="feedback-form" type="submit">
+          <Button
+            variant="primary"
+            form="feedback-form"
+            type="submit"
+            loading={isSubmitting}
+          >
             Submit Feedback
           </Button>
         </Dialog.Actions>

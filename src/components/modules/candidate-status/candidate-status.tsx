@@ -1,28 +1,26 @@
 import { RecruitmentStage } from '@/base/types/candidates';
 import { CandidateStatusChip } from '@/components/elements/candidate-status-chip';
-
-import clsx from 'clsx';
 import { format } from 'date-fns';
 
 interface CandidateStatusProps {
   status: RecruitmentStage;
   date?: Date;
-  active?: boolean;
+  passed?: boolean;
+  disabled?: boolean;
 }
 
 export function CandidateStatus({
   date,
-  active,
+  passed,
+  disabled,
   status,
 }: CandidateStatusProps) {
   return (
     <div>
       <CandidateStatusChip
         state={status}
-        passed={!!date}
-        className={clsx(
-          !active && '!bg-surface-secondary !text-content-tertiary',
-        )}
+        passed={passed}
+        disabled={disabled}
       />
       <div className="mt-3 text-xs text-content-tertiary">
         {date ? format(date, 'MMMM dd, yyyy') : '-'}

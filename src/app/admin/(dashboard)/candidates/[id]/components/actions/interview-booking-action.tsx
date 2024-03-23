@@ -10,6 +10,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { Icon } from '@/components/elements/icon';
 import timezones from '@/base/utils/timezones.json';
 import { client } from '@/base/services/clients/browser-client';
+import { StageActionProps } from './types';
 
 interface FormValues {
   date: string;
@@ -23,9 +24,18 @@ interface FormValues {
   message: string;
 }
 
-export function InterviewBookAction({ candidateId }: { candidateId: string }) {
+export function InterviewBookAction({
+  candidateId,
+  onComplete,
+}: StageActionProps) {
   const [open, setOpen] = useState(false);
-  const { control, register, handleSubmit, getValues } = useForm<FormValues>();
+  const {
+    control,
+    register,
+    handleSubmit,
+    getValues,
+    formState: { isSubmitting },
+  } = useForm<FormValues>();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -37,6 +47,8 @@ export function InterviewBookAction({ candidateId }: { candidateId: string }) {
       ...val,
       interviewers: val.interviewers.map((i) => i.email),
     });
+
+    await onComplete();
 
     setOpen(false);
   };
@@ -160,7 +172,12 @@ export function InterviewBookAction({ candidateId }: { candidateId: string }) {
           >
             Cancel
           </Button>
-          <Button variant="primary" form="booking-form" type="submit">
+          <Button
+            variant="primary"
+            form="booking-form"
+            type="submit"
+            loading={isSubmitting}
+          >
             Book Interview
           </Button>
         </Dialog.Actions>

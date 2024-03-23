@@ -35,7 +35,7 @@ export default function DashboardLayoutWrapper({
 
         <div className="flex flex-1 flex-col">
           <DashboardHeader />
-          <main className="flex-1 bg-surface-secondary p-8 pb-32">
+          <main className="flex-1 flex justify-center bg-surface-secondary p-8 pb-32">
             {children}
           </main>
         </div>

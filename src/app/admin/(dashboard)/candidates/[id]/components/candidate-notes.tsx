@@ -4,52 +4,39 @@ import { client } from '@/base/services/clients/browser-client';
 import { Button } from '@/components/elements/button';
 import { Icon } from '@/components/elements/icon';
 import { format, parseJSON } from 'date-fns';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useSetState } from 'react-use';
-import clsx from 'clsx';
+import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { Textarea } from '@/components/elements/input';
 import { useForm } from 'react-hook-form';
+import useSWR from 'swr';
+import clsx from 'clsx';
+import { Spinner } from '@/components/elements/spinner';
 
-interface CandidateNotesState {
-  notes: CandidateNoteProps[];
-}
-
-export function CandidateNotes() {
-  const params = useParams();
+export function CandidateNotes({ candidateId }: { candidateId: string }) {
   const [open, setOpen] = useState(false);
-  const [state, setState] = useSetState<CandidateNotesState>({
-    notes: [],
-  });
-
-  const fetchNotes = async () => {
-    const notes = await client.get(`/admin/candidates/${params.id}/notes`);
-    setState({ notes });
-  };
+  const {
+    data = [],
+    isLoading,
+    mutate,
+  } = useSWR(`/admin/candidates/${candidateId}/notes`, (url) =>
+    client.get<CandidateNoteProps[]>(url),
+  );
 
   const handleCreateNote = async (content: string) => {
-    const note = await client.post(`/admin/candidates/${params.id}/notes`, {
+    const note = await client.post(`/admin/candidates/${candidateId}/notes`, {
       note: content,
     });
 
-    setState({
-      notes: [note, ...state.notes],
-    });
-
+    mutate();
     setOpen(false);
   };
-
-  useEffect(() => {
-    fetchNotes();
-  }, []);
 
   return (
     <div className="flex flex-col gap-4 rounded-lg bg-white p-4">
       <div className="flex items-center justify-between">
         <div className="inline-flex items-center text-xl font-semibold">
           Notes
-          {state.notes.length > 0 && (
+          {data.length > 0 && (
             <span
               className={clsx(
                 'ml-3 h-10 w-10',
@@ -58,12 +45,13 @@ export function CandidateNotes() {
                 'text-lg text-content-secondary',
               )}
             >
-              {state.notes.length}
+              {data.length}
             </span>
           )}
         </div>
 
         <Button
+          disabled={isLoading}
           variant="secondary"
           className="inline-flex items-center"
           onClick={() => setOpen(true)}
@@ -73,11 +61,22 @@ export function CandidateNotes() {
         </Button>
       </div>
 
-      <div className="flex max-h-[570px] flex-col gap-4 overflow-auto scrollbar-light-blue">
-        {state.notes.map(({ author, createdAt, note }, index) => (
-          <Note key={index} author={author} createdAt={createdAt} note={note} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="flex h-[75px] items-center justify-center">
+          <Spinner size={50} />
+        </div>
+      ) : (
+        <div className="flex max-h-[570px] flex-col gap-4 overflow-auto scrollbar-light-blue">
+          {data.map(({ author, createdAt, note }, index) => (
+            <Note
+              key={index}
+              author={author}
+              createdAt={createdAt}
+              note={note}
+            />
+          ))}
+        </div>
+      )}
 
       <CandidateNoteDialog
         open={open}

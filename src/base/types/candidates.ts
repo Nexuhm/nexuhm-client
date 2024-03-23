@@ -20,3 +20,9 @@ export interface Candidate {
   job: string;
   stage?: RecruitmentStage;
 }
+
+export enum ApplicationProcessingState {
+  New = 'new',
+  Processing = 'processing',
+  Completed = 'completed',
+}

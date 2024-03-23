@@ -1,7 +1,23 @@
-import { Button } from '@/components/elements/button';
-import Markdown from 'markdown-to-jsx';
+'use client';
 
-export function CandidatesExperience() {
+import { client } from '@/base/services/clients/browser-client';
+import { Button } from '@/components/elements/button';
+import { Spinner } from '@/components/elements/spinner';
+import { isValid, format } from 'date-fns';
+import Markdown from 'markdown-to-jsx';
+import useSWR from 'swr';
+
+interface CandidatesExperienceData {
+  experiences: ExperienceCardProps[];
+  resume: string;
+}
+
+export function CandidatesExperience({ candidateId }: { candidateId: string }) {
+  const { data, isLoading } = useSWR(
+    `/admin/candidates/${candidateId}/experiences`,
+    (url) => client.get<CandidatesExperienceData>(url),
+  );
+
   return (
     <div className="flex flex-col gap-4 rounded-lg bg-white p-4">
       <div className="flex items-center justify-between">
@@ -9,41 +25,61 @@ export function CandidatesExperience() {
           Experience
         </div>
 
-        <Button variant="secondary" className="inline-flex items-center">
+        <Button
+          href={data?.resume}
+          target="_blank"
+          variant="secondary"
+          className="inline-flex items-center"
+        >
           Download CV
         </Button>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <ExperienceCard />
-      </div>
+      {isLoading ? (
+        <div className="flex h-[75px] items-center justify-center">
+          <Spinner size={50} />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {data?.experiences?.map((item) => <ExperienceCard {...item} />)}
+        </div>
+      )}
     </div>
   );
 }
 
-export function ExperienceCard() {
-  const text = `
-  - Led the redesign of the booking process for Airbnb's mobile app,
-  resulting in a 30% increase in conversion rates and improved user
-  satisfaction. 
-  - Conducted extensive user research and usability
-  testing to identify pain points in the search and filtering
-  experience. 
-  - Conducted extensive user research and usability testing
-  to identify pain points in the search and filtering experience.
-  `;
+interface ExperienceCardProps {
+  jobPosition: string;
+  organization: string;
+  summary: string;
+  startDate: string;
+  endDate: string;
+}
 
+export function ExperienceCard({
+  jobPosition,
+  summary,
+  organization,
+  startDate,
+  endDate,
+}: ExperienceCardProps) {
+  const formatDate = (date: string) => {
+    return format(new Date(date),  "MMM yyyy");
+  };
   return (
     <div className="py-4">
       <div className="mb-4 flex items-center justify-between">
-        <div className="text-base font-semibold">AirBnb</div>
+        <div className="text-base font-semibold">
+          {organization} - {jobPosition}
+        </div>
         <div className="text-xs italic text-content-tertiary">
-          Oct '20 - Present
+          {formatDate(startDate)} -{' '}
+          {isValid(endDate) ? formatDate(endDate) : 'Present'}
         </div>
       </div>
 
       <div className="prose text-sm prose-li:marker:text-content-primary">
-        <Markdown>{text}</Markdown>
+        <Markdown>{summary}</Markdown>
       </div>
     </div>
   );
