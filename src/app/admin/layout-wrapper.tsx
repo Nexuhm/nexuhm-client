@@ -14,10 +14,9 @@ export default function DashboardLayoutWrapper({
       <div className="flex">
         <Sidebar
           links={[
-            { href: '/admin/dashboard', text: 'Dashboard', icon: 'home' },
+            { href: '/admin/dashboard', text: 'Dashboard', icon: 'analytics' },
             { href: '/admin/jobs', text: 'Jobs', icon: 'case-filled' },
             { href: '/admin/candidates', text: 'Candidates', icon: 'group' },
-            { href: '/admin/dashboard', text: 'Analytics', icon: 'analytics' },
           ]}
         />
 

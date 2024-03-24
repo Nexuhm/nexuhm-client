@@ -44,3 +44,12 @@
     }
   }
 }
+
+.event {
+  @apply px-1 text-xs font-medium text-white hover:text-content-primary;
+  @apply transition-all cursor-pointer;
+
+  :global(.fc-daygrid-event-dot) {
+    @apply hidden #{!important};
+  }
+}

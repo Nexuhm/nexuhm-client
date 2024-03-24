@@ -6,7 +6,6 @@ import { ReactNode } from 'react';
 import { AreaChart } from './area-chart';
 import { HorizontalBarChart } from './bar-chart';
 import { DashboardCalendar } from './calendar/calendar';
-import { Button } from '@/components/elements/button';
 import { EventTile } from './event-tile/event-tile';
 import { Input } from '@/components/elements/input';
 
@@ -74,16 +73,16 @@ export default function AnalyticsDashboard() {
                 />
 
                 <EventTile
-                  status="unconfirmed"
-                  name="David"
-                  subject="Designer Interview"
+                  status="canceled"
+                  name="Michael"
+                  subject="Senior Developer"
                   time="08:00"
                 />
 
                 <EventTile
-                  status="canceled"
-                  name="David"
-                  subject="Designer Interview"
+                  status="unconfirmed"
+                  name="Rose"
+                  subject="HR Partner"
                   time="07:40"
                 />
               </div>
