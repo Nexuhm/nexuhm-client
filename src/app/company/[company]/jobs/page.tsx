@@ -1,13 +1,10 @@
 import clsx from 'clsx';
-import Image from 'next/image';
 import { client } from '@/base/services/clients/server-client';
 import { AnimatedSection } from '@/components/elements/animated-section';
 import { Button } from '@/components/elements/button';
 import { CareersPageProps } from '@/base/schemas/company';
 import { JobPosting } from '@/base/types/jobs';
 import { CompanyDetails } from '@/base/types/company';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { JobPostingCard } from '@/components/elements/job-posting-card';
 import { FollowCompany } from '../follow-company';
 

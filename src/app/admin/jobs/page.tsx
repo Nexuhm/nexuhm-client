@@ -67,7 +67,7 @@ export default function Page() {
           </div>
         ) : (
           <>
-            <div className="text-xlg my-5 font-medium">
+            <div className="text-lg my-5 font-medium">
               {data?.length} Active jobs
             </div>
 
