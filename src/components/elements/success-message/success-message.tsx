@@ -1,7 +1,8 @@
 import clsx from 'clsx';
 import { Icon } from '@/components/elements/icon';
+import { PropsWithChildren } from 'react';
 
-export function ApplicationFormSuccess() {
+export function SuccessMessage({ children }: PropsWithChildren) {
   return (
     <div className="flex flex-col items-center justify-center gap-5">
       <div
@@ -14,8 +15,7 @@ export function ApplicationFormSuccess() {
       </div>
 
       <div className="text-content-secondary">
-        Thank you for submitting your application. We will contact you once
-        we’ve review your details.
+        {children}
       </div>
     </div>
   );

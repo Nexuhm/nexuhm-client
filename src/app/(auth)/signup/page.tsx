@@ -40,12 +40,14 @@ export default function SignUpPage() {
 
   return (
     <AuthForm.Container>
-      <AuthForm.Header>
+      <AuthForm.Header>Sign Up</AuthForm.Header>
+
+      <div className='mb-10'>
         Already have an account?
         <a href="/login" className="mx-1 text-blue">
           Sign In
         </a>
-      </AuthForm.Header>
+      </div>
 
       <AuthForm.Form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -79,7 +81,7 @@ export default function SignUpPage() {
         />
 
         <div>
-          <a href="" className="text-blue">
+          <a href="/password/reset" className="text-blue">
             Forgot password?
           </a>
         </div>

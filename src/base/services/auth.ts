@@ -1,3 +1,5 @@
+import { client } from './clients/server-client';
+
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
 export interface SignUpPayload {
@@ -8,7 +10,7 @@ export interface SignUpPayload {
 }
 
 export class AuthService {
-  login(email: string, password: string) {
+  static login(email: string, password: string) {
     return fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
       body: JSON.stringify({ email, password }),
@@ -18,7 +20,7 @@ export class AuthService {
     });
   }
 
-  signup(payload: SignUpPayload) {
+  static signup(payload: SignUpPayload) {
     return fetch(`${API_BASE}/auth/signup`, {
       method: 'POST',
       body: JSON.stringify(payload),

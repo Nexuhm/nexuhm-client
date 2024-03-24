@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 
 import { Button } from '@/components/elements/button';
 
@@ -14,12 +14,9 @@ export function Container({ children }: PropsWithChildren) {
   );
 }
 
-function Header({ children }: PropsWithChildren) {
+function Header({ children }: { children: ReactNode }) {
   return (
-    <div className="mb-10">
-      <p className="mb-2 text-[40px] font-medium leading-[48px]">Sign in</p>
-      <div>{children}</div>
-    </div>
+    <h1 className="mb-2 text-[40px] font-medium leading-[48px]">{children}</h1>
   );
 }
 

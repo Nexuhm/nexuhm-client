@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { client } from '@/base/services/clients/browser-client';
 import { useParams } from 'next/navigation';
-import { ApplicationFormSuccess } from './success-message';
+import { SuccessMessage } from '@/components/elements/success-message/success-message';
 
 const schema = z.object({
   firstname: z.string().min(1, 'First name is required'),
@@ -71,7 +71,12 @@ export function JobApplicationForm() {
   };
 
   if (isSuccess) {
-    return <ApplicationFormSuccess />;
+    return (
+      <SuccessMessage>
+        Thank you for submitting your application. We will contact you once
+        we’ve review your details.
+      </SuccessMessage>
+    );
   }
 
   return (

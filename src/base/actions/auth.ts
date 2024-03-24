@@ -2,11 +2,10 @@
 
 import { cookies } from 'next/headers';
 import { AuthService, SignUpPayload } from '@/base/services/auth';
-
-const authService = new AuthService();
+import { client } from '../services/clients/server-client';
 
 export async function login(email: string, password: string) {
-  const res = await authService.login(email, password);
+  const res = await AuthService.login(email, password);
 
   if (!res.ok) {
     throw Error('Error during login');
@@ -21,8 +20,36 @@ export async function login(email: string, password: string) {
   };
 }
 
+export async function requestPasswordReset(email: string) {
+  return client
+    .post('/auth/password/reset/create', { email })
+    .then((res) => res.json());
+}
+
+export async function validateToken(
+  token: string,
+): Promise<{ isValid: boolean }> {
+  return client
+    .post('/auth/password/reset/validate', { token })
+    .then((res) => res.json());
+}
+
+export async function resetPassword(
+  token: string,
+  newPassword: string,
+  confirmPassword: string,
+) {
+  return client
+    .post('/auth/password/reset', {
+      token,
+      newPassword,
+      confirmPassword,
+    })
+    .then((res) => res.json());
+}
+
 export async function signup(paylaod: SignUpPayload) {
-  const res = await authService.signup(paylaod);
+  const res = await AuthService.signup(paylaod);
 
   if (!res.ok) {
     throw Error('Error during login');
