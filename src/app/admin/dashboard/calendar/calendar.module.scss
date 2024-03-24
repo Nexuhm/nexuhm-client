@@ -1,0 +1,46 @@
+.calendar {
+  :global(.fc-scrollgrid) {
+    @apply border-transparent;
+
+    table {
+      border-top-style: none;
+      border-left-style: none;
+    }
+
+    tr td {
+      @apply border-dashed border-light-blue;
+    }
+  }
+
+  table {
+    @apply border-0;
+
+    th {
+      @apply border-transparent text-left;
+    }
+  }
+}
+
+.calendarWrapper {
+  h2 {
+    @apply font-inter font-semibold;
+  }
+
+  :global(.fc-toolbar-chunk) {
+    button {
+      @apply border-0 bg-blue outline-none ring-0 #{!important};
+    }
+
+    :global(.fc-today-button) {
+      @apply rounded-lg border-0 bg-blue outline-none ring-0 #{!important};
+    }
+
+    :global(.fc-prev-button) {
+      @apply rounded-l-lg rounded-r-none #{!important};
+    }
+
+    :global(.fc-next-button) {
+      @apply rounded-l-none rounded-r-lg #{!important};
+    }
+  }
+}

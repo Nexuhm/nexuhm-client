@@ -6,7 +6,9 @@ export const colors = {
   indigo: '#8752D7',
   gold: '#DEA63A',
   red: '#C54240',
+  amber: '#F59E0B',
   error: '#DE3A3A',
+  rose: '#F43F5E',
   'light-blue': '#E7E7FD',
   'light-gray': {
     DEFAULT: '#DBD9D3',

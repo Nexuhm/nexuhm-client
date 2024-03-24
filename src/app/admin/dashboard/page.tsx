@@ -5,8 +5,10 @@ import clsx from 'clsx';
 import { ReactNode } from 'react';
 import { AreaChart } from './area-chart';
 import { HorizontalBarChart } from './bar-chart';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
+import { DashboardCalendar } from './calendar/calendar';
+import { Button } from '@/components/elements/button';
+import { EventTile } from './event-tile/event-tile';
+import { Input } from '@/components/elements/input';
 
 export default function AnalyticsDashboard() {
   const { data } = useUserData();
@@ -21,36 +23,73 @@ export default function AnalyticsDashboard() {
         <StatsTile title="Time to fill role" value="13 days" />
       </div>
 
-      <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-9 p-4 card-container">
-          <div className="mb-2 font-medium text-content-primary">
-            Candidates Overview
+      <div>
+        <div className="mb-4 text-2xl font-medium">Analytics</div>
+        <div className="grid grid-cols-12 gap-5">
+          <div className="col-span-9 p-4 card-container">
+            <div className="mb-2 font-medium text-content-primary">
+              Candidates Overview
+            </div>
+            <div className="text-3xl font-bold">120</div>
+            <div>
+              <AreaChart />
+            </div>
           </div>
-          <div className="text-3xl font-bold">120</div>
-          <div>
-            <AreaChart />
-          </div>
-        </div>
 
-        <div className="col-span-3 p-4 card-container">
-          <div className="mb-2 font-medium text-content-primary">
-            Job Overview
-          </div>
-          <div>
-            <HorizontalBarChart />
+          <div className="col-span-3 p-4 card-container">
+            <div className="mb-2 font-medium text-content-primary">
+              Job Overview
+            </div>
+            <div>
+              <HorizontalBarChart />
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="p-4 card-container">
-        <FullCalendar
-          plugins={[dayGridPlugin]}
-          initialView="dayGridMonth"
-          events={[
-            { title: 'Event 1', date: '2024-03-01' },
-            { title: 'Event 2', date: '2024-03-02' },
-          ]}
-        />
+      <div>
+        <div className="mb-4 text-2xl font-medium">Upcoming Interviews</div>
+        <div className="grid grid-cols-12 gap-5">
+          <div className="col-span-8 p-4 card-container">
+            <DashboardCalendar />
+          </div>
+
+          <div className="col-span-4 p-4 card-container">
+            <div className="flex flex-col gap-4">
+              <Input icon="search" placeholder="Search..." />
+
+              <div className="flex flex-col gap-4">
+                <div className="font-medium">04 March</div>
+
+                <EventTile
+                  status="confirmed"
+                  name="David"
+                  subject="Designer Interview"
+                  time="09:00"
+                  cta={{
+                    title: 'Upcoming Meeting in: 02:45 minutes',
+                    href: '',
+                    text: 'Join Meeting',
+                  }}
+                />
+
+                <EventTile
+                  status="unconfirmed"
+                  name="David"
+                  subject="Designer Interview"
+                  time="08:00"
+                />
+
+                <EventTile
+                  status="canceled"
+                  name="David"
+                  subject="Designer Interview"
+                  time="07:40"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
