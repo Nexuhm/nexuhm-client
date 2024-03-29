@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/elements/button';
 import { Dialog } from '@/components/elements/dialog';
 import { Input, Textarea } from '@/components/elements/input';
@@ -11,6 +11,7 @@ import { Icon } from '@/components/elements/icon';
 import { client } from '@/base/services/clients/browser-client';
 import { StageActionProps } from './types';
 import timezones from '@/base/utils/timezones.json';
+import { addMinutesToTimeString } from '@/base/utils';
 
 interface FormValues {
   date: string;
@@ -34,8 +35,12 @@ export function InterviewBookAction({
     register,
     handleSubmit,
     getValues,
+    setValue,
+    watch,
     formState: { isSubmitting },
   } = useForm<FormValues>();
+
+  const startTime = watch('startTime');
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -52,6 +57,13 @@ export function InterviewBookAction({
 
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (startTime) {
+      const endTime = addMinutesToTimeString(startTime, 30);
+      setValue('endTime', endTime);
+    }
+  }, [startTime]);
 
   return (
     <>
