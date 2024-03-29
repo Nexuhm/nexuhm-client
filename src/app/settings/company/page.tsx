@@ -43,6 +43,7 @@ export default function BusinessProfilePage() {
           onSubmit={handleSubmit}
           defaultValues={{
             name: data.name,
+            slug: data.slug,
             companySize: data.companySize,
             website: data.website,
             industry: data.industry,
