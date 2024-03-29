@@ -21,6 +21,7 @@ import LocationIcon from '@/assets/icons/location.svg';
 import VerticalDotsIcon from '@/assets/icons/vertical-dots.svg';
 import EnvelopeIcon from '@/assets/icons/envelope.svg';
 import CaseFilledIcon from '@/assets/icons/case-filled.svg';
+import CashIcon from '@/assets/icons/cash.svg';
 
 export type IconName =
   | 'home'
@@ -43,7 +44,8 @@ export type IconName =
   | 'location'
   | 'vertical-dots'
   | 'envelope'
-  | 'case-filled';
+  | 'case-filled'
+  | 'cash';
 
 // Define the IconProps interface
 interface IconProps {
@@ -77,6 +79,7 @@ const icons: Record<
   'arrow-left': ArrowLeftIcon,
   'vertical-dots': VerticalDotsIcon,
   'case-filled': CaseFilledIcon,
+  'cash': CashIcon,
 };
 
 // Icon component using function declaration

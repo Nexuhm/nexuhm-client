@@ -34,6 +34,18 @@
     }
   }
 
+  &[data-variant='green'] {
+    @apply border border-green bg-green text-white;
+
+    &:disabled {
+      @apply border-opacity-0 bg-opacity-70;
+    }
+
+    &:not(:disabled):hover {
+      @apply border-opacity-70 bg-opacity-70;
+    }
+  }
+
   &[data-variant='alert'] {
     @apply border border-red bg-red text-white;
 

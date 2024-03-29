@@ -15,222 +15,242 @@ import { FormControlGroup } from '@/components/modules/job-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
+import { Form } from '../form/form';
 
 interface JobCreateFormProps {
   defaultValues?: Partial<JobSchema>;
   onPreview: (val: JobSchema) => void;
-  onSave: (val: JobSchema) => void;
 }
 
 export function JobCreateForm({
   defaultValues,
-  onSave,
   onPreview,
 }: JobCreateFormProps) {
-  const { register, setValue, control, handleSubmit, getValues } =
-    useForm<JobSchema>({
-      defaultValues,
-      resolver: zodResolver(jobSchema),
-    });
+  const { register, setValue, control, handleSubmit } = useForm<JobSchema>({
+    defaultValues,
+    resolver: zodResolver(jobSchema),
+  });
 
   const submitHandler = async (val: any) => {
     onPreview(val);
   };
 
-  const handleSave = async () => {
-    const values = getValues();
-    await onSave(values);
-  };
-
   return (
-    <form
+    <Form
       onSubmit={handleSubmit(submitHandler)}
-      className="mx-auto max-w-[800px] p-10 card-container"
+      className="mx-auto max-w-[800px] gap-6 p-10 pt-4"
     >
-      <div className="mb-8 text-2xl font-medium">Tell us about your job</div>
+      <div className="mb-4 text-2xl font-medium">Tell us about your job</div>
 
-      <FormControlGroup>
-        <Input
-          label="Job Title"
-          {...register('title', { required: true })}
-          placeholder="e.g. Senior product Designer"
-          required
-        />
-      </FormControlGroup>
+      <div className="p-6 card-container">
+        <div className="mb-2 text-2xl font-medium">
+          Job title and Department details
+        </div>
 
-      <FormControlGroup>
-        <Textarea
-          label="Job overview"
-          rows={10}
-          {...register('description', { required: true })}
-          placeholder={
-            'e.g. We’re looking for a full-time senior product designer' +
-            'with 6-8 years experience in product design and leadership.' +
-            'This position is located in New York City.'
-          }
-          required
-        />
-      </FormControlGroup>
+        <Form.ControlGroup className="mb-4">
+          <Input
+            label="Job Title"
+            {...register('title', { required: true })}
+            placeholder="e.g. Senior product Designer"
+            className="w-full"
+            required
+          />
+        </Form.ControlGroup>
 
-      <FormControlGroup>
-        <Controller
-          control={control}
-          name="content"
-          render={({ field }) => {
-            return (
-              <RichTextEditor
-                label="Job description"
-                initialValue={field.value}
-                onChange={(val) => {
-                  field.onChange(val);
-                }}
+        <Form.ControlGroup>
+          <Input
+            label="Department"
+            {...register('department', { required: true })}
+            placeholder="e.g. Senior product Designer"
+            className="w-full"
+            required
+          />
+
+          <Input
+            label="Job Code"
+            {...register('code', { required: true })}
+            placeholder="e.g. #1234"
+            className="w-full"
+            required
+          />
+        </Form.ControlGroup>
+      </div>
+
+      <div className="p-6 card-container">
+        <div className="mb-2 text-2xl font-medium">Description</div>
+
+        <FormControlGroup>
+          <Textarea
+            label="About the role"
+            rows={10}
+            {...register('description', { required: true })}
+            placeholder={
+              'e.g. We’re looking for a full-time senior product designer' +
+              'with 6-8 years experience in product design and leadership.' +
+              'This position is located in New York City.'
+            }
+            required
+          />
+        </FormControlGroup>
+      </div>
+
+      <div className="p-6 card-container">
+        <div className="mb-2 text-2xl font-medium">Job Description</div>
+
+        <FormControlGroup>
+          <Controller
+            control={control}
+            name="content"
+            render={({ field }) => {
+              return (
+                <RichTextEditor
+                  label="Job description"
+                  initialValue={field.value}
+                  onChange={(val) => {
+                    field.onChange(val);
+                  }}
+                />
+              );
+            }}
+          />
+        </FormControlGroup>
+      </div>
+
+      <div className="p-6 card-container">
+        <div className="mb-4 text-2xl font-medium">Location</div>
+
+        <FormControlGroup>
+          <Input
+            label="Office location"
+            {...register('location', { required: true })}
+            rows={10}
+            placeholder={'e.g. “London” or “Liverpool”'}
+            required
+          />
+        </FormControlGroup>
+      </div>
+
+      <div className="p-6 card-container">
+        <FormControlGroup>
+          <Controller
+            control={control}
+            name="employmentType"
+            render={({ field }) => (
+              <Select
+                required
+                label="Employment type"
+                value={field.value}
+                onChange={(val: EmploymentType) =>
+                  setValue('employmentType', val)
+                }
+                options={[
+                  {
+                    label: 'Full-Time Employment',
+                    value: 'full-time-employment',
+                  },
+                  {
+                    label: 'Part-Time Employment',
+                    value: 'part-time-employment',
+                  },
+                  { label: 'Freelance', value: 'freelance' },
+                  { label: 'Contractual', value: 'contractual' },
+                  {
+                    label: 'Temporary Employment',
+                    value: 'temporary-employment',
+                  },
+                  { label: 'Internship', value: 'internship' },
+                  { label: 'Volunteer Work', value: 'volunteer-work' },
+                  { label: 'Seasonal Work', value: 'seasonal-work' },
+                ]}
+                placeholder='e.g. "Full-time" and "Part-time"'
               />
-            );
-          }}
-        />
-      </FormControlGroup>
-
-      <FormControlGroup>
-        <Input
-          label="Job location"
-          {...register('location', { required: true })}
-          rows={10}
-          placeholder={'e.g. “London” or “Liverpool”'}
-          required
-        />
-      </FormControlGroup>
-
-      <FormControlGroup>
-        <Controller
-          control={control}
-          name="employmentType"
-          render={({ field }) => (
-            <Select
-              required
-              label="Employment type"
-              value={field.value}
-              onChange={(val: EmploymentType) =>
-                setValue('employmentType', val)
-              }
-              options={[
-                {
-                  label: 'Full-Time Employment',
-                  value: 'full-time-employment',
-                },
-                {
-                  label: 'Part-Time Employment',
-                  value: 'part-time-employment',
-                },
-                { label: 'Freelance', value: 'freelance' },
-                { label: 'Contractual', value: 'contractual' },
-                {
-                  label: 'Temporary Employment',
-                  value: 'temporary-employment',
-                },
-                { label: 'Internship', value: 'internship' },
-                { label: 'Volunteer Work', value: 'volunteer-work' },
-                { label: 'Seasonal Work', value: 'seasonal-work' },
-              ]}
-              placeholder='e.g. "Full-time" and "Part-time"'
-            />
-          )}
-        />
-      </FormControlGroup>
-
-      <FormControlGroup label="Salary range" required>
-        <div className="flex gap-4">
-          <Controller
-            control={control}
-            name="salary.min"
-            defaultValue={0}
-            render={({ field }) => (
-              <InputWrapper prefix="£" className="flex-1">
-                <NumericFormat
-                  required
-                  value={field.value}
-                  thousandSeparator=","
-                  onChange={field.onChange}
-                />
-              </InputWrapper>
             )}
           />
+        </FormControlGroup>
+      </div>
 
-          <Controller
-            control={control}
-            name="salary.max"
-            defaultValue={0}
-            render={({ field }) => (
-              <InputWrapper prefix="£" className="flex-1">
-                <NumericFormat
-                  required
-                  thousandSeparator=","
+      <div className="mb-6 p-6 card-container">
+        <div className="mb-4 text-2xl font-medium">Salary</div>
+
+        <Form.ControlGroup>
+          <Form.ControlGroup label="Salary range" className="flex-1">
+            <div className="flex gap-4">
+              <Controller
+                control={control}
+                name="salary.min"
+                defaultValue={0}
+                render={({ field }) => (
+                  <InputWrapper prefix="£" className="flex-1">
+                    <NumericFormat
+                      required
+                      placeholder="to"
+                      value={field.value}
+                      thousandSeparator=","
+                      onChange={field.onChange}
+                    />
+                  </InputWrapper>
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="salary.max"
+                defaultValue={0}
+                render={({ field }) => (
+                  <InputWrapper prefix="£" className="flex-1">
+                    <NumericFormat
+                      required
+                      placeholder="to"
+                      thousandSeparator=","
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </InputWrapper>
+                )}
+              />
+            </div>
+          </Form.ControlGroup>
+
+          <Form.ControlGroup label="Time frame" className="flex-1">
+            <Controller
+              control={control}
+              name="salary.frequency"
+              render={({ field }) => (
+                <Select
+                  className="flex-1"
+                  placeholder="e.g. Choose an option"
                   value={field.value}
-                  onChange={field.onChange}
+                  onChange={(val) => setValue('salary.frequency', val)}
+                  options={[
+                    {
+                      label: 'Yearly',
+                      value: salaryFrequencySchema.Enum.yearly,
+                    },
+                    {
+                      label: 'Monthly',
+                      value: salaryFrequencySchema.Enum.monthly,
+                    },
+                    {
+                      label: 'Weekly',
+                      value: salaryFrequencySchema.Enum.weekly,
+                    },
+                  ]}
                 />
-              </InputWrapper>
-            )}
-          />
-        </div>
-      </FormControlGroup>
-
-      <FormControlGroup>
-        <Controller
-          control={control}
-          name="salary.frequency"
-          render={({ field }) => (
-            <Select
-              required
-              className="flex-1"
-              label="How often"
-              placeholder="e.g. Choose an option"
-              value={field.value}
-              onChange={(val) => setValue('salary.frequency', val)}
-              options={[
-                {
-                  label: 'Yearly',
-                  value: salaryFrequencySchema.Enum.yearly,
-                },
-                {
-                  label: 'Monthly',
-                  value: salaryFrequencySchema.Enum.monthly,
-                },
-                {
-                  label: 'Weekly',
-                  value: salaryFrequencySchema.Enum.weekly,
-                },
-              ]}
+              )}
             />
-          )}
-        />
-      </FormControlGroup>
-
-      <FormControlGroup label="Company benefits">
-        <div className="mb-3 leading-6">
-          If you want to customise your company benefits please go to your
-          company page. This is included at the bottom of all your job pages.
-        </div>
-
-        <div className="flex-shrink-0">
-          <Button variant="secondary">
-            <Icon icon="edit" className="mr-1 h-5 w-5" />
-            Go to Company details
-          </Button>
-        </div>
-      </FormControlGroup>
+          </Form.ControlGroup>
+        </Form.ControlGroup>
+      </div>
 
       <div>
         <div className="flex justify-end gap-2">
           <Button variant="secondary">Cancel</Button>
-          <Button variant="secondary" onClick={handleSave}>
-            <Icon icon="edit" className="2-5 h-5" />
-            Save draft
-          </Button>
           <Button type="submit">
             <Icon icon="check" className="2-5 h-5" />
             Preview
           </Button>
         </div>
       </div>
-    </form>
+    </Form>
   );
 }

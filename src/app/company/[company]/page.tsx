@@ -151,6 +151,12 @@ export default async function CompanyCareersPage({
             />
           ))}
         </div>
+
+        <div className="mt-16 text-center">
+          <a className="font-medium text-blue" href="/">
+            See All
+          </a>
+        </div>
       </AnimatedSection>
     </div>
   );

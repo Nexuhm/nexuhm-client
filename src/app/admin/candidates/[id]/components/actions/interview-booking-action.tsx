@@ -8,9 +8,9 @@ import { Form } from '@/components/modules/form/form';
 import { ComboboxSelect } from '@/components/elements/input/combobox';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { Icon } from '@/components/elements/icon';
-import timezones from '@/base/utils/timezones.json';
 import { client } from '@/base/services/clients/browser-client';
 import { StageActionProps } from './types';
+import timezones from '@/base/utils/timezones.json';
 
 interface FormValues {
   date: string;

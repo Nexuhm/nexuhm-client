@@ -64,7 +64,7 @@ export function Select<T>({
             <Listbox.Button
               className={clsx(
                 styles.inputContainer,
-                'relative w-full outline-none',
+                'relative w-full outline-none h-[38px]',
               )}
             >
               {icon && (

@@ -9,7 +9,7 @@ import { Spinner } from '../spinner';
 interface ButtonBaseProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'as' | 'size'> {
   className?: string;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'link' | 'alert';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'link' | 'alert' | 'green';
   size?: 'xs' | 'base' | 'lg';
   type?: 'button' | 'submit' | 'reset' | undefined;
 }

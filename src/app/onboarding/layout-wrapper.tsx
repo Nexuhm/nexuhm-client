@@ -3,13 +3,19 @@
 import Logo from '@/assets/logo.svg';
 import { CompanyContext } from '@/base/contexts/company';
 import { client } from '@/base/services/clients/browser-client';
-import { PropsWithChildren } from 'react';
-import useSWR from 'swr';
+import { PropsWithChildren, useEffect, useState } from 'react';
 
 export function OnboardingLayoutWrapper({ children }: PropsWithChildren) {
-  const { data: company, isLoading } = useSWR('/admin/company', (url) =>
-    client.get(url),
-  );
+  const [company, setCompany] = useState();
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    client
+      .get('/admin/company')
+      .then((data) => setCompany(data))
+      .finally(() => setLoading(false));
+  }, []);
 
   if (isLoading) {
     return null;

@@ -2,33 +2,33 @@ import { MediaService } from '@/base/services/media';
 import { FileUpload } from '@/components/elements/file-upload';
 import { Icon } from '@/components/elements/icon';
 import Image from 'next/image';
-import { useEffect } from 'react';
 import { useList } from 'react-use';
 
 interface ImageUploaderProps {
   count?: number;
   folder?: string;
   images: string[];
-  onUpload: (files: string[]) => void;
+  onChange: (files: string[]) => void;
 }
 
 export function ImageUploader({
   count = 1,
   folder,
   images: _images,
-  onUpload,
+  onChange,
 }: ImageUploaderProps) {
   const [images, { push, filter }] = useList<string>(_images);
 
   const handleClear = async (index: number) => {
     const image = images[index];
     await MediaService.delete(image);
+    await onChange(images.filter((_, idx) => index !== index));
     filter((i) => i !== image);
   };
 
   const handleUpload = async (image: string) => {
     const newImages = [...images, image];
-    await onUpload(newImages);
+    await onChange(newImages);
     push(image);
   };
 
@@ -40,6 +40,7 @@ export function ImageUploader({
           className="relative h-[124px] w-full overflow-hidden rounded-lg border"
         >
           <button
+            type="button"
             onClick={() => handleClear(index)}
             className="absolute right-1 top-1 z-10 rounded-full bg-white p-0.5"
           >

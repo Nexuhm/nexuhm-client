@@ -15,11 +15,11 @@ body {
 
 @layer utilities {
   .input-label {
-    @apply mb-0.5 inline-block font-inter text-sm leading-6;
+    @apply mb-0.5 inline-block font-inter font-semibold text-sm leading-6;
 
     &[data-required='true']:after {
       content: '*';
-      @apply ml-1;
+      @apply ml-1 text-red;
     }
   }
 

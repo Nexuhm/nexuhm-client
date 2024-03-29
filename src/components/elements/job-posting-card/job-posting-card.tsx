@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { Button } from '../button';
+import { Icon } from '../icon';
 
 export interface JobPostingCardProps {
   title: string;
@@ -32,8 +33,14 @@ export function JobPostingCard({
           </div>
 
           <div className="ml-auto">
-            <span className="inline-flex !rounded-full bg-blue px-4 py-2 text-sm font-medium text-white">
+            <span
+              className={clsx(
+                'inline-flex !rounded-full bg-blue',
+                'px-4 py-2 text-sm font-medium text-white',
+              )}
+            >
               View Jobs
+              <Icon icon="arrow-left" className="ml-1.5 w-4 rotate-180" />
             </span>
           </div>
         </div>

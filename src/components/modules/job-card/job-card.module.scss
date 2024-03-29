@@ -1,9 +1,11 @@
 .tag {
-  @apply rounded-full bg-surface-primary p-2 text-sm;
+  @apply max-w-44 px-2 py-1;
+  @apply line-clamp-1 rounded-full bg-surface-secondary;
+  @apply text-sm font-medium text-content-secondary;
 }
 
 .title {
-  @apply mb-4;
+  @apply mb-4 font-semibold;
 }
 
 .title,

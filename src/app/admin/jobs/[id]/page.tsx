@@ -1,10 +1,9 @@
-import { Button } from '@/components/elements/button';
 import { Icon } from '@/components/elements/icon';
-import { JobStatusChip } from '@/components/elements/job-status-chip/job-status-chip';
 import { JobCandidates } from './candidates';
 import { client } from '@/base/services/clients/server-client';
 import { format } from 'date-fns';
 import { formatEmploymentTypeLabel } from '@/base/utils';
+import JobActions from './job-actions';
 
 async function getData(id: string) {
   const data = await client.get(`/admin/jobs/${id}`);
@@ -17,31 +16,18 @@ export default async function JobDetailsPage({
   params: { id: string };
 }) {
   const jobDetails = await getData(params.id);
+  const formatter = new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+    minimumFractionDigits: 0,
+  });
 
   return (
     <div className="container max-w-7xl">
       <div className="mb-8">
-        <div className="mb-4 flex">
-          <div className="flex items-center gap-4 text-2xl font-medium">
-            {jobDetails.title}
-            <JobStatusChip state={jobDetails.state} />
-          </div>
+        <JobActions job={jobDetails} />
 
-          <div className="ml-auto flex gap-4">
-            <Button
-              target="_blank"
-              href={`/jobs/${jobDetails.slug}`}
-              variant="secondary"
-            >
-              View Job Post
-            </Button>
-            <Button variant="secondary" href={`/admin/jobs/${params.id}`}>
-              Edit Job
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between rounded-lg bg-white px-6 py-8">
+        <div className="flex items-center justify-between p-6 card-container">
           <div className="inline-flex items-center gap-2">
             <Icon icon="calendar" className="w-5" /> Posted{' '}
             {format(jobDetails.createdAt, 'dd MMM yyyy')}
@@ -52,7 +38,11 @@ export default async function JobDetailsPage({
           </div>
 
           <div className="inline-flex items-center gap-2">
-            <Icon icon="clock" className="w-5" /> 40 hrs/wk
+            <Icon icon="cash" className="w-5" />{' '}
+            {formatter.formatRange(
+              jobDetails.salary?.min,
+              jobDetails.salary?.max,
+            )}
           </div>
 
           <div className="inline-flex items-center gap-2">

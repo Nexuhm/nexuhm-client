@@ -64,22 +64,31 @@ export default function CareersPageForm({
 
   const handleHeroImageUpload = async (heroImages: string[]) => {
     await CompanyService.updateCareersPage(company.id, { heroImages });
+    console.log(1);
   };
 
   const handleMediaUpload = async (mediaGallery: string[]) => {
     await CompanyService.updateCareersPage(company.id, { mediaGallery });
+    console.log(2);
   };
 
   const submitHandler = async (val: CareersPageProps) => {
     await CompanyService.updateCareersPage(company.id, val);
   };
 
+  const pageUrl = `https://${company.slug}.${process.env.NEXT_PUBLIC_DOMAIN}`;
+
   return (
     <div className="container max-w-3xl pb-20">
       <h1 className="mb-6 text-2xl">Careers page</h1>
 
       <div className="mb-6">
-        <a href="">Preview URL to go here</a>
+        <div>
+          Preview your careers page{' '}
+          <a target="_blank" href={pageUrl} className="text-blue">
+            {pageUrl}
+          </a>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit(submitHandler)} className="card-container">
@@ -112,7 +121,7 @@ export default function CareersPageForm({
             count={3}
             folder="careers-page"
             images={careersPage?.heroImages}
-            onUpload={handleHeroImageUpload}
+            onChange={handleHeroImageUpload}
           />
         </PageSection>
 
@@ -146,7 +155,7 @@ export default function CareersPageForm({
             count={6}
             folder="careers-page"
             images={careersPage?.mediaGallery}
-            onUpload={handleMediaUpload}
+            onChange={handleMediaUpload}
           />
         </PageSection>
 

@@ -26,37 +26,38 @@ export function JobCard({
   state,
 }: JobCardProps) {
   return (
-    <Link href={`/admin/jobs/${_id}`}>
-      <div className="rounded-lg bg-white p-6">
-        <div>
-          <div className="mb-2 flex gap-2">
-            <span className={styles.tag}>{location}</span>
-
-            <span className={styles.tag}>
-              {formatEmploymentTypeLabel(employmentType)}
-            </span>
-          </div>
-
-          <div className={styles.title}>{title}</div>
-
-          <div className="mb-4">
-            <div className="mb-1 text-content-tertiary">Candidates</div>
-            <div className="flex">
-              <span className={styles.candidates}>{totalCandidates || 0}</span>
-              {!!newCandidates && (
-                <span className={styles.newCandidates}>
-                  {newCandidates || 0} new
-                </span>
-              )}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2.5">
-            <JobStatusChip state={state} />
-
-            <div className="text-blue">See details</div>
-          </div>
+    <Link
+      href={`/admin/jobs/${_id}`}
+      className="flex flex-col rounded-lg bg-white p-6 shadow-sm"
+    >
+      <div className="mb-2 flex gap-2">
+        <div className={styles.tag}>
+          <span className="line-clamp-1">{location}</span>
         </div>
+
+        <div className={styles.tag}>
+          {formatEmploymentTypeLabel(employmentType)}
+        </div>
+      </div>
+
+      <div className={styles.title}>{title}</div>
+
+      <div className="mb-4 mt-auto">
+        <div className="mb-1 text-content-tertiary">Candidates</div>
+        <div className="flex">
+          <span className={styles.candidates}>{totalCandidates || 0}</span>
+          {!!newCandidates && (
+            <span className={styles.newCandidates}>
+              {newCandidates || 0} new
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2.5">
+        <JobStatusChip state={state} />
+
+        <div className="text-blue">See details {'>'}</div>
       </div>
     </Link>
   );

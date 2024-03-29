@@ -1,5 +1,10 @@
-import { PropsWithChildren, createContext, useContext } from 'react';
-import useSWR from 'swr';
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { client } from '@/base/services/clients/browser-client';
 import { CompanyDetails } from '@/base/types/company';
 
@@ -14,9 +19,16 @@ export function useCompanyContext() {
 }
 
 export function CompanyProvider({ children }: PropsWithChildren) {
-  const { data: company, isLoading } = useSWR('/admin/company', (url) =>
-    client.get(url),
-  );
+  const [company, setCompany] = useState();
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    client
+      .get('/admin/company')
+      .then((data) => setCompany(data))
+      .finally(() => setLoading(false));
+  }, []);
 
   if (isLoading) {
     return null;

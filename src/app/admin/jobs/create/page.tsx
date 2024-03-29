@@ -10,8 +10,6 @@ import { createJobDraft } from '@/base/actions/jobs';
 import { JobPreview } from '@/components/modules/job-preview';
 import { useSetState } from 'react-use';
 import { Icon } from '@/components/elements/icon';
-import { client } from '@/base/services/clients/browser-client';
-import useSWR from 'swr';
 
 export default function JobCreatePage() {
   const [activeStep, setActiveStep] = useState(1);
@@ -45,7 +43,7 @@ export default function JobCreatePage() {
     setActiveStep(step);
   };
 
-  const handleSave = async () => {
+  const handleCreate = async () => {
     setState({
       isLoading: true,
     });
@@ -80,6 +78,7 @@ export default function JobCreatePage() {
         </div>
       );
     }
+
     switch (activeStep) {
       case 1: {
         return <JobGenerationForm onComplete={handleStepChange(2)} />;
@@ -88,7 +87,6 @@ export default function JobCreatePage() {
         return (
           <JobCreateForm
             onPreview={handleStepChange(3)}
-            onSave={handleSave}
             defaultValues={jobPosting}
           />
         );
@@ -98,13 +96,7 @@ export default function JobCreatePage() {
           return null;
         }
 
-        return (
-          <JobPreview
-            loading={state.isLoading}
-            onSave={handleSave}
-            data={jobPosting}
-          />
-        );
+        return <JobPreview data={jobPosting} />;
       }
     }
   };
@@ -115,6 +107,21 @@ export default function JobCreatePage() {
         <div className="text-3xl font-medium">Create a job</div>
 
         <div className="ml-auto flex gap-4">
+          {activeStep === 3 && !state.isPublished && (
+            <>
+              <Button variant="secondary" disabled={state.isLoading}>
+                Save Draft
+              </Button>
+              <Button
+                variant="green"
+                onClick={handleCreate}
+                disabled={state.isLoading}
+              >
+                Save & Continue
+              </Button>
+            </>
+          )}
+
           <IconButton variant="secondary" icon="close" />
         </div>
       </div>
@@ -126,10 +133,18 @@ export default function JobCreatePage() {
         onStepChange={setActiveStep}
       />
 
-      <div className="mb-10 text-center">
-        <div className="mb-2 text-2xl leading-10">Nexuhm AI</div>
-        <div className="leading-6">
+      <div className="mb-10 flex flex-col gap-2 text-center font-medium">
+        <div className="text-2xl">Nexuhm AI</div>
+        <div className="text-content-secondary">
           Generate your job description with ease.
+        </div>
+        <div>
+          <button
+            className="text-content-tertiary underline underline-offset-[3px]"
+            onClick={() => setActiveStep(1)}
+          >
+            Regenrate job
+          </button>
         </div>
       </div>
 

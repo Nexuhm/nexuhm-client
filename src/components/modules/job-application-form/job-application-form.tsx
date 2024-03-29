@@ -88,6 +88,7 @@ export function JobApplicationForm() {
             control={control}
             name="resume"
             label="Resume/CV*"
+            accept=".doc,.docx,.pdf"
             onChange={handleResumeUpload}
             loading={isResumeLoading}
           />
@@ -96,6 +97,7 @@ export function JobApplicationForm() {
           <FileField
             control={control}
             name="coverLetter"
+            accept=".doc,.docx,.pdf"
             label="Cover Letter*"
           />
         </div>

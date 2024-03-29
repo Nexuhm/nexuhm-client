@@ -18,6 +18,8 @@ export const jobSchema = z.object({
   description: z.string(),
   content: z.any(), // Use the defined schema for the description
   location: z.string(),
+  department: z.string().optional(),
+  code: z.string().optional(),
   employmentType: employmentTypeSchema,
   salary: z
     .object({

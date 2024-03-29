@@ -30,7 +30,7 @@ const tabs: JobTab[] = [
 
 export default function Page() {
   const [selectedTab, setSelectedTab] = useState<JobState>('active');
-  const { data, isLoading, isValidating } = useSWR('/admin/jobs', (url) =>
+  const { data, isLoading } = useSWR('/admin/jobs', (url) =>
     client.get<any[]>(url),
   );
 
