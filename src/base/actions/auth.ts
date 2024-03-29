@@ -8,7 +8,7 @@ export async function login(email: string, password: string) {
   const res = await AuthService.login(email, password);
 
   if (!res.ok) {
-    throw Error('Error during login');
+    return res.json();
   }
 
   const { token } = await res.json();
@@ -52,7 +52,7 @@ export async function signup(paylaod: SignUpPayload) {
   const res = await AuthService.signup(paylaod);
 
   if (!res.ok) {
-    throw Error('Error during login');
+    return res.json();
   }
 
   const { token } = await res.json();
@@ -70,6 +70,7 @@ export async function setAuthCookie(token: string) {
     value: token,
     httpOnly: true,
     path: '/',
-    maxAge: 60 * 60 * 24 * 1, // 1 week
+    maxAge: 60 * 60 * 24 * 1, // 1 week,
+    domain: process.env.AUTH_COOKIE_DOMAIN,
   });
 }

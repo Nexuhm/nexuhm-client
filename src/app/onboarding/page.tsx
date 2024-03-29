@@ -1,16 +1,16 @@
 'use client';
 
-import { Icon } from '@/components/elements/icon';
 import { Input, Select } from '@/components/elements/input';
 import { COMPANY_SIZE_OPTIONS, INDUSTRIES } from './consts';
 import { Controller, useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { client } from '@/base/services/clients/browser-client';
 import { useRouter } from 'next/navigation';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { CompanyFormSchema, CompanyFormValues } from '@/base/schemas/company';
 import { useCompanyContext } from '@/base/contexts/company/company-context';
+import { useEffect } from 'react';
+import slugify from 'slugify';
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -20,6 +20,8 @@ export default function OnboardingPage() {
     handleSubmit,
     register,
     control,
+    watch,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm<CompanyFormValues>({
     resolver: zodResolver(CompanyFormSchema),
@@ -44,20 +46,45 @@ export default function OnboardingPage() {
     }
   };
 
+  const name = watch('name');
+
+  useEffect(() => {
+    const slug = slugify(name, {
+      lower: true,
+      trim: true,
+      strict: true,
+    });
+
+    setValue('slug', slug, {
+      shouldValidate: true,
+    });
+  }, [name, setValue]);
+
   return (
     <OnboardingForm
       title="Tell us about your business"
-      description="   Help us understand what your business does in a few sentences"
+      description="Help us understand what your business does in a few sentences"
       onSubmit={handleSubmit(submitHandler)}
       isSubmitting={isSubmitting}
     >
       <Input
         label="Company name"
         placeholder="e.g. Nexuhm"
+        error={errors.name?.message}
         required
         {...register('name', { required: true })}
-        error={errors.name?.message}
       />
+
+      <div>
+        <Input
+          label="Careers page namespace"
+          placeholder="e.g. google"
+          error={errors.slug?.message}
+          suffix=".nexuhm.com"
+          required
+          {...register('slug', { required: true })}
+        />
+      </div>
 
       <Controller
         control={control}

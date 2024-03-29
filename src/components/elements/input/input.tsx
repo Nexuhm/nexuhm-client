@@ -14,6 +14,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
       containerClassName,
       label,
       prefix,
+      suffix,
       icon,
       error,
       variant,
@@ -50,6 +51,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
           className="w-full bg-transparent text-sm outline-none"
           {...props}
         />
+
+        {suffix && <span className="flex-1">{suffix}</span>}
       </InputWrapper>
     );
   },

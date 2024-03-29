@@ -22,6 +22,12 @@ export type CareersPageProps = z.infer<typeof careersPageForm>;
 
 export const CompanyFormSchema = z.object({
   name: z.string(),
+  slug: z
+    .string()
+    .regex(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/g,
+      'Slug must only contain lowercase letters, numbers, and hyphens',
+    ),
   companySize: z.string(),
   industry: z.string(),
   website: z.string().url(),

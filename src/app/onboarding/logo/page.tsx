@@ -10,6 +10,7 @@ import { client } from '@/base/services/clients/browser-client';
 import { MediaService } from '@/base/services/media';
 import { Button } from '@/components/elements/button';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
+import { format } from 'date-fns';
 
 export default function UploadLogoPage() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function UploadLogoPage() {
     handleSubmit,
     setValue,
     getValues,
+    watch,
     formState: { isSubmitting },
   } = useForm({
     defaultValues: {
@@ -37,9 +39,11 @@ export default function UploadLogoPage() {
 
       try {
         const data = await MediaService.upload(files[0], {
-          filename: `${company!.slug}.png`,
+          filename: `${company!.slug}-${new Date().getTime()}.png`,
           folder: company!.slug,
         });
+
+        console.log(data);
 
         setValue('logo', data.url);
       } finally {
@@ -61,7 +65,8 @@ export default function UploadLogoPage() {
     }
   };
 
-  const { logo } = getValues();
+  const logo = watch('logo');
+  console.log(logo)
 
   return (
     <OnboardingForm

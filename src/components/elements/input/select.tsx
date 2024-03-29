@@ -18,6 +18,7 @@ interface SelectProps<T> {
   className?: string;
   label?: string;
   icon?: IconName;
+  error?: string;
   value: T;
   options: SelectOptionProps<T>[];
   placeholder?: string;
@@ -32,6 +33,7 @@ export function Select<T>({
   placeholder,
   icon,
   value,
+  error,
   options,
   required,
   onChange,
@@ -103,6 +105,8 @@ export function Select<T>({
                 </Listbox.Option>
               ))}
             </Listbox.Options>
+
+            {error && <p className={styles.errorMessage}>{error}</p>}
           </div>
         </>
       )}

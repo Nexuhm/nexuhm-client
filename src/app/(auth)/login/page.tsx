@@ -25,6 +25,7 @@ export default function SignInPage() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<SignInFormValues>({
     resolver: zodResolver(SignInFormSchema),
@@ -34,10 +35,12 @@ export default function SignInPage() {
     const res = await login(data.email, data.password);
 
     if (!res.success) {
-      throw Error('Error during login');
+      if (res.statusCode === 401) {
+        return setError('root', {
+          message: 'User email or password is wrong.',
+        });
+      }
     }
-
-    router.push('/onboarding');
   };
 
   return (
@@ -56,6 +59,7 @@ export default function SignInPage() {
           id="email"
           label="Email address"
           placeholder="Your email address"
+          error={errors.email?.message}
           {...register('email')}
         />
 
@@ -64,8 +68,11 @@ export default function SignInPage() {
           label="Password"
           placeholder="Your password"
           type="password"
+          error={errors.password?.message}
           {...register('password')}
         />
+
+        <div className="error-message">{errors.root?.message}</div>
 
         <div>
           <a href="/password/reset" className="text-blue">

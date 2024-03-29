@@ -24,7 +24,12 @@ type SignUpFormValues = z.infer<typeof SignUpFormSchema>;
 export default function SignUpPage() {
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<SignUpFormValues>({
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<SignUpFormValues>({
     resolver: zodResolver(SignUpFormSchema),
   });
 
@@ -32,7 +37,11 @@ export default function SignUpPage() {
     const res = await signup(data);
 
     if (!res.success) {
-      throw Error('Error during login');
+      return Object.entries(res.fields).forEach(([key, value]) => {
+        setError(key as keyof SignUpFormValues, {
+          message: value as string,
+        });
+      });
     }
 
     router.push('/onboarding');
@@ -42,7 +51,7 @@ export default function SignUpPage() {
     <AuthForm.Container>
       <AuthForm.Header>Sign Up</AuthForm.Header>
 
-      <div className='mb-10'>
+      <div className="mb-10">
         Already have an account?
         <a href="/login" className="mx-1 text-blue">
           Sign In
@@ -54,6 +63,7 @@ export default function SignUpPage() {
           id="firstname"
           label="Firstname"
           placeholder="Your firstname"
+          error={errors.firstname?.message}
           {...register('firstname')}
         />
 
@@ -61,6 +71,7 @@ export default function SignUpPage() {
           id="lastname"
           label="Lastname"
           placeholder="Your lastname"
+          error={errors.lastname?.message}
           {...register('lastname')}
         />
 
@@ -69,6 +80,7 @@ export default function SignUpPage() {
           label="Email address"
           placeholder="Your email address"
           type="email"
+          error={errors.email?.message}
           {...register('email')}
         />
 
@@ -77,6 +89,7 @@ export default function SignUpPage() {
           label="Password"
           placeholder="Your password"
           type="password"
+          error={errors.password?.message}
           {...register('password')}
         />
 

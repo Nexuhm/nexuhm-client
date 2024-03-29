@@ -22,4 +22,8 @@ body {
       @apply ml-1;
     }
   }
+
+  .error-message {
+    @apply text-sm text-red;
+  }
 }

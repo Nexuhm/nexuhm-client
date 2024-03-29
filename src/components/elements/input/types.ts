@@ -5,5 +5,6 @@ export interface InputProps<T = HTMLElement> extends React.HTMLProps<T> {
   icon?: IconName;
   containerClassName?: string;
   error?: string;
+  suffix?: string;
   variant?: 'gray';
 }
