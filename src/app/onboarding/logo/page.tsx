@@ -59,7 +59,7 @@ export default function UploadLogoPage() {
     }
 
     try {
-      await client.post('/company/details', val);
+      await client.post('/admin/company/details', val);
       await client.post('/users/onboarding/stage', {
         stage: OnboardingStage.Logo,
       });

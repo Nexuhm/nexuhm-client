@@ -9,7 +9,7 @@ export interface SignUpPayload {
 
 export class CompanyService {
   static updateDetails(details: Record<string, string>) {
-    return client.put('/company', details);
+    return client.post('/admin/company/details', details);
   }
 
   static updateCareersPage(companyId: string, fields: Record<string, any>) {

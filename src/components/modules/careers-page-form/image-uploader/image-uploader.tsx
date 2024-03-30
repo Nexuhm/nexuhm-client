@@ -2,6 +2,7 @@ import { MediaService } from '@/base/services/media';
 import { FileUpload } from '@/components/elements/file-upload';
 import { Icon } from '@/components/elements/icon';
 import Image from 'next/image';
+import { useState } from 'react';
 import { useList } from 'react-use';
 
 interface ImageUploaderProps {
@@ -18,6 +19,7 @@ export function ImageUploader({
   onChange,
 }: ImageUploaderProps) {
   const [images, { push, filter }] = useList<string>(_images);
+  const [isUploading, setUploading] = useState(false);
 
   const handleClear = async (index: number) => {
     const image = images[index];
@@ -27,9 +29,15 @@ export function ImageUploader({
   };
 
   const handleUpload = async (image: string) => {
-    const newImages = [...images, image];
-    await onChange(newImages);
-    push(image);
+    try {
+      const newImages = [...images, image];
+      await onChange(newImages);
+      push(image);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setUploading(false);
   };
 
   return (
@@ -56,7 +64,9 @@ export function ImageUploader({
           key={index}
           folder={folder}
           accept={{ 'image/*': ['.jpeg', '.png', '.jpg', '.webp'] }}
-          onUpload={(image) => handleUpload(image)}
+          onComplete={(image) => handleUpload(image)}
+          onStart={() => setUploading(true)}
+          disabled={isUploading}
         />
       ))}
     </div>

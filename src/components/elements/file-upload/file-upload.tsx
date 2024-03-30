@@ -7,10 +7,18 @@ import { Spinner } from '../spinner';
 interface FileUploadProps {
   accept?: Accept;
   folder?: string;
-  onUpload: (image: string) => void;
+  disabled?: boolean;
+  onStart: () => void;
+  onComplete: (image: string) => void;
 }
 
-export function FileUpload({ accept, folder, onUpload }: FileUploadProps) {
+export function FileUpload({
+  accept,
+  disabled,
+  folder,
+  onStart,
+  onComplete,
+}: FileUploadProps) {
   const [state, setState] = useSetState({
     isDragged: false,
     isUploading: false,
@@ -18,7 +26,10 @@ export function FileUpload({ accept, folder, onUpload }: FileUploadProps) {
 
   const { getRootProps, getInputProps } = useDropzone({
     accept,
+    disabled,
     onDrop: async (files) => {
+      onStart();
+
       setState({
         isDragged: false,
         isUploading: true,
@@ -28,7 +39,7 @@ export function FileUpload({ accept, folder, onUpload }: FileUploadProps) {
         folder,
       });
 
-      onUpload(data.url);
+      onComplete(data.url);
 
       setState({ isUploading: false });
     },
@@ -46,6 +57,7 @@ export function FileUpload({ accept, folder, onUpload }: FileUploadProps) {
       className={clsx(
         'h-[124px] cursor-pointer overflow-hidden rounded-lg border transition-all hover:bg-surface-secondary',
         state.isDragged && 'animate-pulse border-dashed  bg-surface-secondary',
+        disabled && 'bg-gray-500 bg-opacity-15',
       )}
     >
       <input {...getInputProps()} />

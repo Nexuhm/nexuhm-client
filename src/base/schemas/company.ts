@@ -52,3 +52,9 @@ export const CultureFormSchema = z.object({
 });
 
 export type CultureFormValues = z.infer<typeof CultureFormSchema>;
+
+export const CompanyLogoFormSchema = z.object({
+  logo: z.string(),
+});
+
+export type CompanyLogoFormValues = z.infer<typeof CompanyLogoFormSchema>;

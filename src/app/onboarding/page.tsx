@@ -42,7 +42,7 @@ export default function OnboardingPage() {
     }
 
     try {
-      await client.post('/company/details', values);
+      await client.post('/admin/company/details', values);
       await client.post('/users/onboarding/stage', {
         stage: OnboardingStage.Business,
       });

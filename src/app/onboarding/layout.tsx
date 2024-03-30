@@ -3,7 +3,7 @@ import { OnboardingLayoutWrapper } from './layout-wrapper';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { client } from '@/base/services/clients/server-client';
-import { OnboardingStage, UserRole } from '@/base/types/users';
+import { UserRole } from '@/base/types/users';
 
 export default async function OnboardingLayout({
   children,

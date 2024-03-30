@@ -4,9 +4,11 @@ import {
   AboutFormValues,
   AddressFormValues,
   CompanyFormValues,
+  CompanyLogoFormValues,
   CultureFormValues,
 } from '@/base/schemas/company';
 import { client } from '@/base/services/clients/browser-client';
+import { CompanyLogoForm } from '@/components/modules/company-settings-form/company-logo-form';
 import {
   CompanyAboutForm,
   CompanyAddressForm,
@@ -18,16 +20,18 @@ import useSWR from 'swr';
 type CompanyDetails = CompanyFormValues &
   AddressFormValues &
   AboutFormValues &
-  CultureFormValues;
+  CultureFormValues &
+  CompanyLogoFormValues;
 
 export default function BusinessProfilePage() {
-  const { data } = useSWR<CompanyDetails>(
+  const { data, mutate } = useSWR<CompanyDetails>(
     '/admin/company',
     async (url: string) => client.get(url),
   );
 
   const handleSubmit = async (val: Record<string, string>) => {
-    await client.put('/admin/company', val);
+    await client.post('/admin/company/details', val);
+    mutate();
   };
 
   if (!data) {
@@ -49,6 +53,8 @@ export default function BusinessProfilePage() {
             industry: data.industry,
           }}
         />
+
+        <CompanyLogoForm defaultValue={data.logo} onSubmit={handleSubmit} />
 
         <CompanyAddressForm
           onSubmit={handleSubmit}
