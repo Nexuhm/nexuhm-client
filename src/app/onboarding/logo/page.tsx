@@ -11,6 +11,7 @@ import { MediaService } from '@/base/services/media';
 import { Button } from '@/components/elements/button';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { format } from 'date-fns';
+import { OnboardingStage } from '@/base/types/users';
 
 export default function UploadLogoPage() {
   const router = useRouter();
@@ -58,7 +59,11 @@ export default function UploadLogoPage() {
     }
 
     try {
-      await client.post('/company/onboarding/details', val);
+      await client.post('/company/details', val);
+      await client.post('/users/onboarding/stage', {
+        stage: OnboardingStage.Logo,
+      });
+
       router.push('/admin/jobs');
     } catch (err) {
       console.log(err);
@@ -66,7 +71,7 @@ export default function UploadLogoPage() {
   };
 
   const logo = watch('logo');
-  console.log(logo)
+  console.log(logo);
 
   return (
     <OnboardingForm

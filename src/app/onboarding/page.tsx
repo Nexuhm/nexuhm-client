@@ -1,16 +1,18 @@
 'use client';
 
-import { Input, Select } from '@/components/elements/input';
+import { Input } from '@/components/elements/input';
 import { COMPANY_SIZE_OPTIONS, INDUSTRIES } from './consts';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { client } from '@/base/services/clients/browser-client';
+import { APIError, client } from '@/base/services/clients/browser-client';
 import { useRouter } from 'next/navigation';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { CompanyFormSchema, CompanyFormValues } from '@/base/schemas/company';
 import { useCompanyContext } from '@/base/contexts/company/company-context';
-import { useEffect } from 'react';
 import slugify from 'slugify';
+import { ComboboxSelect } from '@/components/elements/input/combobox';
+import { OnboardingStage } from '@/base/types/users';
+import { useUpdateEffect } from 'react-use';
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -22,6 +24,7 @@ export default function OnboardingPage() {
     control,
     watch,
     setValue,
+    setError,
     formState: { isSubmitting, errors },
   } = useForm<CompanyFormValues>({
     resolver: zodResolver(CompanyFormSchema),
@@ -39,16 +42,26 @@ export default function OnboardingPage() {
     }
 
     try {
-      await client.post('/company/onboarding/details', values);
+      await client.post('/company/details', values);
+      await client.post('/users/onboarding/stage', {
+        stage: OnboardingStage.Business,
+      });
+
       router.push('/onboarding/address');
     } catch (err) {
-      console.log(err);
+      if (err instanceof APIError) {
+        return Object.entries(err.response.fields).forEach(([key, value]) => {
+          setError(key as any, {
+            message: value as string,
+          });
+        });
+      }
     }
   };
 
   const name = watch('name');
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     const slug = slugify(name, {
       lower: true,
       trim: true,
@@ -90,7 +103,7 @@ export default function OnboardingPage() {
         control={control}
         name="companySize"
         render={({ field }) => (
-          <Select
+          <ComboboxSelect
             required
             label="Size"
             placeholder="e.g. 51-200 employees"
@@ -105,7 +118,7 @@ export default function OnboardingPage() {
         control={control}
         name="industry"
         render={({ field }) => (
-          <Select
+          <ComboboxSelect
             required
             label="Industry"
             value={field.value}

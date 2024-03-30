@@ -6,6 +6,16 @@ type RequestOptions = {
   headers?: HeadersInit;
 };
 
+export class APIError<T = any> extends Error {
+  public response: T;
+
+  constructor(message: string, response: T) {
+    super(message);
+    this.name = this.constructor.name; // Set the error name to the class name
+    this.response = response; // Add the custom response property
+  }
+}
+
 export class APIClient {
   private baseURL?: string;
 
@@ -36,8 +46,10 @@ export class APIClient {
       const data = await response.json().catch(() => null);
 
       if (!response.ok) {
-        throw new Error(
+        console.log(data);
+        throw new APIError(
           data?.message || 'Something went wrong with the request',
+          data,
         );
       }
 

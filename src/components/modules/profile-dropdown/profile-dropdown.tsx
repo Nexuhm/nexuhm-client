@@ -1,11 +1,11 @@
-import { useUserData } from '@/base/hooks/use-user-data';
-import { Avatar } from '@/components/elements/avatar/avatar';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Popover } from '@headlessui/react';
-import clsx from 'clsx';
 import { useState } from 'react';
 import { usePopper } from 'react-popper';
+import { Popover } from '@headlessui/react';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
+import { Avatar } from '@/components/elements/avatar';
+import { useUserData } from '@/base/hooks/use-user-data';
 import styles from './profile-dropdown.module.scss';
 
 export function ProfileDropdown() {
@@ -50,7 +50,10 @@ export function ProfileDropdown() {
               'flex items-center justify-center',
             )}
           >
-            <Avatar image={data?.picture} />
+            <Avatar
+              name={`${data?.firstname} ${data?.lastname}`}
+              image={data?.picture}
+            />
           </div>
 
           <FontAwesomeIcon

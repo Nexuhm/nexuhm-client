@@ -8,6 +8,7 @@ import { client } from '@/base/services/clients/browser-client';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { CultureFormSchema, CultureFormValues } from '@/base/schemas/company';
 import { useCompanyContext } from '@/base/contexts/company/company-context';
+import { OnboardingStage } from '@/base/types/users';
 
 export default function OnboardingCulturePage() {
   const router = useRouter();
@@ -30,7 +31,11 @@ export default function OnboardingCulturePage() {
     }
 
     try {
-      await client.post('/company/onboarding/details', values);
+      await client.post('/company/details', values);
+      await client.post('/users/onboarding/stage', {
+        stage: OnboardingStage.Culture,
+      });
+
       router.push('/onboarding/logo');
     } catch (err) {
       console.log(err);

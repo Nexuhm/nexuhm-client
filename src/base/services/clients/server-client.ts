@@ -11,22 +11,39 @@ function getSharedHeaders() {
   };
 }
 
-async function get(url: string): Promise<any> {
+async function get(
+  url: string,
+  headers?: Record<string, string>,
+): Promise<any> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}${url}`, {
     method: 'GET',
-    headers: getSharedHeaders(),
+    headers: {
+      ...getSharedHeaders(),
+      ...headers,
+    },
   });
 
-  const data = await res.json();
+  const data = await res.json().catch(() => null);
+
+  if (!res.ok) {
+    throw new Error(data || 'Something went wrong!');
+  }
 
   return data;
 }
 
-function post(url: string, payload: any): Promise<any> {
+function post(
+  url: string,
+  payload: any,
+  headers?: Record<string, string>,
+): Promise<any> {
   return fetch(`${process.env.NEXT_PUBLIC_API_BASE}${url}`, {
     method: 'POST',
     body: JSON.stringify(payload),
-    headers: getSharedHeaders(),
+    headers: {
+      ...getSharedHeaders(),
+      ...headers,
+    },
   });
 }
 

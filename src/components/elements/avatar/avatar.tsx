@@ -1,9 +1,8 @@
 import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import BoringAvatar from 'boring-avatars';
 import clsx from 'clsx';
 
-export function Avatar({ image }: { image?: string }) {
+export function Avatar({ name, image }: { name?: string; image?: string }) {
   return (
     <div
       className={clsx(
@@ -15,9 +14,11 @@ export function Avatar({ image }: { image?: string }) {
       {image ? (
         <Image src={image} fill alt="" />
       ) : (
-        <div>
-          <FontAwesomeIcon className="text-content-placehdoler" icon={faUser} />
-        </div>
+        <BoringAvatar
+          name={name}
+          variant='marble'
+          colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
+        />
       )}
     </div>
   );

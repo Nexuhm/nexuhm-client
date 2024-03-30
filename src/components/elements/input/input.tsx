@@ -52,7 +52,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps<HTMLInputElement>>(
           {...props}
         />
 
-        {suffix && <span className="flex-1">{suffix}</span>}
+        {suffix && <span className="flex-1 select-none">{suffix}</span>}
       </InputWrapper>
     );
   },

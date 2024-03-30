@@ -36,6 +36,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-table": "^8.11.8",
     "@types/chart.js": "^2.9.41",
+    "boring-avatars": "^1.10.1",
     "chart.js": "^4.4.2",
     "chartjs-plugin-datalabels": "^2.2.0",
     "client-only": "^0.0.1",

@@ -8,6 +8,7 @@ import { client } from '@/base/services/clients/browser-client';
 import { OnboardingForm } from '@/components/modules/onboarding-form';
 import { AddressFormSchema, AddressFormValues } from '@/base/schemas/company';
 import { useCompanyContext } from '@/base/contexts/company/company-context';
+import { OnboardingStage } from '@/base/types/users';
 
 export default function OnboardingAddressPage() {
   const router = useRouter();
@@ -30,7 +31,11 @@ export default function OnboardingAddressPage() {
     }
 
     try {
-      await client.post('/company/onboarding/details', values);
+      await client.post('/company/details', values);
+      await client.post('/users/onboarding/stage', {
+        stage: OnboardingStage.Address,
+      });
+
       router.push('/onboarding/about');
     } catch (err) {
       console.log(err);
