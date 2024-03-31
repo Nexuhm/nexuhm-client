@@ -50,8 +50,16 @@ export function JobApplicationForm() {
       return fd;
     }, new FormData());
 
-    const res = await client.multipart(`/jobs/${params.slug}/apply`, formData);
-    setIsSuccess(true);
+    try {
+      const res = await client.multipart(
+        `/jobs/${params.slug}/apply`,
+        formData,
+      );
+      setIsSuccess(true);
+    } catch (err) {
+      console.error(err);
+      setIsSuccess(false);
+    }
   };
 
   const handleResumeUpload = async (file: File) => {
