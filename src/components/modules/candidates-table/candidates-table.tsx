@@ -64,12 +64,6 @@ const columns = [
     cell: (info) => format(info.getValue(), 'MMM dd, yyyy'),
     sortingFn: 'datetime',
   }),
-  columnHelper.accessor('note', {
-    header: 'Note',
-    enableSorting: false,
-    size: 200,
-    cell: (info) => <div className="max-w-sm line-clamp-2">{info.getValue()}</div>,
-  }),
   columnHelper.display({
     id: 'actions',
     header: '',
@@ -98,8 +92,6 @@ export function CandidatesTable({ data }: CandidatesTableProps) {
       sorting: [],
     },
   });
-
-  console.log(data);
 
   const renderHeaderCell = (header: Header<JobCandidate, unknown>) => {
     const isSortable = header.column.getCanSort();
@@ -157,7 +149,7 @@ export function CandidatesTable({ data }: CandidatesTableProps) {
               onClick={() =>
                 router.push(`/admin/candidates/${row.original.id}`)
               }
-              className="cursor-pointer"
+              className="cursor-pointer hover:!bg-brand-secondary"
             >
               {row.getVisibleCells().map((cell) => {
                 return (

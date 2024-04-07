@@ -1,9 +1,9 @@
-import { Button } from '@/components/elements/button';
-import { Icon } from '@/components/elements/icon';
-import { Input } from '@/components/elements/input';
+import { RecruitmentStage } from '@/base/types/candidates';
+import { Input, Select } from '@/components/elements/input';
 import { Spinner } from '@/components/elements/spinner';
 import { CandidatesTable } from '@/components/modules/candidates-table';
 import { inflect } from 'inflection';
+import { useState } from 'react';
 
 export function CandidateListing({
   candidates,
@@ -12,6 +12,16 @@ export function CandidateListing({
   candidates: any[];
   loading?: boolean;
 }) {
+  const [filterState, setFilterState] = useState<RecruitmentStage | null>(null);
+
+  const filteredData = candidates?.filter((item) => {
+    if (!filterState) {
+      return true;
+    }
+
+    return item.stage === filterState;
+  });
+
   if (loading) {
     return (
       <div className="flex items-center justify-center p-10">
@@ -34,16 +44,48 @@ export function CandidateListing({
             containerClassName="w-[300px] bg-white"
           />
 
-          <Button variant="secondary">
-            <Icon icon="filter" className="mr-2 w-5" />
-            Filter
-          </Button>
+          <Select
+            placeholder="All Stages"
+            className="min-w-[175px]"
+            value={filterState}
+            onChange={setFilterState}
+            options={[
+              {
+                value: null,
+                label: 'All Stages',
+              },
+              {
+                value: 'applied',
+                label: 'Applied',
+              },
+              {
+                value: 'interview',
+                label: 'Interview',
+              },
+              {
+                value: 'awaiting',
+                label: 'Awaiting Feedback',
+              },
+              {
+                value: 'offer',
+                label: 'Offer',
+              },
+              {
+                value: 'hired',
+                label: 'Hired',
+              },
+              {
+                value: 'rejected',
+                label: 'Rejected',
+              },
+            ]}
+          />
         </div>
       </div>
 
       <div>
         <div>
-          {candidates.length === 0 ? (
+          {filteredData.length === 0 ? (
             <div className="mx-auto mt-20 max-w-md text-balance text-center">
               <div className="mb-4 text-2xl font-medium">No Candidtaes</div>
 
@@ -54,7 +96,7 @@ export function CandidateListing({
             </div>
           ) : (
             <CandidatesTable
-              data={candidates?.map((candidate: any) => ({
+              data={filteredData?.map((candidate: any) => ({
                 id: candidate._id,
                 name: `${candidate.firstname} ${candidate.lastname}`,
                 score: candidate.score,

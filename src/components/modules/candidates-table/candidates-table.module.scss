@@ -1,9 +1,13 @@
 .tableContainer {
-  @apply rounded-md border bg-white;
+  @apply overflow-hidden rounded-xl border bg-white  shadow-md;
 }
 
 .table {
   @apply w-full font-inter;
+
+  tr {
+    @apply transition-all duration-100;
+  }
 
   td {
     @apply p-4;
