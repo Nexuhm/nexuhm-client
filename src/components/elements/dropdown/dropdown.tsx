@@ -2,6 +2,7 @@
 
 import {
   ElementType,
+  Fragment,
   PropsWithChildren,
   ReactNode,
   createContext,
@@ -15,7 +16,12 @@ import clsx from 'clsx';
 
 const DropdownContext = createContext<any>({});
 
-export function Dropdown({ children }: PropsWithChildren) {
+interface DropdownProps {
+  children: ReactNode;
+  enableArrow?: boolean;
+}
+
+export function Dropdown({ children, enableArrow }: DropdownProps) {
   const [referenceElement, setReferenceElement] =
     useState<HTMLButtonElement | null>();
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>();
@@ -52,6 +58,7 @@ export function Dropdown({ children }: PropsWithChildren) {
       setReferenceElement,
     },
     arrow: {
+      enable: enableArrow,
       setArrowElement,
       arrowElement,
     },
@@ -111,6 +118,14 @@ function DropdownContent({
         className={clsx(styles.tooltip, className)}
       >
         {children}
+
+        {ctx.arrow.enable && (
+          <div
+            ref={ctx.arrow.setArrowElement}
+            style={ctx.popperProps.styles.arrow}
+            className={styles.arrow}
+          />
+        )}
       </Popover.Panel>
     </Transition>
   );
@@ -125,7 +140,7 @@ function DropdownOption({
       type="button"
       {...props}
       className={clsx(
-        'rounded-md w-full text-left hover:bg-brand-secondary p-1.5 px-2',
+        'w-full rounded-md p-1.5 px-2 text-left hover:bg-brand-secondary',
         props.className,
       )}
     >
