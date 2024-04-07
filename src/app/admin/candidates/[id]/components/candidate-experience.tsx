@@ -79,7 +79,7 @@ export function ExperienceCard({
       </div>
 
       <div className="prose text-sm prose-li:marker:text-content-primary">
-        <Markdown>{summary}</Markdown>
+        <Markdown>{summary || ''}</Markdown>
       </div>
     </div>
   );

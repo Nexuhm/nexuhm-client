@@ -3,7 +3,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/elements/button';
 import { Divider } from '@/components/elements/divider';
@@ -20,8 +19,6 @@ const SignInFormSchema = z.object({
 type SignInFormValues = z.infer<typeof SignInFormSchema>;
 
 export default function SignInPage() {
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,

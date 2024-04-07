@@ -4,6 +4,7 @@ import { CompanyDetails } from '@/base/types/company';
 import { Button } from '@/components/elements/button';
 import styles from './job-posting.module.scss';
 import { Sidebar } from './sidebar';
+import { usePathname } from 'next/navigation';
 
 interface JobPostingTemplateProps {
   company: CompanyDetails;
@@ -21,6 +22,7 @@ export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {
     publishedAt,
   } = job;
   const html = marked(content);
+  const pathname = usePathname();
 
   return (
     <div>
@@ -37,8 +39,9 @@ export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {
           />
 
           <div className="hidden flex-col justify-between gap-4 py-4 md:flex md:flex-row">
-            <Button variant="primary">Apply for this position</Button>
-            <Button variant="secondary">Learn more about us</Button>
+            <Button variant="primary" href={`${pathname}/apply`}>
+              Apply for this position
+            </Button>
           </div>
         </div>
 

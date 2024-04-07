@@ -12,7 +12,7 @@ export function Footer() {
           'items-center justify-center text-content-tertiary md:items-baseline',
         )}
       >
-        <a href="" className="order-3 items-center md:order-none">
+        <a href="/" className="order-3 items-center md:order-none">
           Powered by
           <Image
             src={Logo.src}

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 4000",
+    "dev": "next dev -p 4000 --experimental-https",
     "build": "next build",
     "start": "next start -p 4000",
     "format": "prettier --write \"src/**/*.(ts|tsx|scss|js)\"",
@@ -33,6 +33,7 @@
     "@lexical/selection": "^0.12.6",
     "@lexical/text": "^0.12.6",
     "@popperjs/core": "^2.11.8",
+    "@sentry/nextjs": "^7.105.0",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-table": "^8.11.8",
     "@types/chart.js": "^2.9.41",
