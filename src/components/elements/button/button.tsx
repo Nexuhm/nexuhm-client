@@ -6,15 +6,23 @@ import clsx from 'clsx';
 import { Icon, IconName } from '../icon';
 import { Spinner } from '../spinner';
 
-interface ButtonBaseProps
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'link'
+  | 'alert'
+  | 'green';
+
+export interface ButtonBaseProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'as' | 'size'> {
   className?: string;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'link' | 'alert' | 'green';
+  variant?: ButtonVariant;
   size?: 'xs' | 'base' | 'lg';
   type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
-interface ButtonProps extends ButtonBaseProps {
+export interface ButtonProps extends ButtonBaseProps {
   as?: ElementType;
   children: ReactNode;
   className?: string;

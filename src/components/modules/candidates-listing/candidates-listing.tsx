@@ -38,11 +38,6 @@ export function CandidateListing({
             <Icon icon="filter" className="mr-2 w-5" />
             Filter
           </Button>
-
-          <Button href="/admin/candidate/create">
-            <Icon icon="plus" className="mr-2 w-5" />
-            Add candidate
-          </Button>
         </div>
       </div>
 

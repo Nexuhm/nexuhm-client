@@ -10,7 +10,7 @@ type ValueType = string | number;
 
 interface SelectOptionProps<T = ValueType> {
   label: string;
-  value: T;
+  value: T | null;
 }
 
 interface SelectProps<T> {
@@ -64,21 +64,23 @@ export function Select<T>({
             <Listbox.Button
               className={clsx(
                 styles.inputContainer,
-                'relative w-full outline-none h-[38px]',
+                'relative h-[38px] w-full outline-none',
               )}
             >
-              {icon && (
-                <span className="mr-1">
-                  <Icon icon={icon} className="w-6 text-content-secondary" />
-                </span>
-              )}
-              {selected ? (
-                <span>{selected.label}</span>
-              ) : (
-                <span className="select-none text-content-placehdoler">
-                  {placeholder}
-                </span>
-              )}
+              <div className="px-2">
+                {icon && (
+                  <span className="mr-1">
+                    <Icon icon={icon} className="w-6 text-content-secondary" />
+                  </span>
+                )}
+                {selected ? (
+                  <span>{selected.label}</span>
+                ) : (
+                  <span className="select-none text-content-placehdoler">
+                    {placeholder}
+                  </span>
+                )}
+              </div>
 
               <Icon
                 icon="chevron-down"
@@ -91,15 +93,19 @@ export function Select<T>({
 
             <Listbox.Options
               className={clsx(
-                'absolute left-0 top-11 z-10 max-h-[290px] w-full overflow-auto',
-                'rounded-md border border-light-gray bg-white',
+                'absolute left-0 top-11 z-10 max-h-[290px] w-full overflow-auto p-1.5',
+                'rounded-md border border-light-gray bg-white shadow-md',
               )}
             >
               {options.map(({ label, value }) => (
                 <Listbox.Option
                   key={value as string}
                   value={value}
-                  className="cursor-pointer p-1.5 px-3 hover:bg-black hover:bg-opacity-10 ui-active:bg-black ui-active:bg-opacity-10"
+                  className={clsx(
+                    'cursor-pointer p-1.5 px-3',
+                    'rounded-md hover:bg-brand-secondary',
+                    'transition-all ui-active:bg-brand-secondary',
+                  )}
                 >
                   {label}
                 </Listbox.Option>

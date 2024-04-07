@@ -69,9 +69,13 @@
   &[data-variant='link'] {
     @apply text-content-primary;
     @apply disabled:text-opacity-50;
+
+    &:not(:disabled):hover {
+      @apply bg-brand-secondary bg-opacity-75;
+    }
   }
 }
 
 .iconButton {
-  @apply rounded-full p-2 #{!important};
+  @apply rounded-md p-2 #{!important};
 }

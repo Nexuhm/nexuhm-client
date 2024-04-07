@@ -41,3 +41,9 @@ export interface JobPosting extends JobSchema {
   slug?: string;
   publishedAt?: Date;
 }
+
+export enum JobPostingState {
+  Draft = 'draft',
+  Filled = 'filled',
+  Published = 'published',
+}
