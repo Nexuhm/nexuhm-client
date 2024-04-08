@@ -68,11 +68,11 @@ export function ExperienceCard({
   };
   return (
     <div className="py-4">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between gap-8">
         <div className="text-base font-semibold">
           {organization} - {jobPosition}
         </div>
-        <div className="text-xs italic text-content-tertiary">
+        <div className="text-xs italic text-content-tertiary flex-shrink-0">
           {formatDate(startDate)} -{' '}
           {isValid(endDate) ? formatDate(endDate) : 'Present'}
         </div>

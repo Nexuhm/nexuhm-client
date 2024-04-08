@@ -3,7 +3,6 @@ import {
   ReactNode,
   createContext,
   useContext,
-  useState,
 } from 'react';
 import { useToggle } from 'react-use';
 import { Dialog } from '../dialog';
@@ -46,11 +45,19 @@ interface PopconfirmButtonProps {
   children: ReactNode;
 }
 
-function PopconfirmButton({ as = 'button', children }: PopconfirmButtonProps) {
+function PopconfirmButton({
+  as = 'button',
+  children,
+  ...props
+}: PopconfirmButtonProps & any) {
   const ctx = usePopconfirmContext();
   const Tag = as;
 
-  return <Tag onClick={ctx.toggle}>{children}</Tag>;
+  return (
+    <Tag onClick={ctx.toggle} {...props}>
+      {children}
+    </Tag>
+  );
 }
 
 function PopconfirmDialog({ children }: PopconfirmButtonProps) {

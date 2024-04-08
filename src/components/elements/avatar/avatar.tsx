@@ -12,11 +12,11 @@ export function Avatar({ name, image }: { name?: string; image?: string }) {
       )}
     >
       {image ? (
-        <Image src={image} fill alt="" />
+        <Image src={image} className="object-cover object-center" fill alt="" />
       ) : (
         <BoringAvatar
           name={name}
-          variant='marble'
+          variant="marble"
           colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
         />
       )}

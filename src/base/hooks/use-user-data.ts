@@ -6,6 +6,7 @@ const fetcher = async (url: string) => {
 };
 
 interface UserData {
+  id: string;
   picture: string;
   email: string;
   firstname: string;

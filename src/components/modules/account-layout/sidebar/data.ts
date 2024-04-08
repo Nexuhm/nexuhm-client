@@ -7,8 +7,8 @@ export const sections = [
         href: '/settings/account',
       },
       {
-        label: 'Teams',
-        href: '/settings/teams',
+        label: 'Team',
+        href: '/settings/team',
       },
       {
         label: 'Connections',
