@@ -64,12 +64,10 @@ export default function CareersPageForm({
 
   const handleHeroImageUpload = async (heroImages: string[]) => {
     await CompanyService.updateCareersPage(company.id, { heroImages });
-    console.log(1);
   };
 
   const handleMediaUpload = async (mediaGallery: string[]) => {
     await CompanyService.updateCareersPage(company.id, { mediaGallery });
-    console.log(2);
   };
 
   const submitHandler = async (val: CareersPageProps) => {

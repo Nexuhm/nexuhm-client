@@ -14,6 +14,7 @@ function CompanyLogoUploader({ onUpload }: { onUpload: (file: File) => void }) {
     accept: {
       'image/png': ['png'],
       'image/webp': ['webp'],
+      'image/jpeg': ['jpeg', 'jpg'],
     },
     onDrop: (files) => {
       onUpload(files[0]);
@@ -63,7 +64,7 @@ function CompanyLogoCropper({
           image={image}
           crop={crop}
           zoom={zoom}
-          aspect={3}
+          aspect={1}
           onCropChange={setCrop}
           onCropComplete={handleCropComplete}
           onZoomChange={setZoom}

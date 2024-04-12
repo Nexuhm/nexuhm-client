@@ -1,3 +1,5 @@
+'use client'
+
 import { RecruitmentStage } from '@/base/types/candidates';
 import { Input, Select } from '@/components/elements/input';
 import { Spinner } from '@/components/elements/spinner';
