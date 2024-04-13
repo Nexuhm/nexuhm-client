@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import {
   EmploymentType,
   JobSchema,
@@ -13,9 +14,10 @@ import { InputWrapper } from '@/components/elements/input/input-wrapper';
 import { RichTextEditor } from '@/components/elements/rich-text-editor';
 import { FormControlGroup } from '@/components/modules/job-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
-import { Form } from '../form/form';
+import { Form } from '../form';
+import { ScreeningQuestionInput } from './screening-question-input';
 
 interface JobCreateFormProps {
   defaultValues?: Partial<JobSchema>;
@@ -26,14 +28,40 @@ export function JobCreateForm({
   defaultValues,
   onPreview,
 }: JobCreateFormProps) {
-  const { register, setValue, control, handleSubmit } = useForm<JobSchema>({
-    defaultValues,
-    resolver: zodResolver(jobSchema),
+  const { register, setValue, control, watch, handleSubmit } =
+    useForm<JobSchema>({
+      defaultValues,
+      resolver: zodResolver(jobSchema),
+    });
+
+  const { fields, append, remove, update } = useFieldArray({
+    control,
+    name: 'screeningQuestions',
   });
 
   const submitHandler = async (val: any) => {
     onPreview(val);
   };
+
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      e.returnValue = '';
+
+      // Display a confirmation dialog with 'Yes' and 'No' buttons
+      return 'Are you sure you want to leave?';
+    };
+
+    window.addEventListener('beforeunload', handler);
+
+    return () => {
+      return window.removeEventListener('beforeinput', handler);
+    };
+  }, []);
+
+  const questions = watch('salary');
+
+  console.log(questions);
 
   return (
     <Form
@@ -44,54 +72,28 @@ export function JobCreateForm({
 
       <div className="p-6 card-container">
         <div className="mb-2 text-2xl font-medium">
-          Job title and Department details
+          Job title and description
         </div>
 
-        <Form.ControlGroup className="mb-4">
-          <Input
-            label="Job Title"
-            {...register('title', { required: true })}
-            placeholder="e.g. Senior product Designer"
-            className="w-full"
-            required
-          />
-        </Form.ControlGroup>
+        <Input
+          label="Job Title"
+          {...register('title', { required: true })}
+          placeholder="e.g. Senior product Designer"
+          className="mb-4 w-full"
+          required
+        />
 
-        <Form.ControlGroup>
-          <Input
-            label="Department"
-            {...register('department', { required: true })}
-            placeholder="e.g. Senior product Designer"
-            className="w-full"
-            required
-          />
-
-          <Input
-            label="Job Code"
-            {...register('code', { required: true })}
-            placeholder="e.g. #1234"
-            className="w-full"
-            required
-          />
-        </Form.ControlGroup>
-      </div>
-
-      <div className="p-6 card-container">
-        <div className="mb-2 text-2xl font-medium">Description</div>
-
-        <FormControlGroup>
-          <Textarea
-            label="About the role"
-            rows={10}
-            {...register('description', { required: true })}
-            placeholder={
-              'e.g. We’re looking for a full-time senior product designer' +
-              'with 6-8 years experience in product design and leadership.' +
-              'This position is located in New York City.'
-            }
-            required
-          />
-        </FormControlGroup>
+        <Textarea
+          label="About the role"
+          rows={10}
+          {...register('description', { required: true })}
+          placeholder={
+            'e.g. We’re looking for a full-time senior product designer' +
+            'with 6-8 years experience in product design and leadership.' +
+            'This position is located in New York City.'
+          }
+          required
+        />
       </div>
 
       <div className="p-6 card-container">
@@ -169,18 +171,47 @@ export function JobCreateForm({
         </FormControlGroup>
       </div>
 
-      <div className="mb-6 p-6 card-container">
+      <div className="p-6 card-container">
         <div className="mb-4 text-2xl font-medium">Salary</div>
 
-        <Form.ControlGroup>
+        <Form.ControlGroup className="gap-4">
+          <Form.ControlGroup label="Currency" className="flex-1">
+            <Controller
+              control={control}
+              name="salary.currency"
+              render={({ field }) => (
+                <Select
+                  className="flex-1"
+                  placeholder="Choose a currency"
+                  value={field.value}
+                  onChange={(val) => setValue('salary.currency', val)}
+                  options={[
+                    {
+                      label: '£ GPB',
+                      value: 'GPB',
+                    },
+                    {
+                      label: '$ USD',
+                      value: 'USD',
+                    },
+                    {
+                      label: '€ EUR',
+                      value: 'EUR',
+                    },
+                  ]}
+                />
+              )}
+            />
+          </Form.ControlGroup>
+
           <Form.ControlGroup label="Salary range" className="flex-1">
-            <div className="flex gap-4">
+            <div className="flex gap-2">
               <Controller
                 control={control}
                 name="salary.min"
                 defaultValue={0}
                 render={({ field }) => (
-                  <InputWrapper prefix="£" className="flex-1">
+                  <InputWrapper className="flex-1">
                     <NumericFormat
                       required
                       placeholder="to"
@@ -197,7 +228,7 @@ export function JobCreateForm({
                 name="salary.max"
                 defaultValue={0}
                 render={({ field }) => (
-                  <InputWrapper prefix="£" className="flex-1">
+                  <InputWrapper className="flex-1">
                     <NumericFormat
                       required
                       placeholder="to"
@@ -218,7 +249,7 @@ export function JobCreateForm({
               render={({ field }) => (
                 <Select
                   className="flex-1"
-                  placeholder="e.g. Choose an option"
+                  placeholder="Choose an option"
                   value={field.value}
                   onChange={(val) => setValue('salary.frequency', val)}
                   options={[
@@ -242,7 +273,35 @@ export function JobCreateForm({
         </Form.ControlGroup>
       </div>
 
-      <div>
+      <div className="p-6 card-container">
+        <div className="mb-4 text-2xl font-medium">Screening Questions</div>
+
+        <div className="flex flex-col gap-4">
+          {fields.length > 0 ? (
+            fields.map((field, index) => (
+              <ScreeningQuestionInput
+                value={field}
+                index={index}
+                onDelete={() => remove(index)}
+                onChange={(value) => update(index, value)}
+              />
+            ))
+          ) : (
+            <div className="mx-auto max-w-lg text-center text-content-tertiary">
+              Add custom screening questions to your process here. All questions
+              will be required by the candidate
+            </div>
+          )}
+
+          <div className="text-center">
+            <Button onClick={() => append({ type: 'text', title: '' })}>
+              Add question
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6">
         <div className="flex justify-end gap-2">
           <Button variant="secondary">Cancel</Button>
           <Button type="submit">

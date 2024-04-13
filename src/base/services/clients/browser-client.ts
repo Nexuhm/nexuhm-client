@@ -46,7 +46,6 @@ export class APIClient {
       const data = await response.json().catch(() => null);
 
       if (!response.ok) {
-        console.log(data);
         throw new APIError(
           data?.message || 'Something went wrong with the request',
           data,

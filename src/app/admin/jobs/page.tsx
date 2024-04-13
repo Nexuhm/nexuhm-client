@@ -98,15 +98,30 @@ export default function Page() {
           </div>
         ) : (
           <>
-            <div className="my-5 text-lg font-medium">
-              {filteredData?.length} Active jobs
-            </div>
+            {filteredData?.length === 0 ? (
+              <div className="mx-auto mt-20 max-w-md text-center">
+                <div className="mb-4 text-2xl font-medium">No Jobs</div>
 
-            <div className="md-grid-cols-3 mt-4 grid grid-cols-1 gap-4 lg:grid-cols-4">
-              {filteredData?.map((item, index) => (
-                <JobCard key={index} {...item} />
-              ))}
-            </div>
+                <div className="mb-4 text-content-secondary">
+                  Here you’ll find jobs you create. Create a to job to start
+                  your hiring process.
+                </div>
+
+                <Button href="/admin/jobs/create">Create job</Button>
+              </div>
+            ) : (
+              <>
+                <div className="my-5 text-lg font-medium">
+                  {filteredData?.length} Active jobs
+                </div>
+
+                <div className="md-grid-cols-3 mt-4 grid grid-cols-1 gap-4 lg:grid-cols-4">
+                  {filteredData?.map((item, index) => (
+                    <JobCard key={index} {...item} />
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
       </div>

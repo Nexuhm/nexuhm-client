@@ -41,6 +41,7 @@ export default function JobActions({ job }: { job: any }) {
             <Dropdown.Button
               as={IconButton}
               variant="secondary"
+              shape="square"
               icon="vertical-dots"
             />
             <Dropdown.Content className="flex min-w-[200px] flex-col gap-2">

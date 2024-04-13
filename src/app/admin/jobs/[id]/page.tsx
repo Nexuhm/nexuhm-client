@@ -2,7 +2,7 @@ import { Icon } from '@/components/elements/icon';
 import { JobCandidates } from './candidates';
 import { client } from '@/base/services/clients/server-client';
 import { format } from 'date-fns';
-import { formatEmploymentTypeLabel } from '@/base/utils';
+import { formatCurrency, formatEmploymentTypeLabel } from '@/base/utils';
 import JobActions from './job-actions';
 
 async function getData(id: string) {
@@ -16,11 +16,6 @@ export default async function JobDetailsPage({
   params: { id: string };
 }) {
   const jobDetails = await getData(params.id);
-  const formatter = new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'GBP',
-    minimumFractionDigits: 0,
-  });
 
   return (
     <div className="container max-w-7xl">
@@ -39,9 +34,10 @@ export default async function JobDetailsPage({
 
           <div className="inline-flex items-center gap-2">
             <Icon icon="cash" className="w-5" />{' '}
-            {formatter.formatRange(
-              jobDetails.salary?.min,
+            {formatCurrency(
+              jobDetails.salary.min,
               jobDetails.salary?.max,
+              jobDetails.salary?.currency,
             )}
           </div>
 

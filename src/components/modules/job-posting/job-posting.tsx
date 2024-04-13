@@ -1,3 +1,5 @@
+'use client'
+
 import { JobPosting } from '@/base/types/jobs';
 import { marked } from 'marked';
 import { CompanyDetails } from '@/base/types/company';

@@ -36,3 +36,16 @@ export function addMinutesToTimeString(
   // Format and return the new time
   return format(newTime, 'HH:mm');
 }
+
+export function formatCurrency(min: number, max: number, currency = 'GBP') {
+  const formatter = new Intl.NumberFormat('en-GB', {
+    currency,
+    style: 'currency',
+    minimumFractionDigits: 0,
+  });
+
+  const minFormatted = min ? formatter.format(min) : 'N/A';
+  const maxFormatted = max ? formatter.format(max) : 'N/A';
+
+  return `${minFormatted} - ${maxFormatted}`;
+}

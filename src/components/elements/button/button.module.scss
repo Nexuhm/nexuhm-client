@@ -15,22 +15,26 @@
   }
 
   &[data-variant='secondary'] {
-    @apply border bg-white text-content-primary;
+    @apply border border-light-gray bg-white text-content-primary;
 
     &:not(:disabled):hover {
-      @apply border-light-blue bg-light-blue text-content-primary;
+      @apply border-transparent bg-light-blue text-content-primary;
     }
   }
 
   &[data-variant='primary'] {
     @apply border border-blue bg-blue text-white;
 
+    &[data-ghost='true'] {
+      @apply border border-blue bg-white text-blue;
+    }
+
     &:disabled {
       @apply border-opacity-0 bg-opacity-70;
     }
 
     &:not(:disabled):hover {
-      @apply border-opacity-70 bg-opacity-70;
+      @apply border-transparent bg-blue bg-opacity-85 text-white;
     }
   }
 
@@ -77,5 +81,10 @@
 }
 
 .iconButton {
-  @apply rounded-md p-2 #{!important};
+  @apply rounded-full;
+  @apply p-2 #{!important};
+
+  &[data-shape='square'] {
+    @apply rounded-md #{!important};
+  }
 }

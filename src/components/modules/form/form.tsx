@@ -27,8 +27,8 @@ function FormControlGroup({
 }: FormControlGroupProps) {
   return (
     <div className={className}>
-      {label && <div className="mb-1 font-medium">{label}</div>}
-      <div className="flex gap-2">{children}</div>
+      {label && <div className="input-label">{label}</div>}
+      <div className="flex gap-4">{children}</div>
     </div>
   );
 }

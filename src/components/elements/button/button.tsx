@@ -18,6 +18,7 @@ export interface ButtonBaseProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'as' | 'size'> {
   className?: string;
   variant?: ButtonVariant;
+  ghost?: boolean;
   size?: 'xs' | 'base' | 'lg';
   type?: 'button' | 'submit' | 'reset' | undefined;
 }
@@ -39,6 +40,7 @@ export const Button = forwardRef(
       className,
       variant = 'primary',
       size = 'base',
+      ghost = false,
       loading,
       ...props
     }: ButtonProps,
@@ -57,6 +59,7 @@ export const Button = forwardRef(
         className={clsx(className, styles.button)}
         data-variant={variant}
         data-size={size}
+        data-ghost={ghost}
         {...props}
       >
         {children}
@@ -71,6 +74,7 @@ Button.displayName = 'Button';
 
 interface IconButtonProps extends ButtonBaseProps {
   icon: IconName;
+  shape?: 'rounded' | 'square'
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -80,6 +84,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       className,
       variant = 'primary',
       size = 'base',
+      shape = 'rounded',
       icon,
       ...props
     }: IconButtonProps,
@@ -91,6 +96,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         className={clsx(styles.button, styles.iconButton, className)}
         data-variant={variant}
         data-size={size}
+        data-shape={shape}
         {...props}
       >
         <Icon icon={icon} className="h-5 w-5" />

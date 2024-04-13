@@ -138,14 +138,17 @@ export default function JobCreatePage() {
         <div className="text-content-secondary">
           Generate your job description with ease.
         </div>
-        <div>
-          <button
-            className="text-content-tertiary underline underline-offset-[3px]"
-            onClick={() => setActiveStep(1)}
-          >
-            Regenrate job
-          </button>
-        </div>
+
+        {activeStep > 1 && (
+          <div>
+            <button
+              className="text-content-tertiary underline underline-offset-[3px]"
+              onClick={() => setActiveStep(1)}
+            >
+              Regenrate job
+            </button>
+          </div>
+        )}
       </div>
 
       {renderContent()}

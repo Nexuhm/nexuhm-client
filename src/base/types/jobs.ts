@@ -11,6 +11,13 @@ export const employmentTypeSchema = z.enum([
   'seasonal-work',
 ]);
 
+export const screeningQuestion = z.object({
+  title: z.string(),
+  type: z.enum(['video', 'text']),
+});
+
+export type ScreeningQuestion = z.infer<typeof screeningQuestion>;
+
 export const salaryFrequencySchema = z.enum(['weekly', 'monthly', 'yearly']);
 
 export const jobSchema = z.object({
@@ -21,10 +28,12 @@ export const jobSchema = z.object({
   department: z.string().optional(),
   code: z.string().optional(),
   employmentType: employmentTypeSchema,
+  screeningQuestions: z.array(screeningQuestion),
   salary: z
     .object({
       min: z.any(),
       max: z.any(),
+      currency: z.string(),
       frequency: salaryFrequencySchema,
     })
     .strict(),

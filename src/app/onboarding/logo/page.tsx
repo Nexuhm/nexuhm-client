@@ -44,8 +44,6 @@ export default function UploadLogoPage() {
           folder: company!.slug,
         });
 
-        console.log(data);
-
         setValue('logo', data.url);
       } finally {
         setLoading(false);

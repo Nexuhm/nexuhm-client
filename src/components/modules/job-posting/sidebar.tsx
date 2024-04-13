@@ -5,7 +5,7 @@ import { CompanyDetails } from '@/base/types/company';
 import Image from 'next/image';
 import { Button } from '@/components/elements/button';
 import clsx from 'clsx';
-import { formatEmploymentTypeLabel } from '@/base/utils';
+import { formatCurrency, formatEmploymentTypeLabel } from '@/base/utils';
 import { format } from 'date-fns';
 import { usePathname } from 'next/navigation';
 
@@ -28,9 +28,11 @@ export function Sidebar({
 
   const formatter = new Intl.NumberFormat('en-GB', {
     style: 'currency',
-    currency: 'GBP',
+    currency: salary.currency || 'GBP',
     minimumFractionDigits: 0,
   });
+
+  console.log(salary);
 
   return (
     <div className="flex flex-col justify-between gap-4 rounded-lg border p-6 py-6 md:max-w-[280px]">
@@ -78,7 +80,7 @@ export function Sidebar({
       <div>
         <div className="mb-2 text-sm text-content-primary">Salary</div>
         <div className="font-medium">
-          {formatter.formatRange(salary.min, salary.max)}
+          {formatCurrency(salary.min, salary?.max, salary?.currency)}
         </div>
       </div>
 
