@@ -15,9 +15,9 @@ export function FileField({
   loading,
   onChange,
 }: {
-  name: string;
+  name?: string;
   label: ReactNode;
-  value: File;
+  value?: File | null;
   required?: boolean;
   accept?: Accept;
   loading?: boolean;
@@ -26,6 +26,8 @@ export function FileField({
 }) {
   const { getRootProps, getInputProps } = useDropzone({
     accept,
+    multiple: false,
+    maxSize: 15728640,
     onDrop: (files: File[]) => {
       if (files[0]) {
         onChange(files[0]);
@@ -60,13 +62,13 @@ export function FileField({
         <input {...getInputProps()} />
 
         {loading ? (
-          <>
+          <div className="mx-auto my-auto">
             <Spinner size={50} />
-          </>
+          </div>
         ) : (
           <>
             {value ? (
-              <FileTile file={value} onDelete={() => onChange(null)} />
+              <FileTile file={value as File} onDelete={() => onChange(null)} />
             ) : (
               <div
                 className={clsx(
@@ -91,7 +93,13 @@ export function FileField({
   );
 }
 
-function FileTile({ file, onDelete }: { file: File; onDelete: () => void }) {
+function FileTile({
+  file,
+  onDelete,
+}: {
+  file: File;
+  onDelete: () => void;
+}) {
   return (
     <div
       className={clsx(

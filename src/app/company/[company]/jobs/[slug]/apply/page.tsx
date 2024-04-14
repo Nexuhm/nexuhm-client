@@ -27,14 +27,18 @@ export default async function JobApplicationPage({
         </BackLink>
 
         <div className="mb-6">
-          <div className="text-[40px] font-medium text-balance">{jobDetails.title}</div>
+          <div className="text-balance text-[40px] font-medium">
+            {jobDetails.title}
+          </div>
           <div className="">
             {formatEmploymentTypeLabel(jobDetails.employmentType)} •{' '}
             {jobDetails.location}
           </div>
         </div>
 
-        <JobApplicationForm />
+        <JobApplicationForm
+          screeningQuestions={jobDetails.screeningQuestions}
+        />
       </div>
     </div>
   );

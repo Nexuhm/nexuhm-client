@@ -24,7 +24,7 @@ export function ResumeAutofillUploader({
 
           <div className="text-sm text-content-tertiary">
             Save time by uploading your resume in one of the following formats:
-            .pdf, .doc, .docx.˝
+            .pdf, .doc, .docx.
           </div>
         </div>
 

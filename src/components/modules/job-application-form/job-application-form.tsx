@@ -12,6 +12,8 @@ import { SuccessMessage } from '@/components/elements/success-message';
 import { ResumeAutofillUploader } from './resume-autofill-uploader';
 import { Checkbox } from '@/components/elements/checkbox';
 import { FileField } from './file-field';
+import { ScreeningQuestion } from '@/base/types/jobs';
+import { ScreeningQuestionField } from './screening-question-field';
 
 const schema = z.object({
   firstname: z.string().min(1, 'First name is required'),
@@ -21,13 +23,20 @@ const schema = z.object({
   location: z.string().min(1, 'Location is required'),
   resume: z.unknown(),
   coverLetter: z.unknown().optional(),
-  videoResume: z.unknown().optional(),
+  videoResume: z.unknown(),
+  screeningQuestions: z.array(z.unknown()).optional(),
   consent: z.boolean(),
 });
 
 type ApplicationForm = z.infer<typeof schema>;
 
-export function JobApplicationForm() {
+interface JobApplicationFormProps {
+  screeningQuestions: ScreeningQuestion[];
+}
+
+export function JobApplicationForm({
+  screeningQuestions,
+}: JobApplicationFormProps) {
   const params = useParams();
 
   const {
@@ -38,7 +47,7 @@ export function JobApplicationForm() {
     setValue,
     formState: { isSubmitting, errors, isValid },
   } = useForm<ApplicationForm>({
-    mode: 'all',
+    mode: 'onBlur',
     resolver: zodResolver(schema),
   });
 
@@ -52,14 +61,22 @@ export function JobApplicationForm() {
   const resumeValue = watch('resume');
   const coverLetterValue = watch('coverLetter');
   const videoResumeValue = watch('videoResume');
+  const screeningQuestionValues = watch('screeningQuestions');
 
   const submitHandler = async (values: ApplicationForm) => {
     const formData = Object.entries(values).reduce((fd, [key, value]) => {
       if (value instanceof FileList) {
         fd.append(key, value[0]);
+      } else if (key === 'screeningQuestions') {
+        const values = value as any[];
+
+        values.map((val) => {
+          fd.append('screeningQuestions[]', val);
+        });
       } else {
         fd.append(key, value as File);
       }
+
       return fd;
     }, new FormData());
 
@@ -105,6 +122,8 @@ export function JobApplicationForm() {
       </SuccessMessage>
     );
   }
+
+  console.log(screeningQuestionValues);
 
   return (
     <div>
@@ -185,7 +204,6 @@ export function JobApplicationForm() {
 
           {/* Resume/CV */}
           <FileField
-            required
             name="coverLetter"
             label="Cover Letter"
             value={coverLetterValue as File}
@@ -199,8 +217,9 @@ export function JobApplicationForm() {
           />
 
           {/* Video Resume */}
-          <div className="mb-6">
+          <div>
             <FileField
+              required
               onChange={(file) => setValue('videoResume', file)}
               value={videoResumeValue as File}
               label={<>Boost your chances and upload a Video Resume/CV?</>}
@@ -214,7 +233,16 @@ export function JobApplicationForm() {
             />
           </div>
 
-          <div>
+          {screeningQuestions.map((fieldProps, index) => (
+            <ScreeningQuestionField
+              key={index}
+              {...fieldProps}
+              value={screeningQuestionValues?.[index] as any}
+              onChange={(val) => setValue(`screeningQuestions.${index}`, val)}
+            />
+          ))}
+
+          <div className="mt-6">
             <Checkbox
               required
               name="consent"
