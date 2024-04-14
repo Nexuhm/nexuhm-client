@@ -15,7 +15,7 @@ export function JobEditForm({ defaultValues }: { defaultValues: JobSchema }) {
   const handleSubmit = async (val: JobSchema) => {
     setLoading(true);
     try {
-      await client.post(`/admin/jobs/${params.id}`, val);
+      await client.post(`/admin/jobs/${params.id}/edit`, val);
     } catch (err) {
       console.log(err);
     }

@@ -32,8 +32,12 @@ export function JobGenerationForm({ onComplete }: JobGenerationFormProps) {
   });
 
   const submitHandler = async (val: JobGenerationFormSchema) => {
-    const data = await generateJob(val.title, val.description);
-    onComplete(data);
+    try {
+      const data = await generateJob(val.title, val.description);
+      onComplete(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
