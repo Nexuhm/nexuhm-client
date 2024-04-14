@@ -1,4 +1,4 @@
-import { Header, Sidebar } from '@/components/modules/account-layout';
+import { Header, Sidebar } from '@/components/layouts/account';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';

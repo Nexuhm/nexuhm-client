@@ -1,7 +1,7 @@
 'use client';
 
-import { Sidebar } from '@/components/modules/main-layout';
-import { DashboardHeader } from '@/components/modules/main-layout/dashboard-header';
+import { Sidebar } from '@/components/layouts/dashboard';
+import { DashboardHeader } from '@/components/layouts/dashboard/dashboard-header';
 import { CompanyProvider } from '@/base/contexts/company/company-context';
 
 export default function DashboardLayoutWrapper({
