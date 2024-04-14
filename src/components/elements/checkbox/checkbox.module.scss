@@ -1,0 +1,43 @@
+.checkbox {
+  @apply cursor-pointer flex items-center gap-4;
+  @apply text-sm text-content-secondary;
+
+  &[data-error="true"] {
+    @apply text-error;
+  }
+
+  .indicator {
+    @apply h-6 w-6 flex-shrink-0;
+    @apply rounded-md border border-light-gray;
+    @apply flex items-center justify-center;
+    @apply transition-all;
+  }
+
+  .icon {
+    @apply h-4 w-4 text-white opacity-0;
+    @apply transition-all;
+  }
+
+  &:has(input:checked) {
+    .indicator {
+      @apply border-blue bg-blue;
+
+      .icon {
+        @apply opacity-100;
+      }
+    }
+  }
+
+  label:hover {
+    .indicator {
+      @apply border-content-primary;
+    }
+  }
+
+  label:active {
+    .indicator {
+      @apply border-blue;
+      @apply ring-4 ring-blue ring-opacity-15;
+    }
+  }
+}

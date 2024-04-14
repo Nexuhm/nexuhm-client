@@ -21,13 +21,13 @@ export default async function JobApplicationPage({
 
   return (
     <div className="py-20">
-      <div className="mx-auto max-w-lg">
+      <div className="mx-auto max-w-xl">
         <BackLink className="mb-8" href="/jobs">
           All jobs
         </BackLink>
 
         <div className="mb-6">
-          <div className="text-[40px] font-medium">{jobDetails.title}</div>
+          <div className="text-[40px] font-medium text-balance">{jobDetails.title}</div>
           <div className="">
             {formatEmploymentTypeLabel(jobDetails.employmentType)} •{' '}
             {jobDetails.location}

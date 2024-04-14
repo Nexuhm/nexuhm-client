@@ -1,15 +1,17 @@
 'use client';
 
-import React, { ReactNode, useState } from 'react';
-import { Control, Controller, useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { useController, useForm } from 'react-hook-form';
 import { Button } from '@/components/elements/button';
-import { Icon } from '@/components/elements/icon';
 import { Input } from '@/components/elements/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { client } from '@/base/services/clients/browser-client';
 import { useParams } from 'next/navigation';
-import { SuccessMessage } from '@/components/elements/success-message/success-message';
+import { SuccessMessage } from '@/components/elements/success-message';
+import { ResumeAutofillUploader } from './resume-autofill-uploader';
+import { Checkbox } from '@/components/elements/checkbox';
+import { FileField } from './file-field';
 
 const schema = z.object({
   firstname: z.string().min(1, 'First name is required'),
@@ -17,9 +19,10 @@ const schema = z.object({
   email: z.string().email('Invalid email address'),
   phone: z.string().min(1, 'Phone number is required'),
   location: z.string().min(1, 'Location is required'),
-  resume: z.unknown().optional(),
+  resume: z.unknown(),
   coverLetter: z.unknown().optional(),
   videoResume: z.unknown().optional(),
+  consent: z.boolean(),
 });
 
 type ApplicationForm = z.infer<typeof schema>;
@@ -28,17 +31,27 @@ export function JobApplicationForm() {
   const params = useParams();
 
   const {
-    register,
+    watch,
     control,
+    register,
     handleSubmit,
     setValue,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isValid },
   } = useForm<ApplicationForm>({
+    mode: 'all',
     resolver: zodResolver(schema),
+  });
+
+  const consentController = useController({
+    control,
+    name: 'consent',
   });
 
   const [isResumeLoading, setIsResumeLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const resumeValue = watch('resume');
+  const coverLetterValue = watch('coverLetter');
+  const videoResumeValue = watch('videoResume');
 
   const submitHandler = async (values: ApplicationForm) => {
     const formData = Object.entries(values).reduce((fd, [key, value]) => {
@@ -62,7 +75,13 @@ export function JobApplicationForm() {
     }
   };
 
-  const handleResumeUpload = async (file: File) => {
+  const handleResumeUpload = async (file: File | null) => {
+    if (!file) {
+      return null;
+    }
+
+    setValue('resume', file);
+
     const formData = new FormData();
     formData.append('file', file);
 
@@ -88,152 +107,142 @@ export function JobApplicationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(submitHandler)}>
-      <div className="flex flex-col gap-5">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div>
+      <ResumeAutofillUploader
+        value={resumeValue}
+        loading={isResumeLoading}
+        onUpload={handleResumeUpload}
+      />
+
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <div className="flex flex-col gap-5">
+          {/* Name Inputs */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Input
+              variant="gray"
+              label="First Name"
+              placeholder="John"
+              required
+              {...register('firstname')}
+              error={errors.firstname?.message}
+            />
+            <Input
+              variant="gray"
+              label="Last Name"
+              placeholder="Doe"
+              required
+              {...register('lastname')}
+              error={errors.lastname?.message}
+            />
+          </div>
+
+          {/* Contact Inputs */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Input
+              label="Email"
+              placeholder="john.doe@example.com"
+              variant="gray"
+              required
+              {...register('email')}
+              error={errors.email?.message}
+            />
+            <Input
+              variant="gray"
+              label="Phone"
+              placeholder="+123456789"
+              required
+              {...register('phone')}
+              error={errors.phone?.message}
+            />
+          </div>
+
+          {/* Location Input */}
+          <div>
+            <Input
+              variant="gray"
+              label="Address"
+              placeholder="London"
+              required
+              {...register('location')}
+              error={errors.location?.message}
+            />
+          </div>
+
           {/* Resume/CV */}
           <FileField
-            control={control}
+            required
             name="resume"
-            label="Resume/CV*"
-            accept=".doc,.docx,.pdf"
+            label="Resume"
+            value={resumeValue as File}
             onChange={handleResumeUpload}
-            loading={isResumeLoading}
+            accept={{
+              'application/pdf': ['.pdf'],
+              'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                ['.docx'],
+              'application/msword': ['.doc'],
+            }}
           />
 
-          {/* Cover Letter */}
+          {/* Resume/CV */}
           <FileField
-            control={control}
+            required
             name="coverLetter"
-            accept=".doc,.docx,.pdf"
-            label="Cover Letter*"
+            label="Cover Letter"
+            value={coverLetterValue as File}
+            onChange={(val) => setValue('coverLetter', val)}
+            accept={{
+              'application/pdf': ['.pdf'],
+              'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                ['.docx'],
+              'application/msword': ['.doc'],
+            }}
           />
-        </div>
 
-        {/* Name Inputs */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Input
-            variant="gray"
-            label="First Name"
-            placeholder="John"
-            required
-            {...register('firstname')}
-            error={errors.firstname?.message}
-          />
-          <Input
-            variant="gray"
-            label="Last Name"
-            placeholder="Doe"
-            required
-            {...register('lastname')}
-            error={errors.lastname?.message}
-          />
-        </div>
-
-        {/* Contact Inputs */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Input
-            label="Email"
-            placeholder="john.doe@example.com"
-            variant="gray"
-            required
-            {...register('email')}
-            error={errors.email?.message}
-          />
-          <Input
-            variant="gray"
-            label="Phone"
-            placeholder="+123456789"
-            required
-            {...register('phone')}
-            error={errors.phone?.message}
-          />
-        </div>
-
-        {/* Location Input */}
-        <div>
-          <Input
-            variant="gray"
-            label="Location (City)"
-            placeholder="London"
-            required
-            {...register('location')}
-            error={errors.location?.message}
-          />
-        </div>
-
-        {/* Video Resume */}
-        <div className="mb-6">
-          <FileField
-            control={control}
-            label={
-              <>
-                Boost your chances and upload a Video Resume/CV?
-                <Icon icon="circled-question" className="ml-2 w-5 text-blue" />
-              </>
-            }
-            name="videoResume"
-            accept="video/mp4, video/avi, video/mpeg, video/quicktime, .mp4, .avi, .mpeg, .mov"
-          />
-        </div>
-
-        {/* Submit and Cancel Buttons */}
-        <div className="flex justify-between">
-          <Button variant="secondary">Cancel</Button>
-          <Button type="submit" loading={isSubmitting}>
-            Submit
-          </Button>
-        </div>
-      </div>
-    </form>
-  );
-}
-
-function FileField({
-  name,
-  label,
-  control,
-  accept,
-  loading,
-  onChange,
-}: {
-  name: string;
-  label: ReactNode;
-  control: Control<any>;
-  accept?: string;
-  loading?: boolean;
-  onChange?: (file: File) => void;
-}) {
-  return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <div>
-          <div className="mb-2 flex items-center text-sm">{label}</div>
-          <Button as="label" className="cursor-pointer" loading={loading}>
-            {field.value?.length ? 'Browse other' : 'Attach'}
-            <input
-              type="file"
-              className="hidden"
-              name={field.name}
-              accept={accept}
-              onChange={(e) => {
-                field.onChange(e.target.files);
-
-                if (onChange && e.target.files?.[0]) {
-                  onChange(e.target.files?.[0]);
-                }
+          {/* Video Resume */}
+          <div className="mb-6">
+            <FileField
+              onChange={(file) => setValue('videoResume', file)}
+              value={videoResumeValue as File}
+              label={<>Boost your chances and upload a Video Resume/CV?</>}
+              name="videoResume"
+              accept={{
+                'video/mp4': ['.mp4'],
+                'video/avi': ['.avi'],
+                'video/mpeg': ['.mpeg'],
+                'video/quicktime': ['.mov'],
               }}
-              ref={field.ref}
             />
-          </Button>
+          </div>
 
-          <div className="mt-2 text-xs text-content-tertiary">
-            {field.value?.[0]?.name}
+          <div>
+            <Checkbox
+              required
+              name="consent"
+              onChange={consentController.field.onChange}
+              error={consentController.fieldState.error?.message}
+              label={
+                <>
+                  I have read, understand and accept the content of the Privacy
+                  Notice and consent to the processing of my data as part of
+                  this application.
+                </>
+              }
+            />
+          </div>
+
+          {/* Submit */}
+          <div>
+            <Button
+              type="submit"
+              disabled={!isValid}
+              loading={isSubmitting}
+              className="w-full"
+            >
+              Submit
+            </Button>
           </div>
         </div>
-      )}
-    />
+      </form>
+    </div>
   );
 }
