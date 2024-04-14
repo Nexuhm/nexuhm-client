@@ -48,7 +48,7 @@ export default async function CompanyJobListingPage({
           <div className="text-medium mb-4 text-6xl">
             Careers at {company.name}
           </div>
-          <div className="mb-4 max-w-xl">
+          <div className="mb-4 max-w-6xl">
             {company.careersPage.companyMission}
           </div>
           <Button>Contact</Button>
