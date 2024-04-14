@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import {
   EmploymentType,
   JobSchema,
@@ -8,7 +7,6 @@ import {
   salaryFrequencySchema,
 } from '@/base/types/jobs';
 import { Button } from '@/components/elements/button';
-import { Icon } from '@/components/elements/icon';
 import { Input, Textarea, Select } from '@/components/elements/input';
 import { InputWrapper } from '@/components/elements/input/input-wrapper';
 import { RichTextEditor } from '@/components/elements/rich-text-editor';
@@ -19,52 +17,45 @@ import { NumericFormat } from 'react-number-format';
 import { Form } from '../form';
 import { ScreeningQuestionInput } from './screening-question-input';
 
-interface JobCreateFormProps {
+export interface JobDetailsFormBase {
   defaultValues?: Partial<JobSchema>;
-  onPreview: (val: JobSchema) => void;
+  onSubmit: (val: JobSchema) => void;
 }
 
-export function JobCreateForm({
+interface JobDetailsFormProps extends JobDetailsFormBase {
+  id: string;
+}
+
+export function JobDetailsForm({
+  id,
   defaultValues,
-  onPreview,
-}: JobCreateFormProps) {
-  const { register, setValue, control, watch, handleSubmit } =
-    useForm<JobSchema>({
-      defaultValues,
-      resolver: zodResolver(jobSchema),
-    });
+  onSubmit,
+}: JobDetailsFormProps) {
+  const {
+    register,
+    setValue,
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<JobSchema>({
+    defaultValues,
+    resolver: zodResolver(jobSchema),
+  });
 
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: 'screeningQuestions',
   });
 
+  console.log(errors, isValid);
+
   const submitHandler = async (val: any) => {
-    onPreview(val);
+    onSubmit(val);
   };
-
-  useEffect(() => {
-    const handler = (e: any) => {
-      e.preventDefault();
-      e.returnValue = '';
-
-      // Display a confirmation dialog with 'Yes' and 'No' buttons
-      return 'Are you sure you want to leave?';
-    };
-
-    window.addEventListener('beforeunload', handler);
-
-    return () => {
-      return window.removeEventListener('beforeinput', handler);
-    };
-  }, []);
-
-  const questions = watch('salary');
-
-  console.log(questions);
 
   return (
     <Form
+      id={id}
       onSubmit={handleSubmit(submitHandler)}
       className="mx-auto max-w-[800px] gap-6 p-10 pt-4"
     >
@@ -280,6 +271,7 @@ export function JobCreateForm({
           {fields.length > 0 ? (
             fields.map((field, index) => (
               <ScreeningQuestionInput
+                key={index}
                 value={field}
                 index={index}
                 onDelete={() => remove(index)}
@@ -298,16 +290,6 @@ export function JobCreateForm({
               Add question
             </Button>
           </div>
-        </div>
-      </div>
-
-      <div className="mt-6">
-        <div className="flex justify-end gap-2">
-          <Button variant="secondary">Cancel</Button>
-          <Button type="submit">
-            <Icon icon="check" className="2-5 h-5" />
-            Preview
-          </Button>
         </div>
       </div>
     </Form>

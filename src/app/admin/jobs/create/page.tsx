@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { JobSchema } from '@/base/types/jobs';
 import { Button, IconButton } from '@/components/elements/button';
 import { Stepper } from '@/components/elements/stepper/stepper';
-import { JobCreateForm } from '@/components/modules/job-create-form';
+import { JobDetailsForm } from '@/components/modules/job-details-form';
 import { JobGenerationForm } from '@/components/modules/job-generation-form';
 import { createJobDraft } from '@/base/actions/jobs';
 import { JobPreview } from '@/components/modules/job-preview';
 import { useSetState } from 'react-use';
 import { Icon } from '@/components/elements/icon';
+import { JobCreateForm } from './job-create-form';
 
 export default function JobCreatePage() {
   const [activeStep, setActiveStep] = useState(1);
@@ -86,7 +87,7 @@ export default function JobCreatePage() {
       case 2: {
         return (
           <JobCreateForm
-            onPreview={handleStepChange(3)}
+            onSubmit={handleStepChange(3)}
             defaultValues={jobPosting}
           />
         );

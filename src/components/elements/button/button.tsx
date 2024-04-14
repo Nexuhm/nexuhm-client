@@ -74,7 +74,7 @@ Button.displayName = 'Button';
 
 interface IconButtonProps extends ButtonBaseProps {
   icon: IconName;
-  shape?: 'rounded' | 'square'
+  shape?: 'rounded' | 'square';
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(

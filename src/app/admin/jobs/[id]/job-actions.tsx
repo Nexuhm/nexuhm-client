@@ -33,7 +33,7 @@ export default function JobActions({ job }: { job: any }) {
             View Job Post
           </Button>
 
-          <Button variant="secondary" href={`/admin/jobs/${params.id}`}>
+          <Button variant="secondary" href={`/admin/jobs/${params.id}/edit`}>
             Edit Job
           </Button>
 

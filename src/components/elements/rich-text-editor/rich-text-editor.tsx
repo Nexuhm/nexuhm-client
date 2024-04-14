@@ -87,7 +87,6 @@ export function RichTextEditor({
       ({ editorState }) => {
         editorState.read(() => {
           const markdown = $convertToMarkdownString(TRANSFORMERS);
-          console.log(markdown);
           onChange(markdown);
         });
       },

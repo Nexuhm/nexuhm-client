@@ -12,6 +12,7 @@ export const employmentTypeSchema = z.enum([
 ]);
 
 export const screeningQuestion = z.object({
+  _id: z.any().optional(),
   title: z.string(),
   type: z.enum(['video', 'text']),
 });
@@ -26,7 +27,6 @@ export const jobSchema = z.object({
   content: z.any(), // Use the defined schema for the description
   location: z.string(),
   department: z.string().optional(),
-  code: z.string().optional(),
   employmentType: employmentTypeSchema,
   screeningQuestions: z.array(screeningQuestion),
   salary: z
