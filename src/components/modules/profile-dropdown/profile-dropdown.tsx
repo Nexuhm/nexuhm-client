@@ -39,6 +39,9 @@ export function ProfileDropdown() {
           <a href="/settings/account" className={styles.link}>
             Profile
           </a>
+          <a href="/admin/jobs" className={styles.link}>
+            Dashboard
+          </a>
           <a href="/settings/careers-page" className={styles.link}>
             Company
           </a>
