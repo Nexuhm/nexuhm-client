@@ -9,6 +9,7 @@ export const colors = {
   amber: '#F59E0B',
   error: '#DE3A3A',
   rose: '#F43F5E',
+  beige: '#f2ede4',
   'light-blue': '#E7E7FD',
   'light-gray': {
     DEFAULT: '#DBD9D3',

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import styles from './blog-layout.module.scss';
+import styles from './marketing-layout.module.scss';
 import Logo from '@/assets/logo.svg';
 
 export function Header() {
@@ -24,8 +24,8 @@ export function Header() {
   const activeIndex = links.findLastIndex((i) => pathname.startsWith(i.href));
 
   return (
-    <header className="border-b border-light-gray">
-      <div className="flex items-center px-6">
+    <header className="relative z-10 border-b border-light-gray bg-white">
+      <div className="flex flex-col items-center px-6 pt-4 md:flex-row md:pt-0">
         <a href="/">
           <Logo className="h-[40px] w-[140px]" />
         </a>

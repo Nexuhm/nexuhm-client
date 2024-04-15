@@ -4,7 +4,7 @@ import Logo from '@/assets/logo.png';
 
 export function Footer() {
   return (
-    <footer className="mt-auto">
+    <footer className="mt-auto relative z-10 bg-white">
       <div
         className={clsx(
           'container mx-auto flex max-w-xl flex-col gap-4 px-4 py-10 sm:px-6 md:flex-row md:gap-0',
