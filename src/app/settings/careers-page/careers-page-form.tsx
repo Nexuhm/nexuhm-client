@@ -33,7 +33,12 @@ const careersPageForm = z.object({
 type CareersPageProps = z.infer<typeof careersPageForm>;
 
 interface CareersPageFormProps {
-  company: CompanyDetails & { careersPage: CareersPageProps };
+  company: CompanyDetails & {
+    careersPage: CareersPageProps & {
+      heroImages: string[];
+      mediaGallery: string[];
+    };
+  };
 }
 
 export default function CareersPageForm({
