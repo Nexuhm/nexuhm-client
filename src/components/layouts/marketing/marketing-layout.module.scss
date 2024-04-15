@@ -1,5 +1,6 @@
 .headerLink {
-  @apply relative mx-4 py-6 text-sm font-medium;
+  @apply relative mx-4 py-3 text-sm font-medium md:py-6;
+  @apply text-center md:text-left basis-1/3 md:basis-auto;
 
   &:after {
     content: '';

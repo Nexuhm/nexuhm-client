@@ -39,31 +39,27 @@ export default async function BlogPostPage({
   const post = await getPost(params.slug);
 
   return (
-    <div>
-      <div className="container mx-auto max-w-6xl pb-10 pt-12">
-        <div className="mx-auto mb-10 max-w-xl">
-          <h1 className="mb-4 text-balance text-5xl font-medium">
-            {post.title}
-          </h1>
-          <div className="text-sm text-content-tertiary">
-            {formatDate(new Date(post.publishedAt), 'MMM dd, yyyy')}
-          </div>
+    <div className="container mx-auto max-w-6xl px-6 pb-10 pt-12 md:px-8">
+      <div className="mx-auto mb-10 max-w-xl">
+        <h1 className="mb-4 text-balance text-4xl md:text-5xl font-medium">{post.title}</h1>
+        <div className="text-sm text-content-tertiary">
+          {formatDate(new Date(post.publishedAt), 'MMM dd, yyyy')}
         </div>
+      </div>
 
-        <div className="relative mb-10 h-[400px] w-full overflow-hidden rounded-xl lg:h-[600px]">
-          <Image
-            src={urlFor(post.image).url()}
-            blurDataURL={urlFor(post.image).blur(70).url()}
-            placeholder="blur"
-            className="object-cover"
-            fill
-            alt=""
-          />
-        </div>
+      <div className="relative mb-10 h-[400px] w-full overflow-hidden rounded-xl lg:h-[600px]">
+        <Image
+          src={urlFor(post.image).url()}
+          blurDataURL={urlFor(post.image).blur(70).url()}
+          placeholder="blur"
+          className="object-cover"
+          fill
+          alt=""
+        />
+      </div>
 
-        <div className="prose mx-auto max-w-xl text-content-primary">
-          <PortableText value={post.content} />
-        </div>
+      <div className="prose mx-auto max-w-xl text-content-primary">
+        <PortableText value={post.content} />
       </div>
     </div>
   );

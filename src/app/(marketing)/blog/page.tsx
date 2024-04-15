@@ -9,10 +9,10 @@ export default async function BlogListingPage() {
 
   return (
     <div>
-      <div className="container mx-auto max-w-5xl px-10">
+      <div className="container mx-auto max-w-5xl p-10">
         <h1 className="mb-12 text-5xl font-medium">Blog</h1>
 
-        <div className="gird-cols-1 grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-8">
+        <div className="gird-cols-1 grid sm:grid-cols-2 gap-8 lg:grid-cols-3">
           {posts.map((post) => (
             <Link
               key={post.slug}
