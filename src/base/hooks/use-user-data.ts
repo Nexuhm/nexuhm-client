@@ -15,15 +15,5 @@ interface UserData {
 }
 
 export function useUserData() {
-  const { data, error, isLoading, mutate } = useSWR<UserData>(
-    '/account/details',
-    fetcher,
-  );
-
-  return {
-    data,
-    error,
-    isLoading,
-    mutate,
-  };
+  return useSWR<UserData>('/account/details', fetcher);
 }
