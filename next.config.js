@@ -11,7 +11,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'nexuhmstaging.blob.core.windows.net',
+        hostname: '*.blob.core.windows.net',
       },
       {
         hostname: '*.googleusercontent.com'
