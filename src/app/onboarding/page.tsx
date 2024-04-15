@@ -88,16 +88,14 @@ export default function OnboardingPage() {
         {...register('name', { required: true })}
       />
 
-      <div>
-        <Input
-          label="Careers page namespace"
-          placeholder="e.g. google"
-          error={errors.slug?.message}
-          suffix=".nexuhm.com"
-          required
-          {...register('slug', { required: true })}
-        />
-      </div>
+      <Input
+        label="Careers page namespace"
+        placeholder="e.g. google"
+        error={errors.slug?.message}
+        suffix=".nexuhm.com"
+        required
+        {...register('slug', { required: true })}
+      />
 
       <Controller
         control={control}

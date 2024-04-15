@@ -38,6 +38,15 @@ export function CompanyDetailsForm({
         error={errors.name?.message}
       />
 
+      <Input
+        label="Careers page namespace"
+        placeholder="e.g. acme"
+        error={errors.slug?.message}
+        suffix=".nexuhm.com"
+        required
+        {...register('slug', { required: true })}
+      />
+
       <Controller
         control={control}
         name="companySize"
