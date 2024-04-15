@@ -33,7 +33,6 @@ export class APIClient {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        ...headers,
       },
     };
 
