@@ -16,8 +16,6 @@ import { CompanyDetails } from '@/base/types/company';
 
 const careersPageForm = z.object({
   title: z.string(),
-  heroImages: z.array(z.string()),
-  mediaGallery: z.array(z.string()),
   workplaceCulture: z.string(),
   companyMission: z.string(),
   companyBenefits: z.array(
@@ -51,7 +49,9 @@ export default function CareersPageForm({
   } = useForm<CareersPageProps>({
     defaultValues: async () => {
       return {
-        ...careersPage,
+        title: careersPage.title,
+        companyMission: careersPage.companyMission,
+        workplaceCulture: careersPage.workplaceCulture,
         companyValues: Array.from({ length: 6 }).map((_, index) => ({
           value: careersPage?.companyValues[index]?.value,
         })),
