@@ -41,10 +41,10 @@ function OAuthActions() {
         <LinkedInIcon width={24} height={24} className="mr-3 text-[#00A0DC]" />
         Continue with LinkedIn
       </Button>
-      <Button href={`${baseUrl}/auth/google`} variant="secondary" size="lg">
+      {/* <Button href={`${baseUrl}/auth/google`} variant="secondary" size="lg">
         <GoogleIcon width={24} height={24} className="mr-3" />
         Continue with Google
-      </Button>
+      </Button> */}
       <Button href={`${baseUrl}/auth/microsoft`} variant="secondary" size="lg">
         <MicrosoftIcon width={24} height={24} className="mr-3" />
         Continue with Microsoft
