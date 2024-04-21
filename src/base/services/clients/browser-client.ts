@@ -47,7 +47,9 @@ export class APIClient {
 
       if (!response.ok) {
         throw new APIError(
-          data?.message || 'Something went wrong with the request',
+          data?.error ||
+            data?.message ||
+            'Something went wrong with the request',
           data,
         );
       }

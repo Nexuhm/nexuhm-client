@@ -11,7 +11,7 @@ export default async function MarketingLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="font-poppins">{children}</main>
+      <main className="font-poppins flex-1 flex flex-col">{children}</main>
       <Footer />
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />
     </div>

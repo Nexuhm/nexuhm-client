@@ -7,6 +7,7 @@ export interface InputWrapperProps extends PropsWithChildren {
   className?: string;
   containerClassName?: string;
   htmlFor?: string;
+  hint?: string;
   error?: string;
   required?: boolean;
   prefix?: string;
@@ -20,6 +21,7 @@ export function InputWrapper({
   children,
   containerClassName,
   htmlFor,
+  hint,
   error,
   prefix,
   variant,
@@ -52,6 +54,8 @@ export function InputWrapper({
       </div>
 
       {error && <p className={styles.errorMessage}>{error}</p>}
+
+      {!error && hint && <p className={styles.hint}>{hint}</p>}
     </div>
   );
 }

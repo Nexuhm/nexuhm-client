@@ -10,7 +10,17 @@ export const Textarea = forwardRef<
   InputProps<HTMLTextAreaElement>
 >(
   (
-    { id, className, label, icon, containerClassName, error, ...props },
+    {
+      id,
+      className,
+      label,
+      icon,
+      containerClassName,
+      error,
+      variant,
+      hint,
+      ...props
+    },
     ref,
   ) => {
     const _id = useId();
@@ -24,6 +34,8 @@ export const Textarea = forwardRef<
         label={label}
         htmlFor={id}
         error={error}
+        hint={hint}
+        variant={variant}
         className={className}
         containerClassName={containerClassName}
         required={props.required}

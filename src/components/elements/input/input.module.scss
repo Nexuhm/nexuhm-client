@@ -14,6 +14,10 @@
   }
 }
 
+.hint {
+  @apply mt-1 h-2 text-right text-xs text-content-tertiary;
+}
+
 .errorMessage {
   @apply mt-1 h-2 text-xs opacity-0;
 }

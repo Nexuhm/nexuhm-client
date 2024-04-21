@@ -36,7 +36,9 @@ export function Header() {
       <ProfileDropdown />
     ) : (
       <div>
-        <Button href="/signup">Sign up</Button>
+        <Button href="/signup" size="lg">
+          Sign up
+        </Button>
       </div>
     ));
 
