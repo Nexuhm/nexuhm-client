@@ -41,6 +41,7 @@ export default function ContactUsPage() {
   const submitHandler = async (val: ContactFormValues) => {
     try {
       await client.post('/send/message', val);
+      reset();
     } catch (err) {
       if (err instanceof APIError) {
         return Object.entries(err.response.fields).forEach(([key, value]) => {
