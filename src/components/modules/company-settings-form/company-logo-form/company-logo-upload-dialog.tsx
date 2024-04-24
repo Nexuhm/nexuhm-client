@@ -51,6 +51,7 @@ function CompanyLogoCropper({
 }) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const [aspect, setAspect] = useState(1);
   const [area, setArea] = useState<any>();
 
   const handleCropComplete = (_: any, croppedAreaPixels: any) => {
@@ -64,7 +65,8 @@ function CompanyLogoCropper({
           image={image}
           crop={crop}
           zoom={zoom}
-          aspect={1}
+          aspect={aspect}
+          objectFit="contain"
           onCropChange={setCrop}
           onCropComplete={handleCropComplete}
           onZoomChange={setZoom}
@@ -73,6 +75,9 @@ function CompanyLogoCropper({
       </div>
 
       <div className="flex flex-col gap-2">
+        <Button onClick={() => setAspect(aspect === 1 ? 2 : 1)}>
+          Switch to {aspect === 1 ? 'square' : 'rect'}
+        </Button>
         <Button onClick={() => onCrop(area)} className="w-full">
           Save
           {loading && <Spinner color="white" size={15} className="ml-2" />}
@@ -106,8 +111,8 @@ export function CompanyLogoUploadDialog({
     try {
       setLoading(true);
 
-      const formData = new FormData()
-      formData.append('enableCropping', '1')
+      const formData = new FormData();
+      formData.append('enableCropping', '1');
       formData.append('image', file);
       formData.append('x', area.x);
       formData.append('y', area.y);
