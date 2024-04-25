@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import { Button } from '@/components/elements/button';
 import { Icon } from '@/components/elements/icon';
 import {
@@ -9,22 +8,6 @@ import {
 } from '@/components/modules/job-details-form';
 
 export function JobCreateForm({ onSubmit, defaultValues }: JobDetailsFormBase) {
-  useEffect(() => {
-    const handler = (e: any) => {
-      e.preventDefault();
-      e.returnValue = '';
-
-      // Display a confirmation dialog with 'Yes' and 'No' buttons
-      return 'Are you sure you want to leave?';
-    };
-
-    window.addEventListener('beforeunload', handler);
-
-    return () => {
-      return window.removeEventListener('beforeinput', handler);
-    };
-  }, []);
-
   return (
     <>
       <JobDetailsForm
