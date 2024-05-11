@@ -32,6 +32,7 @@ export function InviteFormDialog({
     handleSubmit,
     control,
     setError,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<InviteFormValues>({
     resolver: zodResolver(inviteFormSchema),
@@ -40,6 +41,7 @@ export function InviteFormDialog({
   const submitHandler = async (val: InviteFormValues) => {
     try {
       await onInvite(val);
+      reset();
     } catch (err) {
       if (err instanceof APIError) {
         setError('root', {
