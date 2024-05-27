@@ -7,7 +7,7 @@ import { CareersPageProps } from '@/base/schemas/company';
 import { JobPosting } from '@/base/types/jobs';
 import { CompanyDetails } from '@/base/types/company';
 import { JobPostingCard } from '@/components/elements/job-posting-card';
-import { FollowCompany } from './follow-company';
+import { FollowCompany, SocialPlatform } from './follow-company';
 
 interface CompanyData {
   company: CompanyDetails & { careersPage: CareersPageProps };
@@ -36,8 +36,8 @@ export default async function CompanyCareersPage({
   const { company } = data;
 
   return (
-    <div className="container mx-auto max-w-7xl pb-20">
-      <FollowCompany />
+    <div className="container mx-auto max-w-7xl px-4 pb-20 sm:px-6">
+      <FollowCompany links={company.careersPage.socialLinks} />
 
       <AnimatedSection
         threshold={0.3}
@@ -97,18 +97,19 @@ export default async function CompanyCareersPage({
             <div className="mb-4 text-3xl font-medium">Workplace & culture</div>
             <p className="text-xl">{company.careersPage.workplaceCulture}</p>
           </div>
-
-          <div className="p-4">
-            <div className="relative h-[448px] w-full overflow-hidden rounded-3xl shadow-xl">
-              <Image
-                className="object-cover"
-                src={company.careersPage.mediaGallery[0]}
-                alt=""
-                fill
-                priority
-              />
+          {company.careersPage.mediaGallery.length >= 1 && (
+            <div className="p-4">
+              <div className="relative h-[448px] w-full overflow-hidden rounded-3xl shadow-xl">
+                <Image
+                  className="object-cover"
+                  src={company.careersPage.mediaGallery[0]}
+                  alt=""
+                  fill
+                  priority
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </AnimatedSection>
 

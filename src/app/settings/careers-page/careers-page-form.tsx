@@ -28,6 +28,13 @@ const careersPageForm = z.object({
       value: z.string(),
     }),
   ),
+  socialLinks: z
+    .object({
+      linkedin: z.string(),
+      twitter: z.string(),
+      facebook: z.string(),
+    })
+    .optional(),
 });
 
 type CareersPageProps = z.infer<typeof careersPageForm>;
@@ -63,6 +70,7 @@ export default function CareersPageForm({
         companyBenefits: Array.from({ length: 6 }).map((_, index) => ({
           value: careersPage?.companyBenefits[index]?.value,
         })),
+        socialLinks: careersPage.socialLinks,
       };
     },
   });
@@ -175,6 +183,55 @@ export default function CareersPageForm({
         >
           <CompanyBenefits register={register} control={control} />
         </PageSection>
+
+        <PageSection
+          title="Company benefits and perks"
+          description="Add information about your company benefits and perks. These will be added to all your job listings."
+        >
+          <CompanyBenefits register={register} control={control} />
+        </PageSection>
+
+        <PageSection
+          title="Social links"
+          description="Add your social media links to enhance your company's online presence. These links will be included in all your job listings."
+        >
+          <div className="flex flex-col gap-4">
+            <Input
+              label="LinkedIn"
+              placeholder="https://www.linkedin.com/company/your-company"
+              {...register('socialLinks.linkedin')}
+            />
+            <Input
+              label="Facebook"
+              placeholder="https://www.facebook.com/yourcompany"
+              {...register('socialLinks.facebook')}
+            />
+            <Input
+              label="Twitter"
+              placeholder="https://www.twitter.com/yourcompany"
+              {...register('socialLinks.twitter')}
+            />
+          </div>
+        </PageSection>
+
+        <div className="flex items-center border-b px-10 py-6">
+          <div className="ml-auto flex gap-4">
+            <Button
+              href={`/${company.slug}/careers`}
+              target="_blank"
+              variant="secondary"
+            >
+              Preview
+            </Button>
+            <Button
+              type="submit"
+              loading={isSubmitting}
+              disabled={isSubmitting}
+            >
+              Save
+            </Button>
+          </div>
+        </div>
       </form>
     </div>
   );

@@ -21,7 +21,6 @@ export default function UploadLogoPage() {
   const {
     handleSubmit,
     setValue,
-    getValues,
     watch,
     formState: { isSubmitting },
   } = useForm({
@@ -69,7 +68,6 @@ export default function UploadLogoPage() {
   };
 
   const logo = watch('logo');
-  console.log(logo);
 
   return (
     <OnboardingForm

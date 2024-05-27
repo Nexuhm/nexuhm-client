@@ -16,6 +16,13 @@ const careersPageForm = z.object({
       value: z.string(),
     }),
   ),
+  socialLinks: z
+    .object({
+      linkedin: z.string(),
+      twitter: z.string(),
+      facebook: z.string(),
+    })
+    .optional(),
 });
 
 export type CareersPageProps = z.infer<typeof careersPageForm>;
