@@ -1,13 +1,28 @@
 'use client';
 
+import clsx from 'clsx';
+import Image from 'next/image';
 import { JobSchema } from '@/base/types/jobs';
 import { CompanyDetails } from '@/base/types/company';
-import Image from 'next/image';
 import { Button } from '@/components/elements/button';
-import clsx from 'clsx';
 import { formatCurrency, formatEmploymentTypeLabel } from '@/base/utils';
 import { format } from 'date-fns';
 import { usePathname } from 'next/navigation';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+} from 'react-share';
+import {
+  faFacebook,
+  faFacebookF,
+  faLinkedinIn,
+  faTwitch,
+  faXTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 
 interface SidebarProps {
   company: CompanyDetails;
@@ -25,14 +40,6 @@ export function Sidebar({
   publishedAt,
 }: SidebarProps) {
   const pathname = usePathname();
-
-  const formatter = new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: salary.currency || 'GBP',
-    minimumFractionDigits: 0,
-  });
-
-  console.log(salary);
 
   return (
     <div className="flex flex-col justify-between gap-4 rounded-lg border p-6 py-6 md:max-w-[280px]">
@@ -92,6 +99,37 @@ export function Sidebar({
           </div>
         </div>
       )}
+
+      <div className="border-t border-light-gray"></div>
+
+      <div className='text-center'>
+        <div className="mb-2 text-sm font-medium">Share this opportunity:</div>
+        <div className="flex gap-2 justify-center">
+          <FacebookShareButton
+            url={pathname}
+            className="rounded-md border border-blue px-2 py-1 text-xs text-blue"
+            resetButtonStyle={false}
+          >
+            <FontAwesomeIcon className="w-4" icon={faFacebookF} />
+          </FacebookShareButton>
+
+          <TwitterShareButton
+            url={pathname}
+            className="rounded-md border border-blue px-2 py-1 text-blue"
+            resetButtonStyle={false}
+          >
+            <FontAwesomeIcon className="w-4" icon={faXTwitter} />
+          </TwitterShareButton>
+
+          <LinkedinShareButton
+            url={pathname}
+            className="rounded-md border border-blue px-2 py-1 text-blue"
+            resetButtonStyle={false}
+          >
+            <FontAwesomeIcon className="w-4" icon={faLinkedinIn} />
+          </LinkedinShareButton>
+        </div>
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import {
   faTwitter,
   faFacebook,
   faLinkedinIn,
+  faXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import clsx from 'clsx';
 
@@ -24,7 +25,7 @@ export function FollowCompany({ links }: FollowCompanyProps) {
       case 'linkedin':
         return faLinkedinIn;
       case 'twitter':
-        return faTwitter;
+        return faXTwitter;
       case 'facebook':
         return faFacebook;
     }

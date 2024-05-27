@@ -36,7 +36,7 @@ export default async function CompanyCareersPage({
   const { company } = data;
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 pb-20 sm:px-6">
+    <div className="container mx-auto max-w-7xl px-4 pb-20 sm:px-6 overflow-hidden">
       <FollowCompany links={company.careersPage.socialLinks} />
 
       <AnimatedSection
