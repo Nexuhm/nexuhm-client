@@ -3,8 +3,16 @@
 import { client } from '../services/clients/server-client';
 import { JobSchema } from '../types/jobs';
 
-export async function generateJob(title: string, description: string) {
-  const res = await client.post('/admin/jobs/generate', { title, description });
+export async function generateJob(
+  title: string,
+  description: string,
+  locale: string,
+) {
+  const res = await client.post('/admin/jobs/generate', {
+    title,
+    description,
+    locale,
+  });
 
   if (!res.ok) {
     const data = await res.text();
