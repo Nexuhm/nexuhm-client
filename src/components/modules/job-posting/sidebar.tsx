@@ -40,6 +40,7 @@ export function Sidebar({
   publishedAt,
 }: SidebarProps) {
   const pathname = usePathname();
+  const url = new URL(pathname, process.env.NEXT_PUBLIC_BASE_URL).toString();
 
   return (
     <div className="flex flex-col justify-between gap-4 rounded-lg border p-6 py-6 md:max-w-[280px]">
@@ -102,11 +103,11 @@ export function Sidebar({
 
       <div className="border-t border-light-gray"></div>
 
-      <div className='text-center'>
+      <div className="text-center">
         <div className="mb-2 text-sm font-medium">Share this opportunity:</div>
-        <div className="flex gap-2 justify-center">
+        <div className="flex justify-center gap-2">
           <FacebookShareButton
-            url={pathname}
+            url={url}
             className="rounded-md border border-blue px-2 py-1 text-xs text-blue"
             resetButtonStyle={false}
           >
@@ -114,7 +115,7 @@ export function Sidebar({
           </FacebookShareButton>
 
           <TwitterShareButton
-            url={pathname}
+            url={url}
             className="rounded-md border border-blue px-2 py-1 text-blue"
             resetButtonStyle={false}
           >
@@ -122,7 +123,7 @@ export function Sidebar({
           </TwitterShareButton>
 
           <LinkedinShareButton
-            url={pathname}
+            url={url}
             className="rounded-md border border-blue px-2 py-1 text-blue"
             resetButtonStyle={false}
           >
