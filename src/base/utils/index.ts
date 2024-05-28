@@ -44,6 +44,8 @@ export function formatCurrency(min: number, max: number, currency = 'GBP') {
     minimumFractionDigits: 0,
   });
 
+  console.log(min, max, currency);
+
   const minFormatted = min ? formatter.format(min) : 'N/A';
   const maxFormatted = max ? formatter.format(max) : 'N/A';
 

@@ -185,13 +185,6 @@ export default function CareersPageForm({
         </PageSection>
 
         <PageSection
-          title="Company benefits and perks"
-          description="Add information about your company benefits and perks. These will be added to all your job listings."
-        >
-          <CompanyBenefits register={register} control={control} />
-        </PageSection>
-
-        <PageSection
           title="Social links"
           description="Add your social media links to enhance your company's online presence. These links will be included in all your job listings."
         >

@@ -23,7 +23,7 @@ const schema = z.object({
   location: z.string().min(1, 'Location is required'),
   resume: z.unknown(),
   coverLetter: z.unknown().optional(),
-  videoResume: z.unknown(),
+  videoResume: z.unknown().optional(),
   screeningQuestions: z.array(z.unknown()).optional(),
   consent: z.boolean(),
 });
@@ -219,7 +219,6 @@ export function JobApplicationForm({
           {/* Video Resume */}
           <div>
             <FileField
-              required
               onChange={(file) => setValue('videoResume', file)}
               value={videoResumeValue as File}
               label={<>Boost your chances and upload a Video Resume/CV?</>}

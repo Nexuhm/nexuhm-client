@@ -17,6 +17,7 @@ interface ComboboxProps<T> {
   className?: string;
   label?: string;
   icon?: IconName;
+  multiple?: boolean;
   value: T;
   options: ComboboxOptionProps<T>[];
   placeholder?: string;

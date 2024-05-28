@@ -16,6 +16,7 @@ import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
 import { Form } from '../form';
 import { ScreeningQuestionInput } from './screening-question-input';
+import { ComboboxSelect } from '@/components/elements/input/combobox';
 
 export interface JobDetailsFormBase {
   defaultValues?: Partial<JobSchema>;
@@ -129,7 +130,7 @@ export function JobDetailsForm({
             control={control}
             name="employmentType"
             render={({ field }) => (
-              <Select
+              <ComboboxSelect
                 required
                 label="Employment type"
                 value={field.value}
@@ -208,7 +209,9 @@ export function JobDetailsForm({
                       placeholder="to"
                       value={field.value}
                       thousandSeparator=","
-                      onChange={field.onChange}
+                      onValueChange={({ value }) => {
+                        field.onChange(value);
+                      }}
                     />
                   </InputWrapper>
                 )}
@@ -225,7 +228,9 @@ export function JobDetailsForm({
                       placeholder="to"
                       thousandSeparator=","
                       value={field.value}
-                      onChange={field.onChange}
+                      onValueChange={({ value }) => {
+                        field.onChange(value);
+                      }}
                     />
                   </InputWrapper>
                 )}
