@@ -37,11 +37,11 @@ export function ScoreSummary({ candidateId }: { candidateId: string }) {
 
   if (data?.processingState !== ApplicationProcessingState.Completed) {
     return (
-      <div className="mx-auto mb-6 h-[180px] p-5 rounded-lg bg-white">
-        <div className="max-w-lg text-center mx-auto">
+      <div className="mx-auto mb-6 h-[180px] rounded-lg bg-white p-5">
+        <div className="mx-auto max-w-lg text-center">
           <div
             className={clsx(
-              'inline-flex items-center mb-3 justify-center',
+              'mb-3 inline-flex items-center justify-center',
               'rounded-full bg-blue bg-opacity-20 p-2',
             )}
           >
@@ -65,13 +65,13 @@ export function ScoreSummary({ candidateId }: { candidateId: string }) {
           <Rating rate={data?.score} />
         </div>
 
-        <Markdown className="text-content-secondary [&>p]:mb-4">
+        <Markdown className="text-content-secondary prose [&>p]:mb-4">
           {data?.description || 'N/A'}
         </Markdown>
       </div>
       <div className="flex flex-col gap-5">
         <Accordion
-          label={`Culture Score ${data?.cultureScore}/10`}
+          label={`Culture Score ${data?.cultureScore || 0}/10`}
           content={data?.cultureSummary}
         />
 
@@ -85,7 +85,7 @@ export function ScoreSummary({ candidateId }: { candidateId: string }) {
 }
 
 function Accordion({ label, content }: { label: string; content: string }) {
-  const html = marked(content);
+  const html = content ? marked(content) : '';
 
   return (
     <Disclosure as="div" defaultOpen>
