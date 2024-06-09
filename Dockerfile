@@ -19,7 +19,7 @@ RUN \
 
 # Rebuild the source code only when needed
 COPY ./src ./src
-COPY ./next.config.mjs tailwind.config.ts postcss.config.mjs ./tsconfig.json ./.env.local ./
+COPY ./next.config.js tailwind.config.ts postcss.config.js ./tsconfig.json ./.env.local ./
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
