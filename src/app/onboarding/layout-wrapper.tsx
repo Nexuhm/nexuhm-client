@@ -3,6 +3,7 @@
 import Logo from '@/assets/logo.svg';
 import { CompanyContext } from '@/base/contexts/company';
 import { client } from '@/base/services/clients/browser-client';
+import Link from 'next/link';
 import { PropsWithChildren, useEffect, useState } from 'react';
 
 export function OnboardingLayoutWrapper({ children }: PropsWithChildren) {
@@ -26,7 +27,9 @@ export function OnboardingLayoutWrapper({ children }: PropsWithChildren) {
       <div>
         <header className="border-b border-light-gray">
           <div className="px-8 py-4">
-            <Logo className="h-8 w-[145px]" />
+            <Link href="/">
+              <Logo className="h-8 w-[145px]" />
+            </Link>
           </div>
         </header>
 
