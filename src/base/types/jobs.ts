@@ -19,7 +19,12 @@ export const screeningQuestion = z.object({
 
 export type ScreeningQuestion = z.infer<typeof screeningQuestion>;
 
-export const salaryFrequencySchema = z.enum(['weekly', 'monthly', 'yearly']);
+export const salaryFrequencySchema = z.enum([
+  'weekly',
+  'monthly',
+  'yearly',
+  'hourly',
+]);
 
 export const jobSchema = z.object({
   title: z.string(),

@@ -261,6 +261,10 @@ export function JobDetailsForm({
                       label: 'Weekly',
                       value: salaryFrequencySchema.Enum.weekly,
                     },
+                    {
+                      label: 'Hourly',
+                      value: salaryFrequencySchema.Enum.hourly,
+                    },
                   ]}
                 />
               )}
