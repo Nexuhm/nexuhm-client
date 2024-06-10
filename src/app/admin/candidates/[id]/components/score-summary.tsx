@@ -65,7 +65,7 @@ export function ScoreSummary({ candidateId }: { candidateId: string }) {
           <Rating rate={data?.score} />
         </div>
 
-        <Markdown className="text-content-secondary prose [&>p]:mb-4">
+        <Markdown className="prose !max-w-5xl text-content-secondary [&>p]:mb-4">
           {data?.description || 'N/A'}
         </Markdown>
       </div>
