@@ -1,5 +1,8 @@
+import '@formatjs/intl-numberformat/polyfill';
+import '@formatjs/intl-numberformat/locale-data/en-GB';
+
 import { format, parse, addMinutes } from 'date-fns';
-import { EmploymentType } from '../types/jobs';
+import { EmploymentType, SalaryFrequency } from '../types/jobs';
 
 export function formatEmploymentTypeLabel(type: EmploymentType): string {
   const labelMap = {
@@ -37,17 +40,32 @@ export function addMinutesToTimeString(
   return format(newTime, 'HH:mm');
 }
 
-export function formatCurrency(min: number, max: number, currency = 'GBP') {
+export function formatCurrency(
+  min: number,
+  max: number,
+  frequency: SalaryFrequency = 'yearly',
+  currency = 'GBP',
+) {
   const formatter = new Intl.NumberFormat('en-GB', {
     currency,
+    currencyDisplay: 'narrowSymbol',
     style: 'currency',
     minimumFractionDigits: 0,
   });
 
-  console.log(min, max, currency);
-
   const minFormatted = min ? formatter.format(min) : 'N/A';
   const maxFormatted = max ? formatter.format(max) : 'N/A';
 
-  return `${minFormatted} - ${maxFormatted}`;
+  const getFrequencyLabel = (frequency: SalaryFrequency) => {
+    const labelMap = {
+      yearly: 'per year',
+      monthly: 'per month',
+      weekly: 'per week',
+      hourly: 'per hour',
+    } as const;
+
+    return labelMap[frequency];
+  };
+
+  return `${minFormatted} - ${maxFormatted} ${getFrequencyLabel(frequency)}`;
 }

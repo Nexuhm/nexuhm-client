@@ -87,8 +87,13 @@ export function Sidebar({
 
       <div>
         <div className="mb-2 text-sm text-content-primary">Salary</div>
-        <div className="font-medium">
-          {formatCurrency(salary.min, salary?.max, salary?.currency)}
+        <div className="font-medium text-sm">
+          {formatCurrency(
+            salary.min,
+            salary?.max,
+            salary.frequency,
+            salary?.currency,
+          )}
         </div>
       </div>
 

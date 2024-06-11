@@ -26,6 +26,8 @@ export const salaryFrequencySchema = z.enum([
   'hourly',
 ]);
 
+export type SalaryFrequency = z.infer<typeof salaryFrequencySchema>;
+
 export const jobSchema = z.object({
   title: z.string(),
   description: z.string(),

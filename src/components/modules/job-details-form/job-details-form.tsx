@@ -179,8 +179,8 @@ export function JobDetailsForm({
                   onChange={(val) => setValue('salary.currency', val)}
                   options={[
                     {
-                      label: '£ GPB',
-                      value: 'GPB',
+                      label: '£ GBP',
+                      value: 'GBP',
                     },
                     {
                       label: '$ USD',

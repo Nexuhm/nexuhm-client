@@ -37,6 +37,7 @@ export default async function JobDetailsPage({
             {formatCurrency(
               jobDetails.salary.min,
               jobDetails.salary?.max,
+              jobDetails.salary?.frequency,
               jobDetails.salary?.currency,
             )}
           </div>
