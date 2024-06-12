@@ -7,11 +7,13 @@ import { client } from '../services/clients/server-client';
 export async function login(email: string, password: string) {
   const res = await AuthService.login(email, password);
 
+  const data = await res.json();
+
   if (!res.ok) {
-    return res.json();
+    return data;
   }
 
-  const { token } = await res.json();
+  const { token } = data;
 
   await setAuthCookie(token);
 
