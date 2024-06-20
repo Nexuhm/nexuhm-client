@@ -5,15 +5,17 @@ import { JobSchema } from '@/base/types/jobs';
 import { Button } from '@/components/elements/button';
 import { Input, Textarea } from '@/components/elements/input';
 import { Spinner } from '@/components/elements/spinner';
+import { Switch } from '@/components/elements/switch';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const jobGenerationFormSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Description is required'),
+  isStealth: z.boolean().optional(),
 });
 
 export type JobGenerationFormSchema = z.infer<typeof jobGenerationFormSchema>;
@@ -25,6 +27,7 @@ interface JobGenerationFormProps {
 export function JobGenerationForm({ onComplete }: JobGenerationFormProps) {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<JobGenerationFormSchema>({
@@ -36,6 +39,7 @@ export function JobGenerationForm({ onComplete }: JobGenerationFormProps) {
       const data = await generateJob(
         val.title,
         val.description,
+        val.isStealth,
         navigator.language,
       );
       onComplete(data);
@@ -47,8 +51,26 @@ export function JobGenerationForm({ onComplete }: JobGenerationFormProps) {
   return (
     <form
       onSubmit={handleSubmit(submitHandler)}
-      className="container mx-auto flex max-w-md flex-col gap-4"
+      className="container mx-auto flex max-w-md flex-col gap-4 p-4 card-container"
     >
+      <Controller
+        name="isStealth"
+        control={control}
+        render={({ field }) => (
+          <Switch
+            label="Hide Company details"
+            tooltip={
+              <>
+                If you don’t want your job to be posted publicly against your
+                company, the URL will be to jobs via Nexuhm.
+              </>
+            }
+            checked={field.value}
+            onChange={field.onChange}
+          />
+        )}
+      />
+
       <Input
         id="title"
         label="Job title"

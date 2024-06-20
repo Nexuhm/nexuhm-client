@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { JobSchema } from '@/base/types/jobs';
 import { Button, IconButton } from '@/components/elements/button';
 import { Stepper } from '@/components/elements/stepper/stepper';
-import { JobDetailsForm } from '@/components/modules/job-details-form';
 import { JobGenerationForm } from '@/components/modules/job-generation-form';
 import { createJobDraft } from '@/base/actions/jobs';
 import { JobPreview } from '@/components/modules/job-preview';
@@ -110,9 +109,9 @@ export default function JobCreatePage() {
         <div className="ml-auto flex gap-4">
           {activeStep === 3 && !state.isPublished && (
             <>
-              <Button variant="secondary" disabled={state.isLoading}>
+              {/* <Button variant="secondary" disabled={state.isLoading}>
                 Save Draft
-              </Button>
+              </Button> */}
               <Button
                 variant="green"
                 onClick={handleCreate}

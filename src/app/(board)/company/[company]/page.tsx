@@ -37,7 +37,7 @@ export default async function CompanyCareersPage({
 
   return (
     <div className="container mx-auto max-w-7xl px-4 pb-20 sm:px-6 overflow-hidden">
-      <FollowCompany links={company.careersPage.socialLinks} />
+      <FollowCompany links={company.careersPage?.socialLinks} />
 
       <AnimatedSection
         threshold={0.3}

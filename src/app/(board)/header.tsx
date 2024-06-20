@@ -3,8 +3,9 @@
 import { usePathname } from 'next/navigation';
 import styles from './company-layout.module.scss';
 import Image from 'next/image';
+import Logo from '@/assets/logo.svg';
 
-export function Header({ logo }: { logo: string }) {
+export function Header({ logo }: { logo?: string }) {
   const pathname = usePathname();
   const links = [
     {
@@ -23,7 +24,11 @@ export function Header({ logo }: { logo: string }) {
     <header className="border-b border-light-gray">
       <div className="flex items-center px-6">
         <a href="/" className="relative h-[50px] w-[150px]">
-          <Image className="object-contain" src={logo} priority fill alt="" />
+          {logo ? (
+            <Image className="object-contain" src={logo} priority fill alt="" />
+          ) : (
+            <Logo className="h-[40px] w-[181px]" />
+          )}
         </a>
 
         <div className="flex flex-1 justify-center md:pr-44">

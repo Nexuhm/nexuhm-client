@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { JobPosting } from '@/base/types/jobs';
 import { marked } from 'marked';
@@ -22,6 +22,7 @@ export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {
     employmentType,
     content,
     publishedAt,
+    isStealth,
   } = job;
   const html = marked(content);
   const pathname = usePathname();
@@ -52,7 +53,7 @@ export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {
             salary={salary}
             location={location}
             employmentType={employmentType}
-            company={company}
+            company={isStealth ? undefined : company}
             publishedAt={publishedAt}
           />
         </div>

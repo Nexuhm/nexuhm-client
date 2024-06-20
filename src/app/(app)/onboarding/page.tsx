@@ -62,7 +62,10 @@ export default function OnboardingPage() {
   const name = watch('name');
 
   useUpdateEffect(() => {
-    const slug = slugify(name, {
+
+    console.log(name)
+
+    const slug = slugify(name || '', {
       lower: true,
       trim: true,
       strict: true,

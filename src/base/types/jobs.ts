@@ -31,6 +31,7 @@ export type SalaryFrequency = z.infer<typeof salaryFrequencySchema>;
 export const jobSchema = z.object({
   title: z.string(),
   description: z.string(),
+  isStealth: z.boolean().optional(),
   content: z.any(), // Use the defined schema for the description
   location: z.string(),
   department: z.string().optional(),

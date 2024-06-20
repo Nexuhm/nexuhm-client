@@ -10,13 +10,14 @@ import { Button } from '@/components/elements/button';
 import { Input, Textarea, Select } from '@/components/elements/input';
 import { InputWrapper } from '@/components/elements/input/input-wrapper';
 import { RichTextEditor } from '@/components/elements/rich-text-editor';
-import { FormControlGroup } from '@/components/modules/job-form';
+import { FormControlGroup } from './form-control-group';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
 import { Form } from '../form';
 import { ScreeningQuestionInput } from './screening-question-input';
 import { ComboboxSelect } from '@/components/elements/input/combobox';
+import { Switch } from '@/components/elements/switch';
 
 export interface JobDetailsFormBase {
   defaultValues?: Partial<JobSchema>;
@@ -37,7 +38,6 @@ export function JobDetailsForm({
     setValue,
     control,
     handleSubmit,
-    formState: { errors, isValid },
   } = useForm<JobSchema>({
     defaultValues,
     resolver: zodResolver(jobSchema),
@@ -47,8 +47,6 @@ export function JobDetailsForm({
     control,
     name: 'screeningQuestions',
   });
-
-  console.log(errors, isValid);
 
   const submitHandler = async (val: any) => {
     onSubmit(val);
@@ -60,7 +58,26 @@ export function JobDetailsForm({
       onSubmit={handleSubmit(submitHandler)}
       className="mx-auto max-w-[800px] gap-6 p-10 pt-4"
     >
-      <div className="mb-4 text-2xl font-medium">Tell us about your job</div>
+      <div className="mb-4">
+        <div className="mb-1 text-2xl font-medium">Tell us about your job</div>
+        <Controller
+          name="isStealth"
+          control={control}
+          render={({ field }) => (
+            <Switch
+              label="Hide Company details"
+              tooltip={
+                <>
+                  If you don’t want your job to be posted publicly against your
+                  company, the URL will be to jobs via Nexuhm.
+                </>
+              }
+              checked={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
+      </div>
 
       <div className="p-6 card-container">
         <div className="mb-2 text-2xl font-medium">

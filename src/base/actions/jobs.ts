@@ -6,11 +6,13 @@ import { JobSchema } from '../types/jobs';
 export async function generateJob(
   title: string,
   description: string,
-  locale: string,
+  isStealth?: boolean,
+  locale?: string,
 ) {
   const res = await client.post('/admin/jobs/generate', {
     title,
     description,
+    isStealth,
     locale,
   });
 

@@ -41,6 +41,7 @@
     "@sentry/nextjs": "^7.105.0",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-table": "^8.11.8",
+    "@tippyjs/react": "^4.2.6",
     "@types/chart.js": "^2.9.41",
     "boring-avatars": "^1.10.1",
     "chart.js": "^4.4.2",

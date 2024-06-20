@@ -14,18 +14,15 @@ import {
   LinkedinShareButton,
 } from 'react-share';
 import {
-  faFacebook,
   faFacebookF,
   faLinkedinIn,
-  faTwitch,
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Link from 'next/link';
-import { faX } from '@fortawesome/free-solid-svg-icons';
+import Logo from '@/assets/logo.svg';
 
 interface SidebarProps {
-  company: CompanyDetails;
+  company?: CompanyDetails;
   location: string;
   employmentType: JobSchema['employmentType'];
   salary: JobSchema['salary'];
@@ -45,21 +42,33 @@ export function Sidebar({
   return (
     <div className="flex flex-col justify-between gap-4 rounded-lg border p-6 py-6 md:max-w-[280px]">
       <div className="flex flex-col gap-2">
-        <div className="relative h-10 w-full">
-          {company.logo && (
-            <Image
-              className="object-contain"
-              src={company.logo}
-              alt={company?.name}
-              fill
-            />
-          )}
-        </div>
+        {company ? (
+          <>
+            <div className="relative h-10 w-full">
+              {company.logo && (
+                <Image
+                  className="object-contain"
+                  src={company.logo}
+                  alt={company?.name}
+                  fill
+                />
+              )}
+            </div>
 
-        <div className="text-center text-2xl font-semibold">{company.name}</div>
+            <div className="text-center text-2xl font-semibold">
+              {company.name}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="h-10 w-full">
+              <Logo className="mx-auto w-40" />
+            </div>
+          </>
+        )}
 
         <a
-          href=""
+          href="/"
           className={clsx(
             'inline-block w-full rounded-lg border border-transparent hover:border-light-gray',
             'px-2 py-2 text-center font-inter font-semibold transition-all',
@@ -87,7 +96,7 @@ export function Sidebar({
 
       <div>
         <div className="mb-2 text-sm text-content-primary">Salary</div>
-        <div className="font-medium text-sm">
+        <div className="text-sm font-medium">
           {formatCurrency(
             salary.min,
             salary?.max,
@@ -99,7 +108,7 @@ export function Sidebar({
 
       {publishedAt && (
         <div>
-          <div className="mb-2 text-sm text-content-primary">Published At</div>
+          <div className="mb-2 text-sm text-content-primary">Date posted</div>
           <div className="font-medium">
             {format(publishedAt, 'MMM DD, YYYY')}
           </div>

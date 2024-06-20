@@ -1,6 +1,6 @@
 import { Controller, useForm } from 'react-hook-form';
 import { Input, Select } from '@/components/elements/input';
-import { COMPANY_SIZE_OPTIONS, INDUSTRIES } from '@/app/onboarding/consts';
+import { COMPANY_SIZE_OPTIONS, INDUSTRIES } from '@/app/(app)/onboarding/consts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CompanyFormSchema, CompanyFormValues } from '@/base/schemas/company';
 import { CompanySettingsForm } from './company-settings-form';
