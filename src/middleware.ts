@@ -9,13 +9,26 @@ async function getCompanyBySlug(slug: string) {
   return res.json();
 }
 
+function checkMatchMapping(pathname: string, mapping: Record<string, RegExp>) {
+  return Object.values(mapping).some((value) => pathname.match(value));
+}
+
 function checkRewriteRule(pathname: string) {
-  const mappings = {
-    '/': /\//,
-    '/jobs': /jobs\/(.*)/gi,
+  const negativeMatchMapping = {
+    '/jobs': /jobs\//gi,
   };
 
-  return Object.values(mappings).some((value) => pathname.match(value));
+  const isNegativeMatch = checkMatchMapping(pathname, negativeMatchMapping);
+
+  if (isNegativeMatch) {
+    return false;
+  }
+
+  const matchMapping = {
+    '/': /\//,
+  };
+
+  return checkMatchMapping(pathname, matchMapping);
 }
 
 // This function can be marked `async` if using `await` inside

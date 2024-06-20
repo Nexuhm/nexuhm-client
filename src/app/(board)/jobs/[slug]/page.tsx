@@ -4,19 +4,16 @@ import { CompanyDetails } from '@/base/types/company';
 import { JobPostingTemplate } from '@/components/modules/job-posting';
 
 interface CompanyData {
-  company: CompanyDetails;
+  company?: CompanyDetails;
   jobDetails: JobPosting;
 }
 
-async function getData(
-  jobSlug: string,
-  companySlug: string,
-): Promise<CompanyData> {
-  const [company, jobDetails] = await Promise.all([
-    client.get(`/company/${companySlug}`),
-    client.get(`/jobs/${jobSlug}`),
-  ]);
-
+async function getData(jobSlug: string): Promise<CompanyData> {
+  const jobDetails = await client.get(`/jobs/${jobSlug}`);
+  const company = jobDetails?.isStealth
+    ? null
+    : await client.get(`/company/${jobDetails.company.slug}`);
+    
   return {
     company,
     jobDetails,
@@ -26,9 +23,11 @@ async function getData(
 export default async function JobDetailsPage({
   params,
 }: {
-  params: Record<string, string>;
+  params: {
+    slug: string;
+  };
 }) {
-  const data = await getData(params.slug, params.company);
+  const data = await getData(params.slug);
   const { company, jobDetails } = data;
 
   return (

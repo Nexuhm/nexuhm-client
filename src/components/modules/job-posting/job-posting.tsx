@@ -9,8 +9,8 @@ import { Sidebar } from './sidebar';
 import { usePathname } from 'next/navigation';
 
 interface JobPostingTemplateProps {
-  company: CompanyDetails;
   job: JobPosting;
+  company?: CompanyDetails;
 }
 
 export function JobPostingTemplate({ job, company }: JobPostingTemplateProps) {

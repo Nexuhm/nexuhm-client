@@ -5,9 +5,7 @@ import { JobApplicationForm } from '@/components/modules/job-application-form';
 import { BackLink } from '@/components/elements/back-link/back-link';
 
 async function getData(jobSlug: string) {
-  const jobDetails = await client.get(`/jobs/${jobSlug}`);
-
-  return jobDetails;
+  return client.get(`/jobs/${jobSlug}`);
 }
 
 export default async function JobApplicationPage({
