@@ -1,7 +1,6 @@
 import { Button } from '@/components/elements/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faTwitter,
   faFacebook,
   faLinkedinIn,
   faXTwitter,
@@ -9,11 +8,6 @@ import {
 import clsx from 'clsx';
 
 export type SocialPlatform = 'linkedin' | 'twitter' | 'facebook';
-
-interface SocialLink {
-  type: SocialPlatform;
-  href?: string;
-}
 
 interface FollowCompanyProps {
   links?: Record<SocialPlatform, string>;

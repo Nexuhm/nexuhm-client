@@ -1,42 +1,24 @@
 import clsx from 'clsx';
-import { client } from '@/base/services/clients/server-client';
 import { AnimatedSection } from '@/components/elements/animated-section';
 import { Button } from '@/components/elements/button';
 import { CareersPageProps } from '@/base/schemas/company';
 import { JobPosting } from '@/base/types/jobs';
 import { CompanyDetails } from '@/base/types/company';
 import { JobPostingCard } from '@/components/elements/job-posting-card';
-import { FollowCompany } from '../../../../../components/templates/job-board/follow-company';
+import { FollowCompany } from './follow-company';
 
-interface CompanyData {
-  company: CompanyDetails & { careersPage: CareersPageProps };
-  jobPostings: JobPosting[];
+export interface JobBoardTemplateProps {
+  posts: JobPosting[];
+  company?: CompanyDetails & { careersPage: CareersPageProps };
 }
 
-async function getData(slug: string): Promise<CompanyData> {
-  const [company, jobPostings] = await Promise.all([
-    client.get(`/company/${slug}`),
-    client.get(`/company/${slug}/openings`),
-  ]);
-
-  return {
-    company,
-    jobPostings,
-  };
-}
-
-export default async function CompanyJobListingPage({
-  params,
-}: {
-  params: Record<string, string>;
-}) {
-  const slug = params.company;
-  const data = await getData(slug);
-  const { company } = data;
-
+export async function JobBoardTemplate({
+  company,
+  posts,
+}: JobBoardTemplateProps) {
   return (
     <div className="container mx-auto max-w-7xl">
-      <FollowCompany links={company.careersPage?.socialLinks} />
+      <FollowCompany links={company?.careersPage?.socialLinks} />
 
       <AnimatedSection
         threshold={0.6}
@@ -46,16 +28,16 @@ export default async function CompanyJobListingPage({
       >
         <div className="mb-10">
           <div className="text-medium mb-4 text-6xl">
-            Careers at {company.name}
+            Careers at {company?.name || "Nexuhm"}
           </div>
           <div className="mb-4 max-w-6xl">
-            {company.careersPage.companyMission}
+            {company?.careersPage.companyMission}
           </div>
           <Button>Contact</Button>
         </div>
 
         <div className="flex flex-col gap-6">
-          {data.jobPostings.map((item, index) => (
+          {posts.map((item, index) => (
             <JobPostingCard
               key={index}
               title={item.title}

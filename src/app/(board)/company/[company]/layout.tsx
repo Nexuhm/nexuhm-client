@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { client } from '@/base/services/clients/server-client';
-import { Header } from './header';
-import { Footer } from './footer';
+import BoardLayout from '../../board-layout';
 
 async function getData(slug: string) {
   const company = await client.get(`/company/${slug}`);
@@ -20,12 +19,8 @@ export default async function CompanyLayout({
   const company = await getData(params.company);
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header logo={company.logo} />
-
-      <main className="py-10 font-poppins">{children}</main>
-
-      <Footer />
-    </div>
+    <BoardLayout company={company}>
+      {children}
+    </BoardLayout>
   );
 }

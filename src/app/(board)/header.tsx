@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import styles from './company-layout.module.scss';
+import styles from './board-layout.module.scss';
 import Image from 'next/image';
 import Logo from '@/assets/logo.svg';
 
